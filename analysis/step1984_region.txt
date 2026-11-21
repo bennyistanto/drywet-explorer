@@ -1,0 +1,72 @@
+loaded [75s]; drawn cells 88,627
+
+=== 1. Cells with the step (before >= 1.0, before - after >= 1.0), drawn cells ===
+  b = np.nanmean(v[pos(break_year - 9, 1):pos(break_year - 1, 12) + 1], axis=0)
+  a = np.nanmean(v[pos(break_year + 1, 1):pos(break_year + 9, 12) + 1], axis=0)
+  spi12: break 1984 15,397 (17.37%)   placebo 1974  2,097   placebo 1995      0
+  eddi12: break 1984 12,460 (14.06%)   placebo 1974      0   placebo 1995      0
+  both 9,174; SPI only 6,223; EDDI only 3,286; either 18,683
+  of the 5,313 riau_block cells: 5,264 have the SPI step, 5,279 the EDDI step
+  step cells outside riau_block: SPI 10,133, EDDI 7,181, either 13,370
+
+=== 2. By province: share of drawn cells with the step ===
+         province      group  cells  spi_step  eddi_step  either  riau_block
+             Riau   Sumatera   4215     100.0       98.7   100.0        83.8
+   Kepulauan Riau   Sumatera    339     100.0       77.6   100.0        35.1
+   Sumatera Utara   Sumatera   3389      65.0       95.8    95.8        33.3
+ Kalimantan Barat Kalimantan   6890      84.9       22.9    84.9         3.4
+   Sumatera Barat   Sumatera   1972      41.6       67.4    70.1        13.2
+             Aceh   Sumatera   2658       3.0       66.1    66.1         0.2
+            Jambi   Sumatera   2302      53.9        5.6    54.1         1.6
+Kalimantan Tengah Kalimantan   7186       7.9        0.0     7.9         0.0
+ Sumatera Selatan   Sumatera   4070       2.0        0.0     2.0         0.0
+  provinces with under 1% of cells stepped: 29
+  by_group = prov.groupby("group").apply(lambda d: pd.Series({"cells": d.cells.sum(), "either_pct": (d.either * d.cells).sum() / d.cells.sum()}))
+                      cells  either_pct
+group                                  
+Bali Nusa Tenggara   3389.0         0.0
+Jawa                 6245.0         0.0
+Kalimantan          25070.0        25.6
+Maluku               3609.0         0.0
+Papua               19381.0         0.0
+Sulawesi             8688.0         0.0
+Sumatera            22245.0        55.1
+
+=== 3. Kabupaten with a majority of cells stepped ===
+  88 kabupaten; by province:
+                  kabupaten  cells  riau_majority
+province                                         
+Sumatera Utara           25   3203              8
+Kalimantan Barat         14   6889              0
+Aceh                     13   1830              0
+Riau                     12   4216             10
+Sumatera Barat           11   1251              2
+Kepulauan Riau            7    339              3
+Jambi                     6   1240              0
+
+=== 4. Where the stepped cells sit ===
+  lon 95.73..113.81, lat -2.02..5.02
+  Sumatra and its islands (lon < 106.5)      cells 22,058  SPI step  8,894  EDDI step 10,874  either  55.2%
+  Kalimantan (108.5..119.5)                  cells 25,642  SPI step  6,426  EDDI step  1,583  either  25.1%
+  Java, Bali, Nusa Tenggara (lat < -5.8)     cells  9,814  SPI step      0  EDDI step      0  either   0.0%
+  Sulawesi and Maluku (119.5..131)           cells 11,092  SPI step      0  EDDI step      0  either   0.0%
+  Papua (> 131)                              cells 19,709  SPI step      0  EDDI step      0  either   0.0%
+
+=== 5. When it ends: mean over stepped cells, month by month (dry-positive) ===
+  ser = np.nanmean(cube[k][:, m], axis=1)
+  rest = np.nanmean(cube[k][:, drawn & ~either], axis=1)
+  spi12 (stepped cells / all other cells):
+    1982: +1.59/-0.23 +1.59/-0.31 +1.44/-0.46 +1.37/-0.46 +1.59/-0.37 +1.64/-0.32 +1.99/+0.13 +1.71/+0.06 +1.91/+0.46 +1.91/+0.68 +1.90/+1.10 +1.85/+1.21
+    1983: +1.51/+1.14 +1.52/+1.30 +2.03/+1.63 +2.38/+1.73 +2.30/+1.51 +2.11/+1.46 +1.62/+1.20 +1.42/+1.02 +1.07/+0.74 +0.91/+0.39 +0.97/+0.12 +0.94/+0.01
+    1984: +0.76/-0.07 +0.32/-0.31 -0.29/-0.60 -0.77/-0.76 -0.92/-0.73 -0.96/-0.75 -1.13/-0.90 -1.02/-0.88 -0.92/-1.00 -0.86/-0.80 -0.99/-0.67 -1.05/-0.68
+    1985: -0.93/-0.68 -0.79/-0.58 -0.67/-0.48 -0.25/-0.34 -0.10/-0.23 +0.27/-0.18 +0.65/-0.13 +0.54/-0.24 +0.57/-0.10 +0.52/-0.16 +0.49/-0.23 +0.48/-0.14
+    yearly mean, stepped cells 1960..1995: +1.5 +1.9 +2.1 +2.1 +1.3 +1.2 +0.0 +0.4 +1.2 +0.9 +0.7 +1.8 +2.6 +1.5 +2.1 +2.2 +2.6 +2.2 +1.8 +1.6 +1.5 +1.6 +1.7 +1.6 -0.7 +0.1 -0.3 +0.3 -0.7 -0.1 +0.5 +0.5 -0.3 -0.6 -0.6 -1.0
+  eddi12 (stepped cells / all other cells):
+    1982: +1.67/-0.30 +1.67/-0.42 +1.58/-0.59 +1.56/-0.60 +1.64/-0.56 +1.68/-0.56 +1.78/-0.30 +1.55/-0.41 +1.62/+0.09 +1.68/+0.38 +1.69/+0.76 +1.59/+0.85
+    1983: +1.39/+0.82 +1.40/+0.94 +1.57/+1.13 +1.78/+1.17 +1.85/+1.05 +1.77/+0.98 +1.63/+0.81 +1.59/+0.65 +1.27/+0.45 +1.29/+0.12 +1.29/-0.15 +1.24/-0.20
+    1984: +1.05/-0.20 +0.67/-0.42 +0.06/-0.74 -0.31/-0.97 -0.45/-0.98 -0.60/-0.99 -0.85/-1.08 -0.91/-1.08 -0.91/-1.29 -1.00/-1.18 -1.19/-1.09 -1.18/-1.13
+    1985: -0.99/-1.08 -0.77/-0.90 -0.57/-0.75 -0.28/-0.64 -0.30/-0.54 +0.18/-0.51 +0.52/-0.51 +0.74/-0.64 +0.80/-0.47 +0.78/-0.47 +0.73/-0.51 +0.66/-0.43
+    yearly mean, stepped cells 1960..1995: +1.7 +1.9 +1.8 +1.6 +1.5 +0.7 -0.0 -0.0 +0.8 +1.1 +1.3 +1.4 +1.8 +1.6 +1.6 +1.6 +1.6 +1.8 +1.9 +1.7 +1.6 +1.5 +1.6 +1.5 -0.5 +0.1 -0.3 +0.1 -0.5 -0.2 +0.6 +0.6 -0.7 -0.8 -0.8 -0.8
+
+map written: C:\Users\benny\OneDrive\Documents\Github\drywet-explorer\temp\fig\step1984_region.png
+done in 83s

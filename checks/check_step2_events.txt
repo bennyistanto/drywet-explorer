@@ -1,0 +1,11 @@
+seed 835127; manifest step_1984 last positions {'1': 407, '3': 409, '6': 412, '12': 418}
+spi03: events compared 3,203, differences 0; classes marked as never occurring []; attainable bound None
+spei12: events compared 1,018, differences 0; classes marked as never occurring []; attainable bound None
+eddi06: events compared 1,725, differences 0; classes marked as never occurring ['EW4', 'ED4']; attainable bound 2.028
+
+unit-sides checked 240, events compared 5,946, differences 0
+events with max_share above 1 in the three layers: 0
+adm1: step_1984 majority units 7; units whose rounded share is exactly 0.5 but are majority 0
+adm2: step_1984 majority units 108; units whose rounded share is exactly 0.5 but are majority 0
+adm3: step_1984 majority units 1201; units whose rounded share is exactly 0.5 but are majority 3
+step 2 manifest keys: ['event_columns', 'flags', 'inputs', 'layers', 'max_share_classes', 'month_position', 'rule', 'rule_decided', 'script', 'series', 'sides', 'step', 'summary_columns', 'updated', 'versions']

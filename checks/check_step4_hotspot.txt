@@ -1,0 +1,8 @@
+reference: climatology
+spi03 2025-12: cells differing from stored 0 of 96429; final month hot 28.3%, cold 48.4%; own index (positive = dry) where hot, 5th pct / median +0.19 / +1.36; where cold, 95th pct / median -0.32 / -1.01; share of cells with own |index| >= 1.0: 44.4%
+spi03 1997-09: cells differing from stored 0 of 96429; final month hot 91.6%, cold 2.3%; own index (positive = dry) where hot, 5th pct / median +0.62 / +1.43; where cold, 95th pct / median -0.32 / -1.29; share of cells with own |index| >= 1.0: 72.9%
+spi12 2015-12: cells differing from stored 0 of 96429; final month hot 68.4%, cold 6.6%; own index (positive = dry) where hot, 5th pct / median +0.57 / +1.15; where cold, 95th pct / median -0.32 / -1.14; share of cells with own |index| >= 1.0: 46.1%
+spei06 1983-03: cells differing from stored 0 of 96429; final month hot 87.9%, cold 2.6%; own index (positive = dry) where hot, 5th pct / median +0.53 / +1.70; where cold, 95th pct / median -0.40 / -0.96; share of cells with own |index| >= 1.0: 71.1%
+eddi01 2019-10: cells differing from stored 0 of 96429; final month hot 66.1%, cold 1.5%; own index (positive = dry) where hot, 5th pct / median -0.12 / +0.64; where cold, 95th pct / median -0.12 / -1.28; share of cells with own |index| >= 1.0: 14.3%
+eddi12 1951-06: before the first result month; stored all zero: True
+ALL MATCH

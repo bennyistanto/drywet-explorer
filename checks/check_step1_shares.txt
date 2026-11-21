@@ -1,0 +1,46 @@
+cannot be safely cast to variable data type
+  v = np.ma.filled(nc[SRC[index][1].format(n=scale)][t, j0:j0 + ny, i0:i0 + nx].astype("float64"), np.nan).ravel()[cells]
+cannot be safely cast to variable data type
+  v = np.ma.filled(nc[SRC[index][1].format(n=scale)][t, j0:j0 + ny, i0:i0 + nx].astype("float64"), np.nan).ravel()[cells]
+cannot be safely cast to variable data type
+  v = np.ma.filled(nc[name][t, j0:j0 + ny, i0:i0 + nx].astype("float64"), np.nan).ravel()[drawn]
+cannot be safely cast to variable data type
+  v = np.ma.filled(nc[name][t, j0:j0 + ny, i0:i0 + nx].astype("float64"), np.nan).ravel()[drawn]
+seed 4417
+
+=== A. all-touched cell sets against the polygon ===
+  level code       name                     stored  rebuilt  only stored  only rebuilt
+  adm2  3574       Kota Probolinggo              7        7            0             0   (csv n_cells 7)
+  adm2  6171       Kota Pontianak               13       13            0             0   (csv n_cells 13)
+  adm2  1311       Solok Selatan               197      197            0             0   (csv n_cells 197)
+  adm2  6202       Kotawaringin Timur          819      819            0             0   (csv n_cells 819)
+  adm3  127502     Binjai Kota                   1        1            0             0   (csv n_cells 1)
+  adm3  737302     Wara Utara                    1        1            0             0   (csv n_cells 1)
+  adm3  827103     Kota Ternate Utara            5        5            0             0   (csv n_cells 5)
+  adm3  910512     Windesi                      23       23            0             0   (csv n_cells 23)
+  cells differing in total: 0
+
+=== B. shares and mean against the source cube ===
+  layer   level unit  name                     month     cells valid  share diff (half-steps)  mean stored / rebuilt
+  eddi06  adm3  5059 Landasan Ulin            t=482     10    10  0.000000          -0.9100 / -0.9061
+  spei06  adm2   522 Sumatera Barat           t=221      1     1  0.000000          -0.1760 / -0.1765
+  spei06  adm3  3738 Baureno                  t=839     10    10  0.000000          -1.9100 / -1.9148
+  spei12  adm3  2513 Muaragembong             t= 13     15    15  0.000000          -1.2900 / -1.2935
+  eddi01  adm2   458 Kepulauan Aru            t=831    532   532  0.987257          +0.7710 / +0.7713
+  spi01   adm2   444 Gorontalo Utara          t=749    135   135  0.000000          -0.6280 / -0.6279
+  spei03  adm3  3747 Padangan                 t=901      7     7  0.000000          +1.0700 / +1.0664
+  spei06  adm3  4121 Penebel                  t=721     15    15  0.000000          -1.1400 / -1.1363
+  spi03   adm3  1011 Tambusai Utara           t=805     87    87  0.000000          -0.5200 / -0.5210
+  spei12  adm1    33 Papua Barat              t=532   3213  3213  0.993714          -0.3010 / -0.3013
+  eddi01  adm3  6370 Sahu                     t=293     13    13  0.000000          +0.7900 / +0.7887
+  spei06  adm3  7230 Ayamaru                  t= 30      7     7  0.000000          +0.5300 / +0.5296
+  spi01   adm1     2 Sumatera Utara           t=327   3711  3711  0.763775          -1.8760 / -1.8763
+  spei03  adm1    21 Kalimantan Tengah        t=150   7507  7507  0.959901          -1.0200 / -1.0203
+  worst share difference 0.994 and worst mean difference 0.958, both in half storage steps: at or below 1.0 means the stored value is the correct rounding
+
+=== C. stored maps against the source ===
+  drawn cells 88,627; all land True; all at least half inside True
+  spi03 1951-02: cells differing 0 of 88,627; no-data cells 0
+  spi12 2009-07: cells differing 0 of 88,627; no-data cells 0
+  spei03 1960-12: cells differing 0 of 88,627; no-data cells 0
+  eddi12 2021-07: cells differing 0 of 88,627; no-data cells 0

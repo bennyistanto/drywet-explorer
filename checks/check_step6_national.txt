@@ -1,0 +1,18 @@
+unit: 96,429 cells, 2,064,752 km2; recomputed 96,429 cells, 2,064,752 km2
+eddi01: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 37, re-found 37, in both 37
+eddi03: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 24, re-found 24, in both 24
+eddi06: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 17, re-found 17, in both 17
+eddi12: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 10, re-found 10, in both 10
+spei01: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 52, re-found 52, in both 52
+spei03: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 30, re-found 30, in both 30
+spei06: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 22, re-found 22, in both 22
+spei12: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 12, re-found 12, in both 12
+spi01: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 46, re-found 46, in both 46
+spi03: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 30, re-found 30, in both 30
+spi06: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 24, re-found 24, in both 24
+spi12: largest share difference 0.000050 (half a storage step is 0.000050) ok; events stored 13, re-found 13, in both 13
+spi03 1997-09: mean from source -1.2580, stored -1.258 ok
+spei12 2015-12: mean from source -0.8244, stored -0.824 ok
+eddi01 2019-10: mean from source +0.2936, stored +0.294 ok
+spi12 1961-03: mean from source -0.2495, stored -0.249 ok
+ALL OK

@@ -1,0 +1,51 @@
+SPI-3: read (912, 96429) in 95s; positive is dry; neighbourhood 3x3 cells and 1 step back
+reference: climatology
+
+===== significance at 90%, with FDR correction =====
+Mean share of drawn cells per category over 36 Decembers (1990..2025), %; in brackets the number of those Decembers in which the category has any cell
+  W= 12 done at 105s
+  W= 24 done at 127s
+  W= 36 done at 166s
+  W= 60 done at 245s
+
+category                            W=12          W=24          W=36          W=60
+No pattern detected          32.58 [36]    33.12 [36]    33.20 [36]    33.19 [36] 
+New hot spot                  1.53 [35]     0.44 [31]     0.12 [19]     0.00 [ 8] 
+Consecutive hot spot         10.87 [36]     2.66 [34]     1.31 [27]     0.15 [17] 
+Intensifying hot spot         0.87 [25]     0.02 [10]     0.00 [ 3]     0.00 [ 0] 
+Persistent hot spot           1.48 [27]     0.08 [13]     0.02 [ 6]     0.00 [ 1] 
+Diminishing hot spot          0.27 [18]     0.03 [ 8]     0.02 [ 4]     0.00 [ 0] 
+Sporadic hot spot             6.63 [36]     3.04 [31]     1.21 [24]     0.17 [18] 
+Oscillating hot spot          8.96 [36]    24.40 [36]    28.03 [36]    30.37 [36] 
+Historical hot spot           0.16 [24]     0.02 [ 9]     0.01 [ 5]     0.00 [ 1] 
+New cold spot                 1.99 [35]     0.74 [27]     0.28 [23]     0.02 [11] 
+Consecutive cold spot        11.56 [36]     3.90 [36]     0.96 [32]     0.16 [20] 
+Intensifying cold spot        0.75 [26]     0.17 [12]     0.02 [ 8]     0.00 [ 0] 
+Persistent cold spot          3.38 [31]     0.39 [18]     0.07 [ 7]     0.00 [ 1] 
+Diminishing cold spot         0.64 [28]     0.15 [13]     0.01 [ 5]     0.00 [ 0] 
+Sporadic cold spot            8.21 [36]     3.48 [34]     1.19 [29]     0.11 [17] 
+Oscillating cold spot         9.43 [36]    27.28 [36]    33.56 [36]    35.83 [36] 
+Historical cold spot          0.68 [29]     0.09 [13]     0.01 [ 4]     0.00 [ 0] 
+categories populated        14.7 of 17    11.0 of 17     8.4 of 17     5.6 of 17   (mean over Decembers)
+  min / max                   12 / 17        8 / 16        5 / 15        4 /  8   
+
+December 2025 alone, % of drawn cells
+No pattern detected               21.27         23.77         24.18         23.93 
+New hot spot                       6.79          4.84          0.04          0.02 
+Consecutive hot spot               4.78          2.32          0.63          0.00 
+Intensifying hot spot              0.01          0.00          0.00          0.00 
+Persistent hot spot                0.03          0.00          0.00          0.00 
+Diminishing hot spot               0.00          0.00          0.00          0.00 
+Sporadic hot spot                  0.77          0.00          0.00          0.00 
+Oscillating hot spot              15.89         20.85         27.22         27.97 
+Historical hot spot                0.07          0.00          0.00          0.00 
+New cold spot                      0.38          0.00          0.00          0.00 
+Consecutive cold spot              1.32          3.63          1.28          0.00 
+Intensifying cold spot             1.94          0.64          0.09          0.00 
+Persistent cold spot              17.80          1.97          0.00          0.00 
+Diminishing cold spot              5.00          0.29          0.00          0.00 
+Sporadic cold spot                13.96          8.18          2.99          1.12 
+Oscillating cold spot              8.02         33.38         43.56         46.95 
+Historical cold spot               1.98          0.15          0.00          0.00 
+
+total 245s

@@ -29,7 +29,7 @@ from .step0_grid import provenance, versions
 #   - with one tolerance a border shared by a province, a kabupaten and a kecamatan is simplified the same way
 #     in each file, so the three outlines lie on top of each other instead of side by side.
 # Measured cost against the earlier 1.1 km / 550 m / 330 m: adm1 3.1 -> 5.0 MB, adm2 5.5 -> 7.5 MB, adm3 unchanged
-# (temp/script/analysis/boundary_detail_tradeoff.py). Halve it only together with a higher zoom limit.
+# (analysis/boundary_detail_tradeoff.py). Halve it only together with a higher zoom limit.
 TOLERANCE_DEG = {1: 0.003, 2: 0.003, 3: 0.003}
 T0 = time.time()
 

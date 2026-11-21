@@ -9,5 +9,5 @@ export default {
   toc: false,
   pager: false,
   pages: [],
-  footer: "Indices computed from TerraClimate v1.1. Admin boundaries: Badan Informasi Geospasial. Built with Observable Framework."
+  footer: 'Developed by <a href="https://benny.istan.to" target="_blank" rel="noopener">Benny Istanto</a> as a casual weekend project. Indices computed from TerraClimate v1.1. Admin boundaries: Badan Informasi Geospasial. Built with Observable Framework.'
 };

@@ -1,0 +1,7 @@
+spi03 1997-09: 0 of 400 sampled cells differ; in the sample: no value 0, no event 24, new 8, deepening 50, persisting 233, easing 81, ended 4
+spi12 2015-12: 0 of 400 sampled cells differ; in the sample: no value 0, no event 141, new 46, deepening 133, persisting 21, easing 52, ended 7
+spei06 1983-03: 0 of 400 sampled cells differ; in the sample: no value 0, no event 16, new 7, deepening 195, persisting 84, easing 86, ended 12
+eddi01 2019-10: 0 of 400 sampled cells differ; in the sample: no value 0, no event 132, new 69, deepening 13, persisting 27, easing 118, ended 41
+eddi12 2025-12: 0 of 400 sampled cells differ; in the sample: no value 0, no event 142, new 8, deepening 19, persisting 176, easing 50, ended 5
+spi01 1950-01: 0 of 400 sampled cells differ; in the sample: no value 0, no event 170, new 230, deepening 0, persisting 0, easing 0, ended 0
+ALL MATCH

@@ -1,0 +1,78 @@
+loaded spi1   (912, 432, 1128) from wld_cli_terraclimate_spi_gamma_1_month.nc  [73s]
+loaded spi2   (912, 432, 1128) from wld_cli_terraclimate_spi_gamma_2_month.nc  [136s]
+loaded spi3   (912, 432, 1128) from wld_cli_terraclimate_spi_gamma_3_month.nc  [200s]
+loaded eddi1  (912, 432, 1128) from wld_cli_terraclimate_eddi_01month_1950_2025_base1991_2020.nc  [216s]
+loaded eddi3  (912, 432, 1128) from wld_cli_terraclimate_eddi_03month_1950_2025_base1991_2020.nc  [231s]
+time: 1950-01 to 2025-12, 912 months
+Indonesian land cells: 88,663
+cell-months with all five indices finite: 80,683,330 of 80,860,656
+
+=== A. Base rates and same-month relation (threshold +/-1.0) ===
+  SPI-1 dry    17.88% of cell-months
+  SPI-3 dry    19.77% of cell-months
+  EDDI-1 dry   15.28% of cell-months
+  EDDI-3 dry   15.76% of cell-months
+  per-cell corr(EDDI-1, SPI-1) same month: median -0.729, p10 -0.819, p90 -0.604
+  per-cell corr(EDDI-3, SPI-3) same month: median -0.730
+  lag 1: corr(EDDI-1[t], SPI-1[t+1]) median -0.189 | SPI-1 autocorr +0.265 | corr(SPI-1[t], EDDI-1[t+1]) -0.249
+  lag 2: corr(EDDI-1[t], SPI-1[t+2]) median -0.166 | SPI-1 autocorr +0.227 | corr(SPI-1[t], EDDI-1[t+2]) -0.213
+  lag 3: corr(EDDI-1[t], SPI-1[t+3]) median -0.086 | SPI-1 autocorr +0.135 | corr(SPI-1[t], EDDI-1[t+3]) -0.127
+  same month: both dry   9.80%, EDDI-1 dry only   5.48%, SPI-1 dry only   8.08%
+  of EDDI-1 dry months, SPI-1 is also dry in  64.14%
+  of SPI-1 dry months, EDDI-1 is also dry in  54.80%
+
+=== B. Clean test: EDDI-1 at t against SPI-1 at t+1 (no shared months) ===
+  P(SPI-1 dry next month)                               17.85%  n=80,594,667
+  P(...) | EDDI-1 dry now                      28.28%  n=12,321,422  lift x1.58
+  P(...) | SPI-1 dry now (persistence)         30.33%  n=14,422,594  lift x1.70
+  P(...) | EDDI-1 dry, SPI-1 not dry           20.78%  n=4,416,580  lift x1.16
+  P(...) | EDDI-1 not dry, SPI-1 not dry       14.73%  n=61,755,493  lift x0.82
+  P(...) | EDDI-1 dry, SPI-1 dry               32.48%  n=7,904,842  lift x1.82
+  P(...) | EDDI-1 not dry, SPI-1 dry           27.74%  n=6,517,752  lift x1.55
+  Controlling for SPI-1 now in 0.25 bins: EDDI-1 dry  28.28% vs matched EDDI-1 not dry  26.49% -> added +1.80 points, x1.07  (n=12,321,422)
+  Reverse, controlling for EDDI-1 now: SPI-1 dry  30.33% vs matched SPI-1 not dry  19.40% -> added +10.94 points, x1.56
+
+=== C. SPI-3 dry-event onsets ===
+
+  Onset = SPI-3 crosses <= -1.0, any length. 5,662,314 onsets in 64,664,774 at-risk cell-months, base   8.76%
+    hit rate: EDDI-1 dry the month before  26.54% (chance   8.92%); dry in any of the 3 months before  46.01% (chance  23.55%)
+    for comparison, SPI-1 dry the month before:  35.26% (chance   9.33%)
+    P(onset) | EDDI-1 dry at t-1                   26.07%  n=5,765,130  lift x2.98
+    P(onset) | EDDI-3 dry at t-1                   19.58%  n=4,197,716  lift x2.24
+    P(onset) | SPI-1 dry at t-1                    33.08%  n=6,033,932  lift x3.78
+    P(onset) | EDDI-1 dry, SPI-1 not dry at t-1    16.13%  n=3,126,840  lift x1.84
+    P(onset) | neither dry at t-1                   5.70%  n=55,504,002  lift x0.65
+    Controlling for rain already fallen (SPI-2 at t-1): EDDI-1 dry  26.07% vs matched not dry  23.82% -> added +2.25 points, x1.09  (n=5,765,130)
+
+  Onset = SPI-3 crosses <= -1.0, lasting 3+ months. 2,337,615 onsets in 64,505,427 at-risk cell-months, base   3.62%
+    hit rate: EDDI-1 dry the month before  29.06% (chance   8.90%); dry in any of the 3 months before  44.17% (chance  23.56%)
+    for comparison, SPI-1 dry the month before:  39.72% (chance   9.31%)
+    P(onset) | EDDI-1 dry at t-1                   11.83%  n=5,740,374  lift x3.27
+    P(onset) | EDDI-3 dry at t-1                    8.16%  n=4,193,729  lift x2.25
+    P(onset) | SPI-1 dry at t-1                    15.47%  n=6,003,037  lift x4.27
+    P(onset) | EDDI-1 dry, SPI-1 not dry at t-1     6.81%  n=3,120,953  lift x1.88
+    P(onset) | neither dry at t-1                   2.16%  n=55,381,437  lift x0.60
+    Controlling for rain already fallen (SPI-2 at t-1): EDDI-1 dry  11.83% vs matched not dry   8.58% -> added +3.26 points, x1.38  (n=5,740,374)
+
+  EDDI-1 signals (crossing >= +1.0 while SPI-3 not dry): 4,767,124
+    followed by an SPI-3 onset within 3 months:  44.95%  -> false alarm ratio  55.05%
+    any not-dry month is followed by an onset within 3 months:  23.32%; when EDDI-1 is not dry:  21.10%
+
+=== D. Robustness of the section B added value (points, ratio) ===
+  1950s: EDDI-1 dry  33.94% vs matched  31.98%  +1.96 pts  x1.06  n=1,768,808  (EDDI-1 dry share  16.91%)
+  1960s: EDDI-1 dry  30.50% vs matched  25.79%  +4.71 pts  x1.18  n=1,864,388  (EDDI-1 dry share  17.52%)
+  1970s: EDDI-1 dry  31.53% vs matched  31.62%  -0.09 pts  x1.00  n=1,907,212  (EDDI-1 dry share  17.93%)
+  1980s: EDDI-1 dry  25.19% vs matched  21.84%  +3.35 pts  x1.15  n=1,488,089  (EDDI-1 dry share  13.99%)
+  1990s: EDDI-1 dry  34.78% vs matched  27.47%  +7.31 pts  x1.27  n=1,525,732  (EDDI-1 dry share  14.34%)
+  2000s: EDDI-1 dry  19.62% vs matched  19.59%  +0.03 pts  x1.00  n=1,504,137  (EDDI-1 dry share  14.14%)
+  2010s: EDDI-1 dry  26.63% vs matched  22.93%  +3.70 pts  x1.16  n=1,363,233  (EDDI-1 dry share  12.81%)
+  2020s: EDDI-1 dry  16.77% vs matched  17.93%  -1.16 pts  x0.94  n=899,823  (EDDI-1 dry share  14.29%)
+  by province (38): added points min -7.41, median +2.37, max +12.94; positive in 29 of 38
+    Kalimantan Barat             -7.41 pts  x0.75  n=961,696
+    Daerah Khusus Ibukota Jakarta -5.56 pts  x0.86  n=4,378
+    Riau                         -3.00 pts  x0.92  n=844,326
+    Gorontalo                    +10.46 pts  x1.40  n=66,863
+    Kalimantan Timur             +10.67 pts  x1.47  n=631,376
+    Sulawesi Utara               +12.94 pts  x1.61  n=70,087
+
+done in 370s

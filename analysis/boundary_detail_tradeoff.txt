@@ -1,0 +1,16 @@
+degrees to metres at the equator: 0.001 deg is about 111 m
+level  tolerance   about    vertices     raw MB   gzip MB   note
+adm1   0.01        1110 m    100,022      3.11      0.63   current  [75s]
+adm1   0.003        333 m    162,570      4.95      1.07     [149s]
+adm1   0.0015       166 m    251,288      7.57      1.67     [234s]
+adm1   0.00075       83 m    424,213     12.67      2.79     [316s]
+adm1   original              10,731,269
+adm2   0.005        555 m    179,034      5.49      1.21   current  [401s]
+adm2   0.003        333 m    245,902      7.46      1.68     [482s]
+adm2   0.0015       166 m    405,972     12.18      2.75     [565s]
+adm2   0.00075       83 m    698,420     20.79      4.66     [644s]
+adm2   original              13,611,556
+adm3   0.003        333 m    550,768     14.44      3.13   current  [752s]
+adm3   0.0015       166 m    955,800     24.35      5.49     [856s]
+adm3   0.00075       83 m  1,666,807     41.75      9.66     [968s]
+adm3   original              23,901,933

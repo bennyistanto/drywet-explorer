@@ -1,0 +1,100 @@
+inputs:
+  wld_cli_terraclimate_ppt_1950_2025.nc: var ppt, units mm, chunks (1, 30, 8640), window 432 x 1128, time 1950-01-01..2025-12-01 n=912
+  wld_cli_chirps3_dekad_1981_2025.nc: var precip, units mm, chunks (12, 200, 200), window 360 x 940, time 1981-01-01..2025-12-21 n=1620
+  TerraClimate annual totals (45, 432, 1128)  [49s]
+  CHIRPS annual totals (45, 360, 940)  [83s]
+
+=== Riau  (cells: TerraClimate 4,209, CHIRPS 2,923) ===
+  1991-2020 mean annual total: TerraClimate 2839 mm, CHIRPS 2737 mm
+  correlation of annual totals 1984-2025: 0.598
+  period      TC ratio to own baseline   CHIRPS ratio to own baseline   TC mm / CHIRPS mm
+  1981-1983            0.797                      0.874                0.948
+  1984-1990            1.020                      1.011                1.049
+  1991-2000            1.009                      0.944                1.131
+  2001-2010            1.002                      1.057                0.983
+  2011-2020            0.989                      0.999                1.035
+  2021-2025            1.033                      1.156                0.928
+  year: TC ratio / CHIRPS ratio / TC over CHIRPS
+    1981: 0.79 / 0.92 / 0.89   1982: 0.81 / 0.85 / 0.99   1983: 0.80 / 0.86 / 0.96   1984: 1.16 / 1.19 / 1.01
+    1985: 0.94 / 0.99 / 0.99   1986: 1.09 / 1.07 / 1.06   1987: 0.97 / 0.88 / 1.15   1988: 1.03 / 0.99 / 1.08
+    1989: 1.04 / 1.02 / 1.07   1990: 0.90 / 0.94 / 0.99   1991: 1.05 / 0.89 / 1.22   1992: 1.05 / 0.95 / 1.15
+
+=== Sumatera Utara  (cells: TerraClimate 3,394, CHIRPS 2,345) ===
+  1991-2020 mean annual total: TerraClimate 2978 mm, CHIRPS 2649 mm
+  correlation of annual totals 1984-2025: 0.362
+  period      TC ratio to own baseline   CHIRPS ratio to own baseline   TC mm / CHIRPS mm
+  1981-1983            0.820                      0.960                0.960
+  1984-1990            0.950                      1.041                1.027
+  1991-2000            0.991                      0.931                1.237
+  2001-2010            0.989                      1.055                1.057
+  2011-2020            1.021                      1.015                1.140
+  2021-2025            1.047                      1.052                1.122
+  year: TC ratio / CHIRPS ratio / TC over CHIRPS
+    1981: 0.79 / 0.95 / 0.94   1982: 0.87 / 0.95 / 1.03   1983: 0.80 / 0.98 / 0.91   1984: 0.99 / 1.12 / 0.99
+    1985: 0.89 / 0.98 / 1.03   1986: 0.97 / 1.00 / 1.09   1987: 1.03 / 1.06 / 1.09   1988: 1.01 / 1.11 / 1.03
+    1989: 0.91 / 1.07 / 0.96   1990: 0.84 / 0.94 / 1.01   1991: 1.02 / 1.04 / 1.10   1992: 0.90 / 0.94 / 1.07
+
+=== Kalimantan Barat  (cells: TerraClimate 6,884, CHIRPS 4,771) ===
+  1991-2020 mean annual total: TerraClimate 3487 mm, CHIRPS 3435 mm
+  correlation of annual totals 1984-2025: 0.809
+  period      TC ratio to own baseline   CHIRPS ratio to own baseline   TC mm / CHIRPS mm
+  1981-1983            0.902                      0.936                0.977
+  1984-1990            1.002                      1.041                0.978
+  1991-2000            1.011                      1.005                1.022
+  2001-2010            1.000                      0.984                1.035
+  2011-2020            0.989                      1.011                0.995
+  2021-2025            1.049                      1.144                0.932
+
+=== Sumatera Selatan  (cells: TerraClimate 4,060, CHIRPS 2,818) ===
+  1991-2020 mean annual total: TerraClimate 2767 mm, CHIRPS 2909 mm
+  correlation of annual totals 1984-2025: 0.839
+  period      TC ratio to own baseline   CHIRPS ratio to own baseline   TC mm / CHIRPS mm
+  1981-1983            0.990                      0.979                0.965
+  1984-1990            1.059                      1.013                0.995
+  1991-2000            1.006                      0.991                0.974
+  2001-2010            0.989                      1.023                0.928
+  2011-2020            1.005                      0.986                0.976
+  2021-2025            0.992                      1.113                0.854
+  year: TC ratio / CHIRPS ratio / TC over CHIRPS
+    1981: 1.09 / 1.12 / 0.92   1982: 0.92 / 0.89 / 0.98   1983: 0.96 / 0.92 / 0.99   1984: 1.21 / 1.14 / 1.00
+    1985: 1.08 / 1.11 / 0.92   1986: 1.15 / 1.06 / 1.03   1987: 0.90 / 0.86 / 0.99   1988: 1.07 / 1.00 / 1.02
+    1989: 1.07 / 0.98 / 1.04   1990: 0.94 / 0.93 / 0.96   1991: 0.95 / 0.87 / 1.04   1992: 1.12 / 1.00 / 1.06
+
+=== Kalimantan Tengah  (cells: TerraClimate 7,185, CHIRPS 4,982) ===
+  1991-2020 mean annual total: TerraClimate 3057 mm, CHIRPS 3198 mm
+  correlation of annual totals 1984-2025: 0.863
+  period      TC ratio to own baseline   CHIRPS ratio to own baseline   TC mm / CHIRPS mm
+  1981-1983            0.936                      0.901                0.992
+  1984-1990            1.015                      1.058                0.920
+  1991-2000            0.976                      0.986                0.954
+  2001-2010            1.006                      1.000                0.967
+  2011-2020            1.018                      1.014                0.963
+  2021-2025            1.100                      1.151                0.918
+
+=== Jawa Tengah  (cells: TerraClimate 1,624, CHIRPS 1,127) ===
+  1991-2020 mean annual total: TerraClimate 2563 mm, CHIRPS 2703 mm
+  correlation of annual totals 1984-2025: 0.888
+  period      TC ratio to own baseline   CHIRPS ratio to own baseline   TC mm / CHIRPS mm
+  1981-1983            1.012                      1.054                0.931
+  1984-1990            1.050                      1.093                0.915
+  1991-2000            1.053                      0.961                1.044
+  2001-2010            0.953                      0.997                0.908
+  2011-2020            0.994                      1.042                0.907
+  2021-2025            1.069                      1.128                0.898
+
+=== All Indonesia  (cells: TerraClimate 88,663, CHIRPS 61,619) ===
+  1991-2020 mean annual total: TerraClimate 2828 mm, CHIRPS 2900 mm
+  correlation of annual totals 1984-2025: 0.930
+  period      TC ratio to own baseline   CHIRPS ratio to own baseline   TC mm / CHIRPS mm
+  1981-1983            0.919                      0.931                0.967
+  1984-1990            1.007                      1.059                0.930
+  1991-2000            0.979                      0.949                1.013
+  2001-2010            0.984                      1.013                0.950
+  2011-2020            1.038                      1.038                0.978
+  2021-2025            1.087                      1.153                0.922
+  year: TC ratio / CHIRPS ratio / TC over CHIRPS
+    1981: 0.97 / 1.03 / 0.91   1982: 0.82 / 0.79 / 1.01   1983: 0.97 / 0.97 / 0.98   1984: 1.10 / 1.19 / 0.90
+    1985: 1.00 / 1.08 / 0.91   1986: 1.00 / 1.04 / 0.93   1987: 0.92 / 0.89 / 1.00   1988: 1.08 / 1.14 / 0.92
+    1989: 1.03 / 1.11 / 0.90   1990: 0.92 / 0.96 / 0.94   1991: 0.90 / 0.87 / 1.01   1992: 0.96 / 0.92 / 1.01
+
+done in 104s

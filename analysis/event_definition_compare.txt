@@ -1,0 +1,75 @@
+Indonesian land cells: 88,663; months 1950-01 to 2025-12
+
+=== SPI-1  [82s]  finite cell-months 80,860,656 ===
+  exactly -1.0 values (in WMO, out of strict run): 1
+  def   events/cell  per decade   mean dur  median  p90   max   mean magnitude  % of months in event  open at end
+  T        113.9      14.98       1.43      1     2    15         0.92          17.92%   5,065 cells (5.7%)
+  Wa        88.3      11.62       3.58      3     7    49         3.88          34.65%   16,986 cells (19.2%)
+  Wb        88.3      11.62       2.94      2     6    49         3.57          28.45%   16,986 cells (19.2%)
+  threshold runs per WMO event: 1.29
+  mean duration ratio Wa/T 2.49, Wb/T 2.05
+  longest event per cell, median across cells: T 6, Wa 14, Wb 13 months
+  share of events lasting 1 month or less: T 73.5%, Wa 25.4%, Wb 39.2%
+  share of events lasting 2 months or less: T 90.5%, Wa 45.9%, Wb 59.5%
+  T with min_duration=3 keeps 9.5% of threshold runs (10.9 per cell)
+  reference check, T against precip-index identify_events on 30 cells (seed 20261120): 30 agree, 0 differ
+  case cell lon 108.312 lat -6.437, events touching 1997-1998:
+    T : 1997-02..1997-03 (2 mo); 1997-06..1997-06 (1 mo); 1997-10..1997-11 (2 mo); 1998-01..1998-01 (1 mo)
+    Wa: 1997-02..1997-06 (5 mo); 1997-08..1998-01 (6 mo)
+    Wb: 1997-02..1997-06 (5 mo); 1997-10..1998-01 (4 mo)
+
+=== SPI-3  [154s]  finite cell-months 80,683,330 ===
+  exactly -1.0 values (in WMO, out of strict run): 1
+  def   events/cell  per decade   mean dur  median  p90   max   mean magnitude  % of months in event  open at end
+  T         64.4       8.48       2.79      2     6    41         1.84          19.77%   18,518 cells (20.9%)
+  Wa        44.8       5.90       8.25      7    15   207         8.84          40.62%   23,542 cells (26.6%)
+  Wb        44.8       5.90       6.65      5    13   205         8.07          32.75%   23,542 cells (26.6%)
+  threshold runs per WMO event: 1.44
+  mean duration ratio Wa/T 2.95, Wb/T 2.38
+  longest event per cell, median across cells: T 12, Wa 23, Wb 22 months
+  share of events lasting 1 month or less: T 40.0%, Wa 1.4%, Wb 5.5%
+  share of events lasting 2 months or less: T 58.6%, Wa 4.9%, Wb 16.0%
+  T with min_duration=3 keeps 41.4% of threshold runs (26.7 per cell)
+  reference check, T against precip-index identify_events on 30 cells (seed 20261120): 30 agree, 0 differ
+  case cell lon 108.312 lat -6.437, events touching 1997-1998:
+    T : 1997-03..1997-06 (4 mo); 1997-10..1998-02 (5 mo)
+    Wa: 1997-02..1998-03 (14 mo)
+    Wb: 1997-03..1998-03 (13 mo)
+
+=== SPI-6  [225s]  finite cell-months 80,417,341 ===
+  exactly -1.0 values (in WMO, out of strict run): 2
+  def   events/cell  per decade   mean dur  median  p90   max   mean magnitude  % of months in event  open at end
+  T         43.5       5.72       4.30      3     9   162         2.93          20.62%   6,474 cells (7.3%)
+  Wa        27.7       3.65      13.94     11    24   296        15.12          42.60%   14,090 cells (15.9%)
+  Wb        27.7       3.65      11.16      8    20   294        13.77          34.11%   14,090 cells (15.9%)
+  threshold runs per WMO event: 1.57
+  mean duration ratio Wa/T 3.24, Wb/T 2.60
+  longest event per cell, median across cells: T 15, Wa 43, Wb 40 months
+  share of events lasting 1 month or less: T 32.4%, Wa 0.3%, Wb 1.3%
+  share of events lasting 2 months or less: T 47.2%, Wa 1.2%, Wb 5.1%
+  T with min_duration=3 keeps 52.8% of threshold runs (23.0 per cell)
+  reference check, T against precip-index identify_events on 30 cells (seed 20261120): 30 agree, 0 differ
+  case cell lon 108.312 lat -6.437, events touching 1997-1998:
+    T : 1997-04..1998-03 (12 mo)
+    Wa: 1997-03..1998-04 (14 mo)
+    Wb: 1997-04..1998-04 (13 mo)
+
+=== SPI-12  [297s]  finite cell-months 79,885,363 ===
+  exactly -1.0 values (in WMO, out of strict run): 0
+  def   events/cell  per decade   mean dur  median  p90   max   mean magnitude  % of months in event  open at end
+  T         26.1       3.44       7.45      4    16   207         5.46          21.61%   1,358 cells (1.5%)
+  Wa        14.2       1.87      27.56     19    50   362        31.20          43.54%   4,957 cells (5.6%)
+  Wb        14.2       1.87      22.08     13    45   355        28.50          34.89%   4,957 cells (5.6%)
+  threshold runs per WMO event: 1.84
+  mean duration ratio Wa/T 3.70, Wb/T 2.96
+  longest event per cell, median across cells: T 27, Wa 62, Wb 55 months
+  share of events lasting 1 month or less: T 26.9%, Wa 0.0%, Wb 0.1%
+  share of events lasting 2 months or less: T 38.8%, Wa 0.0%, Wb 0.9%
+  T with min_duration=3 keeps 61.2% of threshold runs (16.0 per cell)
+  reference check, T against precip-index identify_events on 30 cells (seed 20261120): 30 agree, 0 differ
+  case cell lon 108.312 lat -6.437, events touching 1997-1998:
+    T : 1997-09..1998-03 (7 mo)
+    Wa: 1997-02..1998-05 (16 mo)
+    Wb: 1997-09..1998-05 (9 mo)
+
+done in 299s

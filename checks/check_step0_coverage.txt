@@ -1,0 +1,21 @@
+seed 20261120; grid 432 x 1128
+
+=== adm2 ===
+  code      name                      cells   stored equiv   exact equiv   diff    max |cell diff|
+  7411      Kolaka Timur               247      187.219      187.232    -0.013   0.044   (csv 187.219)
+  1276      Kota Tebing Tinggi           9        1.906        1.836    +0.070   0.019   (csv 1.906)
+  1501      Kerinci                    203      161.375      161.317    +0.058   0.044   (csv 161.375)
+  3279      Kota Banjar                 13        6.125        6.180    -0.055   0.043   (csv 6.125)
+  3575      Kota Pasuruan                6        1.781        1.814    -0.032   0.019   (csv 1.781)
+  7571      Kota Gorontalo              11        3.266        3.319    -0.054   0.032   (csv 3.266)
+
+=== adm3 ===
+  code      name                      cells   stored equiv   exact equiv   diff    max |cell diff|
+  351422    Lekok                        9        2.266        2.310    -0.045   0.010   (csv 2.266)
+  160513    Purwodadi                    8        2.281        2.258    +0.023   0.022   (csv 2.281)
+  911445    Li Anogomma                  2        0.531        0.524    +0.007   0.016   (csv 0.531)
+  730105    Bontosikuyu                 24        9.344        9.479    -0.135   0.039   (csv 9.344)
+  320520    Cisurupan                    9        4.234        4.325    -0.091   0.024   (csv 4.234)
+  110810    Syamtalira Aron              6        1.109        1.155    -0.046   0.025   (csv 1.109)
+
+worst relative difference in cell equivalents: 3.97%

@@ -206,6 +206,10 @@ FLAG_STEP_1984 = dict(
 )
 UNIT_FLAG_MAJORITY = 0.5         # PROPOSED: a unit carries a cell flag when over half its cell area does
 
+# Emerging hot spot test (step 4): months in the space-time cube, ending at the month on the map.
+# PROPOSED. Chosen from analysis/ehsa_retest.py (output in analysis/ehsa_retest_spi03*.txt).
+HOTSPOT_WINDOW = 12
+
 
 def month_position(month):
     """'YYYY-MM' -> 0-based position in the record (PERIOD[0] is 0)."""

@@ -7,7 +7,9 @@
     "dev": "observable preview",
     "build": "observable build",
     "serve": "python -m http.server 3211 --directory dist --bind 127.0.0.1",
-    "clean": "rimraf site/.observablehq/cache dist"
+    "deploy": "pwsh -NoProfile -File tools/deploy.ps1",
+    "deploy:check": "pwsh -NoProfile -File tools/deploy.ps1 -DryRun",
+    "clean":"rimraf site/.observablehq/cache dist"
   },
   "dependencies": {
     "@observablehq/framework": "^1.13.4"

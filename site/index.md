@@ -6,7 +6,7 @@ title: Exploring dry and wet conditions in Indonesia
 /* ---------- page ---------- */
 .page-head {margin: 0.5rem 0 1.25rem;}
 .page-head h1 {margin: 0 0 0.4rem; font-size: 2rem; line-height: 1.15; max-width: none;}
-.lede {margin: 0; max-width: 78ch; color: #52514e; font-size: 1rem; line-height: 1.5;}
+.lede {margin: 0; max-width: none; color: #52514e; font-size: 1rem; line-height: 1.5;}
 h2 {margin-top: 2rem;}
 
 /* ---------- control panel: what, where, when ---------- */
@@ -35,8 +35,19 @@ h2 {margin-top: 2rem;}
 .crumbs a {text-decoration: underline;}
 .crumb-sep {color: #898781;}
 .crumb-hint {margin-left: 0.6rem;}
-.month-label {font-size: 1.35rem; font-weight: 600; min-width: 11.5ch; white-space: nowrap;}
-.month-slider input {width: 100%; margin: 0;}
+/* The label has a fixed width, wide enough for "September 2025", so the buttons and the slider stay put
+   when the month name changes length. */
+.month-label {font-size: 1.35rem; font-weight: 600; width: 9.6rem; white-space: nowrap;}
+/* The slider marks ONE month, so its track is plain on both sides of the handle: a filled track would read
+   as a selected period from 1950 to the handle. */
+.month-slider {display: flex; align-items: center;}
+.month-slider input[type=range] {-webkit-appearance: none; appearance: none; width: 100%; height: 4px; margin: 0; padding: 0; background: #c3c2b7; border-radius: 2px; cursor: pointer;}
+.month-slider input[type=range]::-webkit-slider-runnable-track {height: 4px; background: transparent;}
+.month-slider input[type=range]::-moz-range-track {height: 4px; background: #c3c2b7; border-radius: 2px;}
+.month-slider input[type=range]::-moz-range-progress {background: transparent;}
+.month-slider input[type=range]::-webkit-slider-thumb {-webkit-appearance: none; appearance: none; width: 16px; height: 16px; margin-top: -6px; border-radius: 50%; background: #0b0b0b; border: 2px solid #fcfcfb; box-shadow: 0 0 0 1px #0b0b0b;}
+.month-slider input[type=range]::-moz-range-thumb {width: 12px; height: 12px; border-radius: 50%; background: #0b0b0b; border: 2px solid #fcfcfb; box-shadow: 0 0 0 1px #0b0b0b;}
+.month-slider input[type=range]:focus-visible {outline: 2px solid #2a78d6; outline-offset: 6px;}
 .steps {display: inline-flex;}
 .steps .step {font: inherit; font-size: 1rem; line-height: 1; min-width: 2.1rem; padding: 0.35rem 0.5rem; border: 1px solid #c3c2b7; border-left-width: 0; background: #fcfcfb; color: #0b0b0b; cursor: pointer;}
 .steps .step:first-child {border-left-width: 1px; border-radius: 8px 0 0 8px;}
@@ -65,8 +76,9 @@ h2 {margin-top: 2rem;}
 
 /* ---------- cards and charts: room between title, note, legend and chart ---------- */
 .card {padding: 1.1rem 1.25rem;}
-.card h3 {margin: 0 0 0.45rem; font-family: var(--sans-serif); font-size: 1.02rem; font-weight: 600; color: #0b0b0b;}
-.card > .fine, .card > div > .fine {margin: 0 0 1rem; max-width: 95ch; line-height: 1.45;}
+.card h3 {max-width: none; margin: 0 0 0.45rem; font-family: var(--sans-serif); font-size: 1.02rem; font-weight: 600; color: #0b0b0b;}
+.card > .fine, .card > div > .fine {margin: 0 0 1rem; max-width: none; line-height: 1.45;}
+p.fine {max-width: none;}
 .card figure {margin: 0;}
 .card figure > div:first-child, .card [class*="-swatches"] {margin: 0 0 0.9rem;}   /* Plot's legend row */
 .card figure > svg[class*="-ramp"], .card svg[class*="-ramp"] {margin: 0 0 0.9rem; display: block;}
@@ -78,9 +90,20 @@ h2 {margin-top: 2rem;}
 .tile-label {font-size: 0.8rem; color: #52514e; line-height: 1.4;}
 .caution {border-left: 4px solid #eda100; padding: 0.6rem 0.9rem; background: #fdf6e3; font-size: 0.9rem; border-radius: 0 8px 8px 0; margin: 0 0 1.25rem;}
 .caution > div + div {margin-top: 0.5rem;}
-.narrative p {max-width: 70ch;}
+/* the summary fills the page in two columns on a wide screen: full width, lines still short enough to read */
+.narrative {columns: 2 26rem; column-gap: 2.5rem; margin: 0 0 1.25rem;}
+.narrative p {max-width: none; margin: 0 0 0.7rem; break-inside: avoid;}
+/* values that come from the data */
+.dyn {font-weight: 600; font-family: var(--sans-serif); font-size: 0.95em; white-space: nowrap;}
+.dyn-n {color: #0b0b0b;}
+.dyn-d {color: #a2431a;}
+.dyn-w {color: #1d5fb0;}
+.jump {font-size: 0.85rem; color: #52514e; margin: 0 0 0.9rem; max-width: none;}
+.jump a {margin-left: 0.9rem;}
+h2[id] {scroll-margin-top: 1rem;}
 .fine {font-size: 0.8rem; color: #52514e;}
-.card table {margin-top: 0.4rem;}
+.card table {margin-top: 0.4rem; width: 100%; max-width: none;}
+.card table td a {white-space: nowrap;}
 details {margin: 0.4rem 0;}
 details p, details li {max-width: 75ch; font-size: 0.9rem;}
 </style>
@@ -93,7 +116,10 @@ details p, details li {max-width: 75ch; font-size: 0.9rem;}
 ```js
 import {files} from "./data/files.js";
 import {loadTyped, loadJSON, decodeEvents, percentileOf, ym, monthDate, monthLabel, monthsText} from "./components/load.js";
-import {classColours, classRgbTable, legendClasses, classLabel, sideWord, DRY, WET, NORMAL, INK} from "./components/palette.js";
+import {hotspotFiles} from "./data/hotspot_files.js";
+import {nationalFiles} from "./data/national_files.js";
+import {statusFiles} from "./data/status_files.js";
+import {classColours, classRgbTable, legendClasses, classLabel, classLabelRange, sideWord, patternStyle, patternRgbTable, eventStyle, eventRgbTable, eventLegend, DRY, WET, NORMAL, INK} from "./components/palette.js";
 import {drawMap, legend} from "./components/map.js";
 import {timeInteractions, timeSlider, rangeStore, monthOf} from "./components/timezoom.js";
 ```
@@ -130,6 +156,11 @@ const scaleInput = Inputs.radio(
 const scale = Generators.input(scaleInput);
 const showInput = Inputs.radio(new Map([["Dry and wet", "both"], ["Dry only", "dry"], ["Wet only", "wet"]]), {label: "Conditions", value: "both"});
 const show = Generators.input(showInput);
+// what the map draws: this month's class, or the space-time pattern of the months leading up to it (a test)
+const mapModeInput = Inputs.radio(new Map([["This month", "class"], ["How long", "howlong"], ["Status", "status"], ["Pattern", "pattern"]]), {label: "Map shows", value: "class"});
+const mapMode = Generators.input(mapModeInput);
+const hotspot = await hotspotFiles.meta.json();
+const statusMeta = await statusFiles.meta.json();
 const provInput = Inputs.select([null, ...units.slice().sort((a, b) => a.name.localeCompare(b.name))], {
   label: "Province",
   format: (u) => (u ? u.name : "All of Indonesia"),
@@ -204,6 +235,7 @@ function selectKec(id) {
     <div>${indexInput}</div>
     <div>${scaleInput}</div>
     <div>${showInput}</div>
+    <div>${mapModeInput}</div>
   </div>
   <div class="panel-row where">
     <div>${provInput}</div>
@@ -245,6 +277,19 @@ const codesOf = (side) => layer.classes.filter((c) => c.side === side).map((c) =
 // A dataset is one table of units: all provinces, or the kabupaten of one province.
 // `pos` turns a unit id into its place on the unit axis. Everything below reads through these three functions.
 const d1 = {share, mean, events: eventCols, summary, nU: meta.encoding.n_units, pos: (id) => id - 1, enc: meta.encoding};
+// Indonesia as one unit: every drawn cell at full area (pipeline/step6_national.py). Same layout as d1, one unit wide.
+const nationMeta = await nationalFiles.meta.json();
+const nation = nationMeta.unit;
+const d0 = await (async () => {
+  const f = nationalFiles.layers[tag];
+  return {
+    share: await loadTyped(`${tag}/national/share`, f.share, Uint16Array),
+    mean: await loadTyped(`${tag}/national/mean`, f.mean, Int16Array),
+    events: await loadJSON(`${tag}/national/events`, f.events),
+    summary: await loadJSON(`${tag}/national/summary`, f.summary),
+    nU: 1, pos: () => 0, enc: meta.encoding
+  };
+})();
 // share of a unit's valued area on one side, in percent; null where there is no value
 function sideShare(d, t, id, side) {
   if (d.side) { // kecamatan: the dry and wet totals are stored directly, so no rounding errors add up
@@ -323,9 +368,9 @@ const dKec = kab
   : null;
 const outlines3 = kab ? await loadJSON(`outlines3/${prov.id}`, files.outlines3[prov.id]) : null;
 // the selected unit is the deepest thing chosen; `ds` is the dataset it lives in
-const unit = kec ?? kab ?? prov;
-const ds = kec ? dKec : kab ? d2 : d1;
-const areaWord = kec ? "the kecamatan" : kab ? (String(kab.type ?? "").startsWith("Kota") ? "the city" : "the kabupaten") : "the province";
+const unit = kec ?? kab ?? prov ?? nation;
+const ds = kec ? dKec : kab ? d2 : prov ? d1 : d0;
+const areaWord = kec ? "the kecamatan" : kab ? (String(kab.type ?? "").startsWith("Kota") ? "the city" : "the kabupaten") : prov ? "the province" : "the country";
 const MIN_CELLS = meta.min_cells_note.value;
 ```
 
@@ -341,7 +386,8 @@ const scaleMeans = unit
         const L = files.layers[tg];
         out[sc] = kec ? await loadTyped(`${tg}/adm3/${prov.id}/mean`, L.adm3[prov.id].mean, Int16Array)
           : kab ? await loadTyped(`${tg}/adm2/${prov.id}/mean`, L.adm2[prov.id].mean, Int16Array)
-          : await loadTyped(`${tg}/mean`, L.mean, Int16Array);
+          : prov ? await loadTyped(`${tg}/mean`, L.mean, Int16Array)
+          : await loadTyped(`${tg}/national/mean`, nationalFiles.layers[tg].mean, Int16Array);
       }
       return out;
     })()
@@ -367,6 +413,39 @@ const cellFlag = earlyNow ? allFlagged : stepNow ? cellStep : null;
 const colours = classColours(layer.classes, show);
 const classByCode = new Map(layer.classes.map((c) => [c.code, c]));
 const hasValue = month >= layer.first_month_with_value;
+// pattern mode: the emerging hot spot category of each cell for the window of months ending at this month
+const hsLayer = hotspot.layers[tag] ?? null;
+const patternOn = mapMode === "pattern" && hsLayer != null;
+const hsFile = patternOn ? hsLayer.maps[decade] : null;
+const hsBlock = patternOn ? await loadTyped(`${tag}/hotspot/${decade}`, hotspotFiles.layers[tag][decade], Uint8Array) : null;
+const patternCodes = patternOn ? hsBlock.subarray((month - hsFile.first_month) * n, (month - hsFile.first_month + 1) * n) : null;
+const patternHasResult = patternOn && month >= hsLayer.first_month_with_result;
+const HSW = hotspot.parameters.window_months;
+// "How long" and "Status": where each cell stands in an event of its own (pipeline/step7_status.py)
+const stLayer = statusMeta.layers[tag] ?? null;
+const statusOn = (mapMode === "howlong" || mapMode === "status") && stLayer != null;
+const stFile = statusOn ? stLayer.maps[decade] : null;
+const stBlock = statusOn ? await loadTyped(`${tag}/status/${decade}`, statusFiles.layers[tag][decade], Uint8Array) : null;
+const stCodes = statusOn ? stBlock.subarray((month - stFile.first_month) * n, (month - stFile.first_month + 1) * n) : null;
+// whatever the mode, the map reads this: one code per drawn cell, a colour table, a legend, and words for a cell
+const overlay = patternOn
+  ? {
+      codes: patternCodes, rgb: patternRgbTable(index, show),
+      say: (code) => (code ? patternStyle(code, index).label.toLowerCase() : "no result"),
+      // only the categories present on the map this month, dry side first, so the legend is never 17 long for nothing
+      items: [10, 11, 12, 13, 14, 15, 16, 17, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+        .filter((code) => patternCodes.includes(code))
+        .map((code) => patternStyle(code, index, show))
+        .map((st) => ({colour: st.colour, label: st.shown === false ? "Other side, not shown" : st.label}))
+        .filter((st, i, a) => a.findIndex((o) => o.label === st.label) === i)
+    }
+  : statusOn
+    ? {
+        codes: stCodes, rgb: eventRgbTable(mapMode, index, show, statusMeta),
+        say: (code) => (code ? eventStyle(code, mapMode, index, "both", statusMeta).label.toLowerCase() : "no value"),
+        items: eventLegend(mapMode, index, show, statusMeta)
+      }
+    : null;
 ```
 
 <div class="card">
@@ -374,7 +453,8 @@ const hasValue = month >= layer.first_month_with_value;
 ```js
 display(
   resize((w) => drawMap({
-    grid: meta.grid, cells, cellFlag, classes: mapClasses, rgb: classRgbTable(layer.classes, show), outlines,
+    grid: meta.grid, cells, cellFlag, classes: overlay ? overlay.codes : mapClasses,
+    rgb: overlay ? overlay.rgb : classRgbTable(layer.classes, show), outlines,
     detail: [
       ...(kab ? outlines3.features.filter((f) => unit3ById.get(f.properties.id)?.adm2_id === kab.id) : []),
       ...(prov ? outlines2.features.filter((f) => unit2ById.get(f.properties.id)?.adm1_id === prov.id) : [])
@@ -389,7 +469,10 @@ display(
       const k = prov && u && u.id === prov.id ? unit2ById.get(cellUnit2[i]) : null;
       const e = kab && k && k.id === kab.id ? unit3ById.get(cellUnit3[i]) : null;
       const c = classByCode.get(mapClasses[i]);
-      return `${u ? u.name : "No province"}${k && k.assigned ? `, ${k.name}` : ""}${e && e.assigned ? `, ${e.name}` : ""}: ${c ? classLabel(c, index) : "no data"}${cellFlag && cellFlag[i] ? " (less reliable here in this period)" : ""}`;
+      const what = overlay
+        ? `${overlay.say(overlay.codes[i])} (this month: ${c ? classLabel(c, index) : "no data"})`
+        : (c ? classLabel(c, index) : "no data");
+      return `${u ? u.name : "No province"}${k && k.assigned ? `, ${k.name}` : ""}${e && e.assigned ? `, ${e.name}` : ""}: ${what}${cellFlag && cellFlag[i] ? " (less reliable here in this period)" : ""}`;
     },
     // a click opens a province; inside the open province it picks the kabupaten there; inside the open
     // kabupaten it picks the kecamatan there; the sea goes up one level
@@ -411,14 +494,17 @@ display(
 );
 display(
   legend({
-    items: legendClasses(layer.classes).map((c) => ({colour: colours.get(c.code), label: classLabel(c, index)})),
+    items: overlay ? overlay.items
+      : legendClasses(layer.classes).map((c) => ({colour: colours.get(c.code), label: classLabelRange(c, index)})),
     flagged: !!cellFlag,
     flagText: "Washed out: less reliable in this period"
   })
 );
 ```
 
-<div class="fine">${layer.label}, ${monthLabel(month)}. ${layer.measures[0].toUpperCase() + layer.measures.slice(1)} over ${monthsText(scale)}, against a ${layer.baseline.split(" ")[0]} baseline. ${hasValue ? "" : `No values yet: a ${scale}-month index needs ${monthsText(scale)} of data, so it starts in ${monthLabel(layer.first_month_with_value)}.`} ${index === "eddi" ? "For EDDI the warm colours mean high evaporative demand and the cool colours low demand, not wet conditions." : ""}</div>
+<div class="fine">${statusOn ? html`<strong>${mapMode === "howlong" ? "How long." : "Status."}</strong> Each cell is read on its own: an event there begins in the first month its ${layer.label} reaches ${index === "eddi" ? "+1.0 or −1.0" : "−1.0 or +1.0"} and runs until the index crosses zero. ${mapMode === "howlong"
+  ? "The colour is the number of months the event has run so far, up to the month shown."
+  : `An event is new in its first two months. After that it is deepening when the cell is at or beyond the onset level and further from zero than a month earlier, persisting when it is at or beyond that level but no further, and easing once it is back inside the level without having crossed zero. Ended marks the month an event stops.`} A cell's event is not its ${prov ? "kabupaten's or " : ""}province's event, which is found on the mean of the whole area. The ${mapMode === "howlong" ? "bins" : "five states"} are this dashboard's own and are still open to change. ` : ""}${patternOn ? html`<strong>Pattern.</strong> Each cell is classed from the ${HSW} months ending in ${monthLabel(month)} by emerging hot spot analysis. A ${sideWord("dry", index)} cluster (a hot spot, in the method's words) is a neighbourhood whose values sit on the ${sideWord("dry", index)} side of normal by more than chance would give, and a ${sideWord("wet", index)} cluster (a cold spot) one on the ${sideWord("wet", index)} side. The bar is low: neighbouring cells move together, so a neighbourhood only mildly off normal already counts, and a cluster is not a class. Hover a cell to see its class this month beside its pattern. The categories say whether the clustering is new, has run without a break (consecutive), has held for at least 90% of the months (persistent, intensifying or diminishing), comes and goes (sporadic), or has swung from the other side (oscillating). "Historical" means clustered for at least 90% of the months but not in the last one. ${patternHasResult ? "" : `No result yet: the window needs ${HSW} months of values, so results start in ${monthLabel(hsLayer.first_month_with_result)}.`} The categories and their rules are Esri's. Three things are choices made here and still open: the neighbourhood (3 by 3 cells and the month before), the window length, and measuring against normal where Esri's tool measures against the average of the data itself. ` : ""}${layer.label}, ${monthLabel(month)}. ${layer.measures[0].toUpperCase() + layer.measures.slice(1)} over ${monthsText(scale)}, against a ${layer.baseline.split(" ")[0]} baseline. ${hasValue ? "" : `No values yet: a ${scale}-month index needs ${monthsText(scale)} of data, so it starts in ${monthLabel(layer.first_month_with_value)}.`} ${index === "eddi" ? "For EDDI the warm colours mean high evaporative demand and the cool colours low demand, not wet conditions." : ""}</div>
 
 </div>
 
@@ -426,9 +512,10 @@ display(
 // flag notes for the month on screen
 const cautions = [];
 if (earlyNow) cautions.push("Less reliable period. Before 1970, TerraClimate's annual rainfall is lower than rain gauges at the same places: by about 10% of normal in the 1950s and 4% in the 1960s. Dry conditions in this period are likely overstated.");
-if (stepNow && (!unit || unit.step_1984_majority)) cautions.push(`Less reliable period. In northern and central Sumatra and West Kalimantan, TerraClimate's inputs change at the start of 1984. Before that it reads about 20% drier than the three rain gauges checked inside the region. ${unit ? `${Math.round(unit.step_1984_share * 100)}% of ${unit.name}'s cell area is affected.` : "Affected cells are washed out on the map."}`);
+if (stepNow && (!prov || unit.step_1984_majority)) cautions.push(`Less reliable period. In northern and central Sumatra and West Kalimantan, TerraClimate's inputs change at the start of 1984. Before that it reads about 20% drier than the three rain gauges checked inside the region. ${Math.round(unit.step_1984_share * 100)}% of ${unit.name}'s cell area is affected${prov ? "" : "; those cells are washed out on the map"}.`);
 if (unit && unit.n_cells < MIN_CELLS) cautions.push(`Small area. Only ${unit.n_cells} grid ${unit.n_cells === 1 ? "cell touches" : "cells touch"} ${unit.name}, each about 21 square kilometres, so its percentages move in steps of about ${Math.round(100 / unit.n_cells)} points and include land just outside its boundary.`);
-if (unit && index !== "eddi" && show !== "wet") {
+// (not for the country: a mean over all of Indonesia has a narrow range in every month, for a different reason)
+if (prov && index !== "eddi" && show !== "wet") {
   // lowest value this unit has ever had in this calendar month, at the chosen period
   let lowest = Infinity, count = 0;
   for (let t = month % 12; t <= LAST; t += 12) {
@@ -441,29 +528,6 @@ if (unit && index !== "eddi" && show !== "wet") {
   }
 }
 display(cautions.length ? html`<div class="caution">${cautions.map((c) => html`<div>${c}</div>`)}</div>` : html`<span></span>`);
-```
-
-```js
-// province panel, or the all-provinces table when none is selected
-if (!prov) {
-  const rows = units.map((u) => ({
-    Province: u.name,
-    "Island group": u.island_group,
-    [DRYCOL]: sideShare(d1, month, u.id, "dry"),
-    [WETCOL]: sideShare(d1, month, u.id, "wet"),
-    "Mean index": meanAt(d1, month, u.id)
-  }));
-  display(html`<h2>All provinces, ${monthLabel(month)}</h2>`);
-  display(hasValue
-    ? Inputs.table(rows, {
-        sort: DRYCOL, reverse: true, rows: 38, select: false,
-        format: {[DRYCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), [WETCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), "Mean index": (d) => (d == null ? "no data" : d.toFixed(2))}
-      })
-    : html`<p>No values for this month at this accumulation period.</p>`);
-  display(html`<p class="fine">Share of each province's cell area in a ${DRYW} or ${WETW} class this month. A province's figure uses every grid cell its boundary touches. Choose a province for its history.</p>`);
-} else {
-  display(html`<div></div>`); // always display: a block that displays nothing keeps its previous output on screen
-}
 ```
 
 ```js
@@ -490,6 +554,7 @@ if (sel) {
   display(html`<h2>${unit.name}${kec ? `, ${kab.name}` : ""}${kab ? `, ${prov.name}` : ""}, ${monthLabel(month)}</h2>
   ${kec ? html`<p class="fine"><a href="#" onclick=${(e) => { e.preventDefault(); selectKec(null); }}>Back to ${kab.name}</a></p>`
     : kab ? html`<p class="fine"><a href="#" onclick=${(e) => { e.preventDefault(); selectKab(null); }}>Back to ${prov.name}</a></p>` : ""}
+  <p class="jump">On this page: <a href="#over-time">Over time</a><a href="#events">Past events</a><a href="#enso">El Niño and La Niña</a><a href="#how-to-read">How to read this</a></p>
   <div class="grid grid-cols-4">
     <div class="card"><div class="tile-value">${pct(sel.dry)}</div><div class="tile-label">of area in a ${DRYW} class</div></div>
     <div class="card"><div class="tile-value">${pct(sel.wet)}</div><div class="tile-label">of area in a ${WETW} class</div></div>
@@ -505,17 +570,33 @@ if (sel) {
 // narrative: every sentence is built from the numbers above and guards its own edge cases
 if (sel) {
   const parts = [];
+  // A value taken from the data is wrapped in a marker, kind|text, and drawn as a coloured span by `rich`:
+  // d = dry side, w = wet side, n = neither. The sentences stay plain strings, so they are easy to read here.
+  const mark = (kind, x) => `⟦${kind}|${x}⟧`;
+  const N = (x) => mark("n", x), D = (x) => mark("d", x), W = (x) => mark("w", x);
+  const V = (v) => mark(v * layer.dry_sign >= 1 ? "d" : v * layer.dry_sign <= -1 ? "w" : "n", v.toFixed(2)); // an index value, by its side
+  const rich = (text) => {
+    const out = [];
+    let last = 0;
+    for (const m of text.matchAll(/⟦([ndw])\|([^⟧]*)⟧/g)) {
+      out.push(text.slice(last, m.index), html`<span class=${`dyn dyn-${m[1]}`}>${m[2]}</span>`);
+      last = m.index + m[0].length;
+    }
+    out.push(text.slice(last));
+    return html`<p>${out}</p>`;
+  };
   if (sel.dry == null) {
     parts.push(`${layer.label} has no value for ${unit.name} in ${monthLabel(month)}: a ${scale}-month index starts in ${monthLabel(layer.first_month_with_value)}.`);
   } else {
-    parts.push(`In ${monthLabel(month)}, ${sel.dry.toFixed(0)}% of ${unit.name}'s area was in a ${DRYW} class and ${sel.wet.toFixed(0)}% in a ${WETW} class on ${layer.label}.`);
+    parts.push(`In ${monthLabel(month)}, ${D(`${sel.dry.toFixed(0)}%`)} of ${unit.name}'s area was in a ${DRYW} class and ${W(`${sel.wet.toFixed(0)}%`)} in a ${WETW} class on ${layer.label}.`);
     if (sel.now) {
       const side = sel.now.side === 0 ? DRYW : WETW;
       const sofar = month - sel.now.start + 1;
+      const K = sel.now.side === 0 ? D : W;
       const tail = sel.now.open
-        ? month === LAST ? "It was still running at the end of the record." : `It was still running at the end of the record, ${monthsText(sel.now.duration)} after it began.`
-        : `It lasted ${monthsText(sel.now.duration)} in all, until ${monthLabel(sel.now.end)}.`;
-      parts.push(`Taken as a whole, ${areaWord} was ${monthsText(sofar)} into a ${side} event that began in ${monthLabel(sel.now.start)}. ${tail}`);
+        ? month === LAST ? "It was still running at the end of the record." : `It was still running at the end of the record, ${K(monthsText(sel.now.duration))} after it began.`
+        : `It lasted ${K(monthsText(sel.now.duration))} in all, until ${N(monthLabel(sel.now.end))}.`;
+      parts.push(`Taken as a whole, ${areaWord} was ${K(monthsText(sofar))} into a ${side} event that began in ${N(monthLabel(sel.now.start))}. ${tail}`);
     } else {
       parts.push(`Taken as a whole, ${areaWord} was not in an event this month.`);
     }
@@ -524,11 +605,162 @@ if (sel) {
   const sw = show === "wet" ? WETW : DRYW;
   if (s && s.n_events_unflagged > 0) {
     const open = s.longest_unflagged_is_open ? " and is still running, so that length is so far" : "";
-    parts.push(`Outside the less reliable periods, the record holds ${s.n_events_unflagged} ${sw} ${s.n_events_unflagged === 1 ? "event" : "events"} for ${unit.name} at this accumulation period. The longest began in ${monthLabel((+s.longest_unflagged_start.slice(0, 4) - 1950) * 12 + (+s.longest_unflagged_start.slice(5, 7) - 1))} and ran for ${monthsText(s.longest_unflagged_months)}${open}.`);
+    const K = show === "wet" ? W : D;
+    parts.push(`Outside the less reliable periods, the record holds ${K(s.n_events_unflagged)} ${sw} ${s.n_events_unflagged === 1 ? "event" : "events"} for ${unit.name} at this accumulation period. The longest began in ${N(monthLabel((+s.longest_unflagged_start.slice(0, 4) - 1950) * 12 + (+s.longest_unflagged_start.slice(5, 7) - 1)))} and ran for ${K(monthsText(s.longest_unflagged_months))}${open}.`);
   } else if (s) {
     parts.push(`The record holds no ${sw} event for ${unit.name} outside the less reliable periods at this accumulation period.`);
   }
-  display(html`<div class="narrative">${parts.map((p) => html`<p>${p}</p>`)}</div>`);
+  // ---- more of the story, each sentence from the data and each guarding its own gaps
+  const more = [];
+  const ord = (k) => `${k}${k % 100 >= 11 && k % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][k % 10] ?? "th"}`;
+  const pc = (v) => `${v.toFixed(0)}%`;
+  const from = reliableFrom(sel.flaggedProv);
+  const sinceYear = 1950 + Math.floor(from / 12);
+  const monthName = monthLabel(month).split(" ")[0];
+  const sgn = layer.dry_sign;
+  if (sel.mean != null) {
+    // where this month stands among the same calendar month, outside the less reliable periods
+    const same = [];
+    for (let t = month % 12; t <= LAST; t += 12) {
+      if (t < from) continue;
+      const v = meanAt(ds, t, sel.id);
+      if (v != null) same.push(v * sgn);
+    }
+    if (month >= from && same.length >= 10) {
+      const mine = sel.mean * sgn;
+      const rankDry = same.filter((d) => d > mine).length + 1;
+      const rankWet = same.filter((d) => d < mine).length + 1;
+      const word = rankDry <= rankWet
+        ? `${ord(rankDry)} ${index === "eddi" ? "highest in demand" : "driest"}`
+        : `${ord(rankWet)} ${index === "eddi" ? "lowest in demand" : "wettest"}`;
+      more.push(index === "eddi"
+        ? `Its mean ${layer.label} of ${V(sel.mean)} ranks ${rankDry <= rankWet ? D(`${ord(rankDry)} highest`) : W(`${ord(rankWet)} lowest`)} in evaporative demand among the ${N(same.length)} ${monthName}s since ${sinceYear}.`
+        : `Its mean ${layer.label} of ${V(sel.mean)} makes this the ${(rankDry <= rankWet ? D : W)(word.replace(/^1st /, ""))} ${monthName} of the ${N(same.length)} since ${sinceYear}.`);
+    }
+    // change on a month and on a year earlier
+    const was = (t) => (t >= 0 ? {dry: sideShare(ds, t, sel.id, "dry"), wet: sideShare(ds, t, sel.id, "wet")} : null);
+    const m1 = was(month - 1), y1 = was(month - 12);
+    const bits = [];
+    if (m1 && m1.dry != null) bits.push(`a month earlier the ${DRYW} share was ${D(pc(m1.dry))} and the ${WETW} share ${W(pc(m1.wet))}`);
+    if (y1 && y1.dry != null) bits.push(`a year earlier, ${D(pc(y1.dry))} and ${W(pc(y1.wet))}`);
+    if (bits.length) more.push(`${cap(bits.join("; "))}.`);
+    // the four accumulation periods
+    const per = SCALES.map((sc) => ({sc, v: scaleMean(sc, month)})).filter((x) => x.v != null);
+    if (per.length === SCALES.length) {
+      const gap = (per[3].v - per[0].v) * sgn; // positive: the 12-month value is further to the dry side
+      const lean = gap > 0.5 ? ` The 12-month reading is ${index === "eddi" ? "higher in demand" : "drier"} than the 1-month one.`
+        : gap < -0.5 ? ` The 12-month reading is ${index === "eddi" ? "lower in demand" : "wetter"} than the 1-month one.` : "";
+      more.push(`Mean ${index.toUpperCase()} over 1, 3, 6 and 12 months was ${per.map((x) => V(x.v)).join(", ").replace(/, ([^,]*)$/, " and $1")}.${lean}`);
+    }
+  }
+  // the places inside
+  const inside = !prov ? {d: d1, list: units, many: "provinces", one: "province"}
+    : !kab ? {d: d2, list: d2.kids.map((id) => unit2ById.get(id)).filter((u) => u && u.assigned), many: "kabupaten and kota", one: "kabupaten or kota"}
+    : !kec ? {d: dKec, list: dKec.kids.map((id) => unit3ById.get(id)).filter((u) => u && u.adm2_id === kab.id && u.assigned), many: "kecamatan", one: "kecamatan"}
+    : null;
+  if (inside && sel.dry != null) {
+    const side = show === "wet" ? "wet" : "dry";
+    const w = side === "wet" ? WETW : DRYW;
+    const ranked = inside.list.map((u) => ({name: u.name, v: sideShare(inside.d, month, u.id, side)})).filter((x) => x.v != null).sort((x, y) => y.v - x.v);
+    const over = ranked.filter((x) => x.v > 50);
+    const K = side === "wet" ? W : D;
+    const names = (arr) => arr.map((x) => `${N(x.name)} (${K(pc(x.v))})`).join(", ").replace(/, ([^,]*)$/, " and $1");
+    if (ranked.length > 1) {
+      more.push(over.length
+        ? `${K(over.length)} of ${N(ranked.length)} ${inside.many} had more than half their area in a ${w} class, led by ${names(over.slice(0, 3))}.`
+        : ranked[0].v > 0
+          ? `No ${inside.one} had more than half its area in a ${w} class; the highest was ${N(ranked[0].name)} at ${K(pc(ranked[0].v))}.`
+          : `No ${inside.one} had any area in a ${w} class.`);
+    }
+  }
+  // ENSO: the state of the Pacific this month, and what this calendar month has looked like in each phase
+  const ep = enso.events.find((e) => e.start <= month && month <= e.end);
+  const pacific = ep
+    ? `the ${N(ord(month - ep.start + 1))} month of a ${N(`${ep.strength} ${phaseName(ep.phase)}`)} episode that began in ${N(monthLabel(ep.start))}`
+    : "in neither an El Niño nor a La Niña episode";
+  const byPhase = PHASES.map((ph) => {
+    let sum = 0, k = 0;
+    for (let t = month % 12; t <= LAST; t += 12) {
+      if (t < from || enso.phase[t] !== ph.p) continue;
+      const v = meanAt(ds, t, sel.id);
+      if (v != null) { sum += v; k++; }
+    }
+    return {name: ph.name, k, mean: k ? sum / k : null};
+  }).filter((x) => x.k >= 3);
+  const usual = byPhase.length >= 2
+    ? ` Since ${sinceYear}, ${unit.name}'s mean ${layer.label} in ${monthName} has averaged ${byPhase.map((x) => `${V(x.mean)} in ${x.name === "Neutral" ? "neutral" : x.name} months (${x.k})`).join(", ").replace(/, ([^,]*)$/, " and $1")}.`
+    : "";
+  more.push(`In the tropical Pacific the Relative Oceanic Niño Index stood at ${N(enso.roni[month].toFixed(2))}, ${pacific}.${usual}`);
+  display(html`<div class="narrative">${parts.map(rich)}${more.map(rich)}</div>`);
+} else {
+  display(html`<div></div>`); // always display: a block that displays nothing keeps its previous output on screen
+}
+```
+
+```js
+// province panel, or the all-provinces table when none is selected
+if (!prov) {
+  const rows = units.map((u) => ({
+    Province: u.name,
+    "Island group": u.island_group,
+    [DRYCOL]: sideShare(d1, month, u.id, "dry"),
+    [WETCOL]: sideShare(d1, month, u.id, "wet"),
+    "Mean index": meanAt(d1, month, u.id)
+  }));
+  display(html`<h2>Inside Indonesia: the provinces, ${monthLabel(month)}</h2>`);
+  display(hasValue
+    ? Inputs.table(rows, {
+        sort: DRYCOL, reverse: true, rows: 38, select: false,
+        format: {[DRYCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), [WETCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), "Mean index": (d) => (d == null ? "no data" : d.toFixed(2))}
+      })
+    : html`<p>No values for this month at this accumulation period.</p>`);
+  display(html`<p class="fine">Share of each province's cell area in a ${DRYW} or ${WETW} class this month. A province's figure uses every grid cell its boundary touches. Choose a province for its history.</p>`);
+} else {
+  display(html`<div></div>`); // always display: a block that displays nothing keeps its previous output on screen
+}
+```
+
+```js
+// the open province's kabupaten and kota this month: a way in for readers who do not know where one is on the map
+if (prov && !kab) {
+  const rows = d2.kids.map((id) => unit2ById.get(id)).filter((u) => u.assigned).map((u) => ({
+    "Kabupaten or kota": u.name,
+    [DRYCOL]: sideShare(d2, month, u.id, "dry"),
+    [WETCOL]: sideShare(d2, month, u.id, "wet"),
+    "Mean index": meanAt(d2, month, u.id),
+    "Grid cells": u.n_cells
+  }));
+  display(html`<h2>Inside ${prov.name}, ${monthLabel(month)}</h2>`);
+  display(hasValue
+    ? Inputs.table(rows, {
+        sort: DRYCOL, reverse: true, rows: Math.min(rows.length, 40), select: false,
+        format: {[DRYCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), [WETCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), "Mean index": (d) => (d == null ? "no data" : d.toFixed(2))}
+      })
+    : html`<p>No values for this month at this accumulation period.</p>`);
+  display(html`<p class="fine">${rows.length} kabupaten and kota. Click one on the map, or choose it from the menu, for its history. Those touching fewer than ${MIN_CELLS} grid cells give coarse percentages.</p>`);
+} else {
+  display(html`<div></div>`); // always display: a block that displays nothing keeps its previous output on screen
+}
+```
+
+```js
+// the open kabupaten's kecamatan this month
+if (kab && !kec) {
+  const rows = dKec.kids.map((id) => unit3ById.get(id)).filter((u) => u && u.adm2_id === kab.id && u.assigned).map((u) => ({
+    Kecamatan: u.name,
+    [DRYCOL]: sideShare(dKec, month, u.id, "dry"),
+    [WETCOL]: sideShare(dKec, month, u.id, "wet"),
+    "Mean index": meanAt(dKec, month, u.id),
+    "Grid cells": u.n_cells
+  }));
+  display(html`<h2>Inside ${kab.name}, ${monthLabel(month)}</h2>`);
+  display(hasValue
+    ? Inputs.table(rows, {
+        sort: DRYCOL, reverse: true, rows: Math.min(Math.max(rows.length, 1), 40), select: false,
+        format: {[DRYCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), [WETCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), "Mean index": (d) => (d == null ? "no data" : d.toFixed(2))}
+      })
+    : html`<p>No values for this month at this accumulation period.</p>`);
+  display(html`<p class="fine">${rows.length} kecamatan. Click one on the map, or choose it from the menu, for its history. A kecamatan usually touches only a handful of grid cells, most of them shared with its neighbours: read its percentages as rough.</p>`);
 } else {
   display(html`<div></div>`); // always display: a block that displays nothing keeps its previous output on screen
 }
@@ -544,7 +776,7 @@ const series = sel
       const rest = (label, others) => ({label, colour: NORMAL, get: (t) => Math.max(0, 100 - others.reduce((sum, o) => sum + o.get(t), 0))});
       const at = (t) => (t * ds.nU + ds.pos(sel.id)) * NC;
       const hasValue1 = (t) => ds.share[at(t)] !== ds.enc.share_missing;
-      const band = (c) => ({label: classLabel(c, index), colour: colours.get(c.code), get: (t) => (ds.share[at(t) + c.code - 1] / ds.enc.share_scale) * 100});
+      const band = (c) => ({label: classLabelRange(c, index), colour: colours.get(c.code), get: (t) => (ds.share[at(t) + c.code - 1] / ds.enc.share_scale) * 100});
       const occurring = layer.classes.filter((c) => c.occurs);
       const wet = occurring.filter((c) => c.side === "wet").sort((x, y) => y.rank - x.rank).map(band);   // most severe at the bottom
       const normal = occurring.filter((c) => c.side === "normal").map(band);
@@ -580,7 +812,7 @@ const series = sel
 // Years on show: an overview of the whole record with a window to drag. Built here, in a block that does
 // not read `timeRange`, so moving the window never rebuilds the slider under the reader's pointer.
 if (sel) {
-  display(html`<div class="card">
+  display(html`<h2 id="over-time">Over time</h2><div class="card">
     <div class="fine"><strong>Years shown in the charts.</strong> Drag the window to move it, or drag one of its edges to show more or fewer years. The shape behind it is ${unit.name}'s mean ${layer.label} since 1950: warm below the line for ${DRYW}, cool above for ${WETW}.</div>
     ${resize((w) => timeSlider({
       width: w, last: LAST, minSpan: 12,
@@ -704,6 +936,60 @@ if (sel) {
 ```
 
 ```js
+// Trend: the unit's index averaged by calendar year, on the years outside the less reliable periods.
+// Theil-Sen slope (the median of the slopes between every pair of years) and the Mann-Kendall test, both on
+// those annual values. Computed here from at most 56 numbers of the unit's stored mean series.
+if (sel) {
+  const from = reliableFrom(sel.flaggedProv);
+  const y0 = 1950 + Math.ceil(from / 12);
+  const years = [];
+  for (let y = y0; y <= 2025; y++) {
+    let sum = 0, k = 0;
+    for (let m = 0; m < 12; m++) { const v = meanAt(ds, (y - 1950) * 12 + m, sel.id); if (v != null) { sum += v; k++; } }
+    if (k === 12) years.push({year: y, date: new Date(Date.UTC(y, 6, 1)), value: sum / 12});
+  }
+  const nY = years.length;
+  let card = html`<div class="card"><h3>Trend</h3><div class="fine">Too few complete years outside the less reliable periods to estimate a trend.</div></div>`;
+  if (nY >= 20) {
+    const slopes = [];
+    let S = 0;
+    for (let i = 0; i < nY - 1; i++) for (let j = i + 1; j < nY; j++) {
+      slopes.push((years[j].value - years[i].value) / (years[j].year - years[i].year));
+      S += Math.sign(years[j].value - years[i].value);
+    }
+    slopes.sort((a, b) => a - b);
+    const slope = d3.median(slopes);
+    const mid = d3.median(years, (d) => d.value) - slope * d3.median(years, (d) => d.year);
+    const sd = Math.sqrt((nY * (nY - 1) * (2 * nY + 5)) / 18);
+    const z = S > 0 ? (S - 1) / sd : S < 0 ? (S + 1) / sd : 0;
+    const pval = 2 * (1 - percentileOf(Math.abs(z)) / 100);
+    const perDecade = slope * 10;
+    const toward = perDecade * layer.dry_sign > 0 ? (index === "eddi" ? "higher evaporative demand" : "drier conditions") : (index === "eddi" ? "lower evaporative demand" : "wetter conditions");
+    const line = [{date: years[0].date, value: mid + slope * years[0].year}, {date: years[nY - 1].date, value: mid + slope * years[nY - 1].year}];
+    const first = d3.mean(years.slice(0, 10), (d) => d.value), last = d3.mean(years.slice(-10), (d) => d.value);
+    card = html`<div class="card">
+      <h3>Trend: annual mean ${layer.label}, ${y0} to 2025</h3>
+      <div class="fine">Each bar is the mean of the twelve monthly values of a year. Over these ${nY} years the annual mean moved by ${perDecade >= 0 ? "+" : "−"}${Math.abs(perDecade).toFixed(2)} per decade, toward ${toward} (Theil-Sen slope; Mann-Kendall p ${pval < 0.001 ? "below 0.001" : `= ${pval.toFixed(3)}`}). The first ten of these years average ${first.toFixed(2)} and the last ten ${last.toFixed(2)}. ${pval < 0.05 ? "A trend this size is unlikely to be chance alone, but that does not say what caused it." : "A trend this size could be chance."} ${index === "eddi" ? "Evaporative demand rises with temperature, so part of an EDDI trend is warming." : "The recent wetter years also appear in rain gauges and in a second rainfall product checked for this project; the earlier decades are less certain."} Years in the less reliable periods are left out.</div>
+      ${resize((w) => Plot.plot({
+        width: w, height: 220, marginLeft: 44,
+        x: {type: "utc", label: null},
+        y: {label: `Annual mean ${layer.label}`, grid: true, nice: true},
+        marks: [
+          Plot.rectY(years, {x1: (d) => new Date(Date.UTC(d.year, 0, 15)), x2: (d) => new Date(Date.UTC(d.year, 11, 15)), y: "value",
+            fill: (d) => (d.value * layer.dry_sign > 0 ? DRY[2] : WET[2]), title: (d) => `${d.year}: ${d.value.toFixed(2)}`}),
+          Plot.ruleY([0], {stroke: INK.axis}),
+          Plot.line(line, {x: "date", y: "value", stroke: INK.primary, strokeWidth: 1.5, strokeDasharray: pval < 0.05 ? null : "4,3"})
+        ]
+      }))}
+    </div>`;
+  }
+  display(card);
+} else {
+  display(html`<div></div>`); // always display: a block that displays nothing keeps its previous output on screen
+}
+```
+
+```js
 if (sel) {
   const row = (s, word) => s ? html`<tr>
     <td>${word[0].toUpperCase() + word.slice(1)}</td>
@@ -711,7 +997,7 @@ if (sel) {
     <td>${s.longest_months == null ? "none" : `${monthsText(s.longest_months)} from ${s.longest_start}${s.longest_is_open ? ", so far" : ""}`}</td>
     <td>${s.longest_unflagged_months == null ? "none" : `${monthsText(s.longest_unflagged_months)} from ${s.longest_unflagged_start}${s.longest_unflagged_is_open ? ", so far" : ""}`}</td>
     <td>${s.share_of_months_in_events == null ? "no data" : `${(s.share_of_months_in_events * 100).toFixed(0)}%`}</td></tr>` : html`<span></span>`;
-  display(html`<div class="card"><h3>Events on record, ${unit.name}, ${layer.label}</h3>
+  display(html`<h2 id="events">Past events</h2><div class="card"><h3>Events on record, ${unit.name}, ${layer.label}</h3>
   <table><thead><tr><th>Side</th><th>Events</th><th>Outside less reliable periods</th><th>Longest</th><th>Longest outside less reliable periods</th><th>Share of months inside an event</th></tr></thead>
   <tbody>${show === "wet" ? "" : row(sel.sumDry, DRYW)}${show === "dry" ? "" : row(sel.sumWet, WETW)}</tbody></table>
   <div class="fine">Being inside an event is not the same as being ${DRYW} this month: an event runs from the first month at the onset level until the index crosses zero.</div></div>`);
@@ -721,52 +1007,242 @@ if (sel) {
 ```
 
 ```js
-// the open province's kabupaten and kota this month: a way in for readers who do not know where one is on the map
-if (prov && !kab) {
-  const rows = d2.kids.map((id) => unit2ById.get(id)).filter((u) => u.assigned).map((u) => ({
-    "Kabupaten or kota": u.name,
-    [DRYCOL]: sideShare(d2, month, u.id, "dry"),
-    [WETCOL]: sideShare(d2, month, u.id, "wet"),
-    "Mean index": meanAt(d2, month, u.id),
-    "Grid cells": u.n_cells
-  }));
-  display(html`<h2>Inside ${prov.name}, ${monthLabel(month)}</h2>`);
-  display(hasValue
-    ? Inputs.table(rows, {
-        sort: DRYCOL, reverse: true, rows: Math.min(rows.length, 40), select: false,
-        format: {[DRYCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), [WETCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), "Mean index": (d) => (d == null ? "no data" : d.toFixed(2))}
-      })
-    : html`<p>No values for this month at this accumulation period.</p>`);
-  display(html`<p class="fine">${rows.length} kabupaten and kota. Click one on the map, or choose it from the menu, for its history. Those touching fewer than ${MIN_CELLS} grid cells give coarse percentages.</p>`);
+// How severe were the events: the run-theory measures of every event of the selected unit.
+//   duration   months from the first month at the onset level to the last month before the index crosses zero
+//   magnitude  sum of the absolute mean index over those months (index-months)
+//   intensity  magnitude divided by duration
+//   peak       the most extreme monthly mean during the event
+// All are computed in pipeline/events.py on the unit's mean index and only read here.
+if (sel) {
+  const sideOf = (e) => (e.side === 0 ? "dry" : "wet");
+  const wordOf = (e) => (e.side === 0 ? DRYW : WETW);
+  const evs = sel.ev
+    .filter((e) => show === "both" || show === sideOf(e))
+    .map((e) => ({...e, word: wordOf(e), intensity: e.magnitude / e.duration, decade: 1950 + Math.floor(e.start / 120) * 10, current: sel.now != null && e.start === sel.now.start && e.side === sel.now.side}));
+  const ranked = evs.slice().sort((a, b) => b.magnitude - a.magnitude);
+  const rankOf = new Map(ranked.map((e, i) => [e, i + 1]));
+  const top = ranked.slice(0, 10);
+  const goTo = (e) => (ev) => {
+    ev.preventDefault();
+    const span = timeRange[1] - timeRange[0] + 1;
+    const mid = Math.round((e.start + e.end) / 2);
+    setTimeRange(mid - Math.floor(span / 2), mid - Math.floor(span / 2) + span - 1);
+    setMonth(e.start);
+  };
+  const sideColour = {domain: [cap(DRYW), cap(WETW)], range: [DRY[3], WET[3]]};
+  const decades = d3.range(1950, 2030, 10);
+  const perDecade = [];
+  for (const dcd of decades) for (const side of ["dry", "wet"]) {
+    if (show !== "both" && show !== side) continue;
+    for (const fl of [0, 1]) {
+      const k = evs.filter((e) => e.decade === dcd && sideOf(e) === side && e.flagged === fl).length;
+      if (k) perDecade.push({decade: `${dcd}s`, side: cap(side === "dry" ? DRYW : WETW), flagged: fl, n: k});
+    }
+  }
+  const nowRank = sel.now ? evs.find((e) => e.current) : null;
+  display(evs.length ? html`<div class="card">
+    <h3>How severe: every event of ${unit.name}, ${layer.label}</h3>
+    <div class="fine">Each dot is one event. Duration is counted in months; magnitude is the sum of the absolute mean index over those months, so a long mild event and a short sharp one can have the same magnitude. Faded dots fall in less reliable periods.${nowRank ? ` The ringed dot is the event running in ${monthLabel(month)}: it ranks ${rankOf.get(nowRank)} of ${evs.length} by magnitude${nowRank.open ? ", and is still running at the end of the record" : ""}.` : ""}</div>
+    ${resize((w) => Plot.plot({
+      width: w, height: 300, marginLeft: 48, marginBottom: 40,
+      x: {label: "Duration, months", grid: true, nice: true},
+      y: {label: "Magnitude, index-months", grid: true, nice: true},
+      color: {...sideColour, legend: true},
+      marks: [
+        Plot.dot(evs, {x: "duration", y: "magnitude", fill: (e) => cap(e.word), fillOpacity: (e) => (e.flagged ? 0.25 : 0.85), r: 4, stroke: "#fcfcfb", strokeWidth: 0.5}),
+        Plot.dot(evs.filter((e) => e.current), {x: "duration", y: "magnitude", r: 8, stroke: INK.primary, strokeWidth: 1.5}),
+        Plot.tip(evs, Plot.pointer({x: "duration", y: "magnitude", title: (e) => `${cap(e.word)} event\n${ym(e.start)} to ${ym(e.end)}${e.open ? " (still running)" : ""}\n${monthsText(e.duration)}, magnitude ${e.magnitude.toFixed(1)}\npeak ${e.peak.toFixed(2)}, intensity ${e.intensity.toFixed(2)}${e.flagged ? "\nless reliable period" : ""}`}))
+      ]
+    }))}
+    <h3 style="margin-top: 1.4rem;">The ${top.length} largest by magnitude</h3>
+    <div class="fine">Click a start month to move the map and the charts to it. Peak is the most extreme monthly mean during the event, shown without its sign; intensity is magnitude divided by duration; peak share is the largest share of the area in a class on the event's own side in any month of the event.</div>
+    <table><thead><tr><th>Rank</th><th>Side</th><th>From</th><th>To</th><th>Duration</th><th>Magnitude</th><th>Intensity</th><th>Peak</th><th>Peak share of area</th><th>Note</th></tr></thead>
+    <tbody>${top.map((e, i) => html`<tr style=${e.current ? "font-weight: 600;" : ""}>
+      <td>${i + 1}</td><td>${cap(e.word)}</td>
+      <td><a href="#" onclick=${goTo(e)}>${ym(e.start)}</a></td><td>${e.open ? "running" : ym(e.end)}</td>
+      <td>${monthsText(e.duration)}</td><td>${e.magnitude.toFixed(1)}</td><td>${e.intensity.toFixed(2)}</td><td>${e.peak.toFixed(2)}</td>
+      <td>${e.max_share == null ? "no data" : `${(e.max_share * 100).toFixed(0)}%`}</td>
+      <td>${[e.flagged ? "less reliable period" : "", e.open ? "still running, figures so far" : ""].filter(Boolean).join("; ")}</td></tr>`)}</tbody></table>
+    <h3 style="margin-top: 1.4rem;">Events that started in each decade</h3>
+    <div class="fine">A count, not a rate of return: ${evs.length} events in 76 years is too few to estimate one. The 2020s hold six years only. Faded bars are events in less reliable periods.</div>
+    ${resize((w) => Plot.plot({
+      width: w, height: 200, marginLeft: 48,
+      x: {label: null, domain: decades.map((d) => `${d}s`)},
+      fx: {label: null, domain: show === "both" ? [cap(DRYW), cap(WETW)] : [cap(show === "dry" ? DRYW : WETW)]},
+      y: {label: "Events", grid: true, interval: 1},
+      color: sideColour,
+      marks: [
+        Plot.barY(perDecade, {x: "decade", fx: "side", y: "n", fill: "side", fillOpacity: (d) => (d.flagged ? 0.3 : 1), order: (d) => d.flagged, title: (d) => `${d.decade}: ${d.n} ${d.side.toLowerCase()} event${d.n === 1 ? "" : "s"}${d.flagged ? " in a less reliable period" : ""}`}),
+        Plot.ruleY([0])
+      ]
+    }))}
+  </div>` : html`<div class="card"><h3>How severe</h3><div class="fine">No event on record for ${unit.name} at this index and period.</div></div>`);
 } else {
   display(html`<div></div>`); // always display: a block that displays nothing keeps its previous output on screen
 }
 ```
 
 ```js
-// the open kabupaten's kecamatan this month
-if (kab && !kec) {
-  const rows = dKec.kids.map((id) => unit3ById.get(id)).filter((u) => u && u.adm2_id === kab.id && u.assigned).map((u) => ({
-    Kecamatan: u.name,
-    [DRYCOL]: sideShare(dKec, month, u.id, "dry"),
-    [WETCOL]: sideShare(dKec, month, u.id, "wet"),
-    "Mean index": meanAt(dKec, month, u.id),
-    "Grid cells": u.n_cells
-  }));
-  display(html`<h2>Inside ${kab.name}, ${monthLabel(month)}</h2>`);
-  display(hasValue
-    ? Inputs.table(rows, {
-        sort: DRYCOL, reverse: true, rows: Math.min(Math.max(rows.length, 1), 40), select: false,
-        format: {[DRYCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), [WETCOL]: (d) => (d == null ? "no data" : d.toFixed(0)), "Mean index": (d) => (d == null ? "no data" : d.toFixed(2))}
-      })
-    : html`<p>No values for this month at this accumulation period.</p>`);
-  display(html`<p class="fine">${rows.length} kecamatan. Click one on the map, or choose it from the menu, for its history. A kecamatan usually touches only a handful of grid cells, most of them shared with its neighbours: read its percentages as rough.</p>`);
+// ENSO: the Relative Oceanic Nino Index and its El Nino and La Nina episodes, built by pipeline/step5_enso.py
+// from the tables of the `nino` repo (NOAA CPC files). phase: +1 El Nino, -1 La Nina, 0 neutral.
+const enso = await FileAttachment("./data/enso.json").json();
+const PHASES = [{p: 1, name: "El Niño", colour: "#c0392b"}, {p: 0, name: "Neutral", colour: "#898781"}, {p: -1, name: "La Niña", colour: "#2563c9"}];
+const phaseName = (p) => PHASES.find((x) => x.p === p).name;
+const phaseScale = {domain: PHASES.map((x) => x.name), range: PHASES.map((x) => x.colour)};
+const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+// first month outside the less reliable periods, for a unit: comparisons with ENSO use only months from here on
+const reliableFrom = (flagged) => (flagged ? layer.step_1984_last_position : EARLY_LAST) + 1;
+```
+
+<h2 id="enso">El Niño and La Niña</h2>
+
+```js
+// ENSO and the selected unit
+if (sel) {
+  const [t0, t1] = timeRange;
+  const xDomain = [monthDate(t0), monthDate(t1 + 1)];
+  const from = reliableFrom(sel.flaggedProv);
+  const sgn = layer.dry_sign;                       // index x sgn is positive on the dry side
+  const dryLevel = (v) => v * sgn >= 1, wetLevel = (v) => v * sgn <= -1;
+  // A. RONI over the years on show
+  const roni = [];
+  for (let t = Math.max(0, t0 - 1); t <= Math.min(LAST, t1 + 1); t++) roni.push({t, date: monthDate(t), value: enso.roni[t], phase: phaseName(enso.phase[t])});
+  const episodes = enso.events.filter((e) => e.end >= t0 && e.start <= t1);
+  // B. the unit's mean index by calendar month and phase
+  const acc = new Map();
+  for (let t = from; t <= LAST; t++) {
+    const v = meanAt(ds, t, sel.id);
+    if (v == null) continue;
+    const key = `${t % 12}|${enso.phase[t]}`;
+    const a = acc.get(key) ?? {m: t % 12, p: enso.phase[t], sum: 0, n: 0};
+    a.sum += v; a.n += 1;
+    acc.set(key, a);
+  }
+  const composite = [...acc.values()].map((a) => ({month: MONTH_NAMES[a.m], m: a.m, phase: phaseName(a.p), mean: a.sum / a.n, n: a.n})).sort((a, b) => a.m - b.m);
+  // C. every episode: what the unit did during it
+  const rows = enso.events.filter((e) => e.end >= from).map((e) => {
+    let driest = null, wettest = null, nDry = 0, nWet = 0, n = 0;
+    for (let t = Math.max(e.start, from); t <= e.end; t++) {
+      const v = meanAt(ds, t, sel.id);
+      if (v == null) continue;
+      n++;
+      if (driest == null || v * sgn > driest.v * sgn) driest = {v, t};
+      if (wettest == null || v * sgn < wettest.v * sgn) wettest = {v, t};
+      if (dryLevel(v)) nDry++;
+      if (wetLevel(v)) nWet++;
+    }
+    return {...e, driest, wettest, nDry, nWet, n};
+  }).filter((r) => r.n > 0).reverse();
+  const tally = (p, key) => { const r = rows.filter((x) => x.phase === p); return `${r.filter((x) => x[key] > 0).length} of ${r.length}`; };
+  const goTo = (e) => (ev) => {
+    ev.preventDefault();
+    const span = timeRange[1] - timeRange[0] + 1;
+    const mid = Math.round((e.start + e.end) / 2);
+    setTimeRange(mid - Math.floor(span / 2), mid - Math.floor(span / 2) + span - 1);
+    setMonth(e.peak <= LAST ? e.peak : e.start);
+  };
+  const hooks = {onPick: (date) => setMonth(monthOf(date))};
+  const f2 = (x) => x.toFixed(2).replace(/^-0\.00$/, "0.00");
+  const lvl = (x) => (x * sgn).toFixed(1).replace("-", "−");
+  display(html`<div class="card">
+    <h3>El Niño and La Niña: ${unit.name}, ${layer.label}</h3>
+    <div class="fine">The Relative Oceanic Niño Index (RONI) measures how warm or cold the central equatorial Pacific is against the rest of the tropics. An episode is five or more overlapping three-month seasons at or beyond +0.5 (El Niño, red) or −0.5 (La Niña, blue). The years shown are the ones the charts above show; click to move the map to a month.</div>
+    ${resize((w) => timeInteractions(Plot.plot({
+      width: w, height: 170, marginLeft: 44,
+      x: {type: "utc", label: null, domain: xDomain},
+      y: {label: "RONI, °C", domain: [-2.6, 2.6], grid: true},
+      color: {...phaseScale, legend: true},
+      marks: [
+        Plot.rect(episodes, {x1: (e) => monthDate(e.start), x2: (e) => monthDate(e.end + 1), y1: -2.6, y2: 2.6, fill: (e) => phaseName(e.phase), fillOpacity: 0.14, clip: true,
+          title: (e) => `${phaseName(e.phase)}, ${e.strength}\n${ym(e.start)} to ${e.runs_past_record ? "beyond 2025-12" : ym(e.end)}\npeak RONI ${e.peak_value}`}),
+        Plot.ruleY([-0.5, 0.5], {stroke: INK.axis, strokeDasharray: "3,3"}),
+        Plot.ruleY([0], {stroke: INK.axis}),
+        Plot.lineY(roni, {x: "date", y: "value", stroke: INK.secondary, strokeWidth: 1.2, clip: true}),
+        Plot.ruleX(month >= t0 && month <= t1 ? [monthDate(month)] : [], {stroke: INK.primary, strokeWidth: 1.5}),
+        Plot.tip(roni, Plot.pointerX({x: "date", y: "value", title: (d) => `${d.date.toISOString().slice(0, 7)}\nRONI ${d.value.toFixed(2)}, ${d.phase}`}))
+      ]
+    }), hooks))}
+    <h3 style="margin-top: 1.4rem;">Mean ${layer.label} by calendar month, in each phase</h3>
+    <div class="fine">Each point is the average of ${areaWord}'s mean ${layer.label} over every month of that name that fell in the phase, from ${monthLabel(from)} on (earlier months are in a less reliable period). Where the red and blue lines part, the phase has gone with a different outcome here; where they run together, it has not. ${scale > 1 ? `A ${scale}-month value covers the ${scale} months ending in the month named.` : ""} ${index === "eddi" ? "Positive is high evaporative demand." : "Negative is dry."} Hover for the number of months behind a point: some are few.</div>
+    ${resize((w) => Plot.plot({
+      width: w, height: 260, marginLeft: 48,
+      x: {label: null, domain: MONTH_NAMES, type: "point"},
+      y: {label: `Mean ${layer.label}`, grid: true, nice: true},
+      color: phaseScale,
+      marks: [
+        Plot.ruleY([0], {stroke: INK.axis}),
+        Plot.lineY(composite, {x: "month", y: "mean", stroke: "phase", strokeWidth: 2}),
+        Plot.dot(composite, {x: "month", y: "mean", fill: "phase", r: 3.5, stroke: "#fcfcfb"}),
+        Plot.text(composite.filter((d) => d.m === 11), {x: "month", y: "mean", text: "phase", fill: "phase", dx: 8, textAnchor: "start", fontSize: 11}),
+        Plot.tip(composite, Plot.pointer({x: "month", y: "mean", title: (d) => `${d.month}, ${d.phase}\nmean ${d.mean.toFixed(2)} over ${d.n} month${d.n === 1 ? "" : "s"}`}))
+      ],
+      marginRight: 60
+    }))}
+    <h3 style="margin-top: 1.4rem;">Episode by episode</h3>
+    <div class="fine">Since ${monthLabel(from)}: in ${tally(1, "nDry")} El Niño episodes ${areaWord}'s mean reached the ${DRYW} onset level (${lvl(1)}) in at least one month, and in ${tally(1, "nWet")} the ${WETW} one. In La Niña episodes: ${DRYW} in ${tally(-1, "nDry")}, ${WETW} in ${tally(-1, "nWet")}. These are counts of what happened, not a forecast. Click an episode to go to its peak.</div>
+    <div style="max-height: 340px; overflow-y: auto;">
+    <table><thead><tr><th>Episode</th><th>From</th><th>To</th><th>Peak RONI</th><th>Strength</th><th>${index === "eddi" ? "Highest demand" : "Driest month"}</th><th>Months at ${DRYW} level</th><th>${index === "eddi" ? "Lowest demand" : "Wettest month"}</th><th>Months at ${WETW} level</th></tr></thead>
+    <tbody>${rows.map((r) => html`<tr>
+      <td style=${`color: ${PHASES.find((x) => x.p === r.phase).colour}; font-weight: 600;`}>${phaseName(r.phase)}</td>
+      <td><a href="#" onclick=${goTo(r)}>${ym(r.start)}</a></td><td>${r.runs_past_record ? "running" : ym(r.end)}</td>
+      <td>${r.peak_value.toFixed(2)}</td><td>${r.strength}</td>
+      <td>${f2(r.driest.v)} in ${ym(r.driest.t)}</td><td>${r.nDry} of ${r.n}</td>
+      <td>${f2(r.wettest.v)} in ${ym(r.wettest.t)}</td><td>${r.nWet} of ${r.n}</td></tr>`)}</tbody></table>
+    </div>
+  </div>`);
 } else {
   display(html`<div></div>`); // always display: a block that displays nothing keeps its previous output on screen
 }
 ```
 
-## How to read this
+```js
+// ENSO across the units on show: provinces at national level, the kabupaten of an open province.
+// For each unit: its mean index over El Nino months minus its mean over La Nina months, on the dry side
+// (positive = drier in El Nino). Months in less reliable periods are left out, per unit.
+{
+  const level = !prov ? {d: d1, list: units, word: "province"} : !kab ? {d: d2, list: d2.kids.map((id) => unit2ById.get(id)).filter((u) => u && u.assigned), word: "kabupaten or kota"} : null;
+  if (level) {
+    const sgn = layer.dry_sign;
+    const rows = [];
+    for (const u of level.list) {
+      const from = reliableFrom(u.step_1984_majority);
+      let sE = 0, nE = 0, sL = 0, nL = 0;
+      for (let t = from; t <= LAST; t++) {
+        const p = enso.phase[t];
+        if (p === 0) continue;
+        const v = meanAt(level.d, t, u.id);
+        if (v == null) continue;
+        if (p === 1) { sE += v; nE++; } else { sL += v; nL++; }
+      }
+      if (nE && nL) rows.push({name: u.name, id: u.id, el: sE / nE, la: sL / nL, diff: (sE / nE - sL / nL) * sgn, nE, nL});
+    }
+    rows.sort((a, b) => b.diff - a.diff);
+    const pick = (r) => (!prov ? selectProvince(r.id) : selectKab(r.id));
+    display(html`<div class="card">
+      <h3>Where El Niño and La Niña differ most: ${layer.label}, by ${level.word}${prov ? ` in ${prov.name}` : ""}</h3>
+      <div class="fine">For each ${level.word}: its mean ${layer.label} over all El Niño months minus its mean over all La Niña months, with the sign arranged so that a bar to the right means ${index === "eddi" ? "higher evaporative demand" : "drier"} in El Niño. All calendar months are pooled, so a place whose response is confined to one season shows a shorter bar than that season alone would give; select a ${level.word} for the month-by-month view. Months in less reliable periods are left out. A difference, not a test of significance: there are ${enso.counts.el_nino_events} El Niño and ${enso.counts.la_nina_events} La Niña episodes in the whole record.</div>
+      ${resize((w) => {
+        const p = Plot.plot({
+          width: w, height: Math.max(180, rows.length * 16 + 50), marginLeft: 190, marginRight: 40,
+          x: {label: `El Niño minus La Niña, ${layer.label} (right = ${index === "eddi" ? "higher demand" : "drier"} in El Niño)`, grid: true, nice: true},
+          y: {label: null, domain: rows.map((r) => r.name)},
+          marks: [
+            Plot.barX(rows, {y: "name", x: "diff", fill: (r) => (r.diff >= 0 ? DRY[3] : WET[3]),
+              title: (r) => `${r.name}\nEl Niño months: mean ${r.el.toFixed(2)} (${r.nE})\nLa Niña months: mean ${r.la.toFixed(2)} (${r.nL})`}),
+            Plot.ruleX([0], {stroke: INK.axis})
+          ]
+        });
+        return p;
+      })}
+      <div class="fine" style="margin-top: 0.6rem;">Open one: ${rows.slice(0, 5).map((r, i) => html`${i ? ", " : ""}<a href="#" onclick=${(e) => { e.preventDefault(); pick(r); }}>${r.name}</a>`)} (the five largest).</div>
+    </div>`);
+  } else {
+    display(html`<div></div>`);
+  }
+}
+```
+
+<h2 id="how-to-read">How to read this</h2>
 
 <details><summary>The three indices</summary>
 
