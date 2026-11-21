@@ -209,6 +209,17 @@ event's side during the event.
   alternative, cell by cell, is what 4.7 does for the map.
 - The wet side, SPEI and EDDI use the mirrored rule. That extension is a
   **choice**: the guide defines the rule for SPI drought only.
+- **An event of the mean is not persistence at each place.** The mean of a
+  large area can stay slightly on one side for a long time while dry and wet
+  patches come and go inside it. Measured for Indonesia on SPI-3
+  (`analysis/national_event_vs_cells.py`): the national mean stayed on the wet
+  side for the 19 months from June 2024 to December 2025, yet only 8% of the
+  area was in a wet event of its own throughout, no cell was in a wet class in
+  every month, and 45% of the area was in a dry class in at least one of them.
+  The dashboard therefore words such an event as the average staying on one
+  side, and gives beside it the share of the area in an event of its own (4.7).
+  Any share of area is for one month: it is not the same area from month to
+  month.
 - Being inside an event is not the same as being dry this month. Measured cell
   by cell on SPI, 28% to 35% of all months fall inside a dry event under this
   rule, depending on the scale, since an event lasts until the index recovers

@@ -1,0 +1,36 @@
+SPI-3, 2024-06 to 2025-12: 19 months. National mean +0.08 to +1.14, last +0.08
+
+Each cell's own wet event, at the last month:
+  in a wet event now                          48.8% of area
+  in one that has run 19 months or more         8.1%
+  in one that has run 12 months or more        22.2%
+  in a wet event in every one of the 19 months   8.1%
+  in a wet event in at least one of them       97.8%
+
+Wet CLASS (index at or beyond the wet onset level), over the same months:
+  every month                                   0.0% of area
+  at least half of the months                  20.1%
+  at least one month                           96.8%
+  never                                         3.2%
+  in a DRY class in at least one month         44.8%
+
+Month by month: share in a wet class, and how much of it was also wet the month before
+  2024-06  mean +1.10  wet class  53.2%  dry class   1.2%  same cells as last month  80.6%
+  2024-07  mean +0.71  wet class  33.7%  dry class   0.8%  same cells as last month  84.3%
+  2024-08  mean +0.42  wet class  21.5%  dry class   2.3%  same cells as last month  78.4%
+  2024-09  mean +0.18  wet class   6.1%  dry class   2.5%  same cells as last month  74.8%
+  2024-10  mean +0.27  wet class  12.2%  dry class   1.8%  same cells as last month  35.9%
+  2024-11  mean +0.30  wet class   9.1%  dry class   2.5%  same cells as last month  50.9%
+  2024-12  mean +0.44  wet class  27.5%  dry class   7.3%  same cells as last month  23.9%
+  2025-01  mean +1.14  wet class  58.5%  dry class   0.6%  same cells as last month  43.5%
+  2025-02  mean +0.72  wet class  42.0%  dry class   5.9%  same cells as last month  90.4%
+  2025-03  mean +0.96  wet class  49.1%  dry class   2.0%  same cells as last month  66.1%
+  2025-04  mean +0.63  wet class  36.1%  dry class   3.5%  same cells as last month  82.6%
+  2025-05  mean +1.06  wet class  55.1%  dry class   1.6%  same cells as last month  55.2%
+  2025-06  mean +0.72  wet class  45.3%  dry class   8.1%  same cells as last month  80.1%
+  2025-07  mean +0.28  wet class  34.1%  dry class  20.6%  same cells as last month  88.8%
+  2025-08  mean +0.46  wet class  28.5%  dry class  10.2%  same cells as last month  82.3%
+  2025-09  mean +0.65  wet class  36.4%  dry class   7.4%  same cells as last month  63.7%
+  2025-10  mean +0.63  wet class  36.6%  dry class   9.1%  same cells as last month  70.3%
+  2025-11  mean +0.32  wet class  26.5%  dry class  10.2%  same cells as last month  75.4%
+  2025-12  mean +0.08  wet class  24.6%  dry class  19.8%  same cells as last month  76.0%

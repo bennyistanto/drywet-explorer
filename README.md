@@ -85,6 +85,9 @@ Whatever the choice, the page gives, for the selected place:
 - A small unit rests on few grid cells, and border cells are shared between
   neighbours.
 - An event is not the same as being dry this month.
+- An event of a large area is an event of its average. It does not mean every
+  place inside stayed dry or wet, or that the same places did. Use "How long"
+  or "Status" to see what each place did.
 
 [docs/method.md](docs/method.md) gives every definition, the inputs you need to
 reproduce this with your own data, and the known limits.

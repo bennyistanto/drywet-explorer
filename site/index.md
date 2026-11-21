@@ -212,7 +212,8 @@ const INFO = {
       <li><strong>Intensity</strong>: magnitude divided by duration.</li>
       <li><strong>Peak</strong>: the most extreme monthly mean.</li>
     </ul>
-    <p>Being inside an event is not the same as being dry this month: an event lasts until the index has recovered to zero.</p>`},
+    <p>Being inside an event is not the same as being dry this month: an event lasts until the index has recovered to zero.</p>
+    <p>An event of the average does not mean every place inside stayed dry or wet, or that the same places did. The larger the area, the more this matters: over Indonesia, the average can stay slightly on one side for a year or more while dry and wet patches come and go inside it. The summary gives the cell-by-cell share beside it, and "How long" in "Map shows" maps it.</p>`},
   spells: {title: "Past spells", body: () => html`
     <p>With How long, Status or Pattern chosen, the past is described by spells: runs of months in which more than half of the place's cell area was on one side (in a dry event or cluster, or in a wet one). The one-half level is this dashboard's own choice.</p>`},
   enso: {title: "El Niño and La Niña", body: () => html`
@@ -639,21 +640,55 @@ const sel = unit
 if (sel && !modeOn) {
   const pct = (v) => (v == null ? "no data" : `${v.toFixed(0)}%`);
   const eventTile = sel.now
-    ? html`<div class="tile-value">${monthsText(month - sel.now.start + 1)}</div><div class="tile-label">into a ${sel.now.side === 0 ? DRYW : WETW} event that began in ${monthLabel(sel.now.start)}${sel.now.flagged ? " (less reliable period)" : ""}</div>`
-    : html`<div class="tile-value">None</div><div class="tile-label">no event running for ${areaWord} as a whole</div>`;
+    ? html`<div class="tile-value">${monthsText(month - sel.now.start + 1)}</div><div class="tile-label">that the average over ${areaWord} has stayed on the ${sel.now.side === 0 ? DRYW : WETW} side, since ${monthLabel(sel.now.start)}${sel.now.flagged ? " (less reliable period)" : ""}</div>`
+    : html`<div class="tile-value">None</div><div class="tile-label">no event running on the average over ${areaWord}</div>`;
   display(html`<h2>${unit.name}${kec ? `, ${kab.name}` : ""}${kab ? `, ${prov.name}` : ""}, ${monthLabel(month)}</h2>
   ${kec ? html`<p class="fine"><a href="#" onclick=${(e) => { e.preventDefault(); selectKec(null); }}>Back to ${kab.name}</a></p>`
     : kab ? html`<p class="fine"><a href="#" onclick=${(e) => { e.preventDefault(); selectKab(null); }}>Back to ${prov.name}</a></p>` : ""}
   <p class="jump">On this page: <a href="#over-time">Over time</a><a href="#events">Past events</a><a href="#enso">El Niño and La Niña</a><a href="#how-to-read">How to read this</a></p>
   <div class="grid grid-cols-4">
-    <div class="card"><div class="tile-value">${pct(sel.dry)}</div><div class="tile-label">of area in a ${DRYW} class</div></div>
-    <div class="card"><div class="tile-value">${pct(sel.wet)}</div><div class="tile-label">of area in a ${WETW} class</div></div>
+    <div class="card"><div class="tile-value">${pct(sel.dry)}</div><div class="tile-label">of area in a ${DRYW} class this month</div></div>
+    <div class="card"><div class="tile-value">${pct(sel.wet)}</div><div class="tile-label">of area in a ${WETW} class this month</div></div>
     <div class="card"><div class="tile-value">${sel.mean == null ? "no data" : sel.mean.toFixed(2)}</div><div class="tile-label">mean ${layer.label} over ${areaWord}</div></div>
     <div class="card">${eventTile}</div>
   </div>`);
 } else {
   display(html`<div></div>`); // always display: a block that displays nothing keeps its previous output on screen
 }
+```
+
+```js
+// Cell by cell, to set beside any statement about an event of the area's mean: the share of the unit's cell
+// area that is in a dry or wet event OF ITS OWN this month, and in one that has run 12 months or more.
+// From the status map of the month (pipeline/step7_status.py) and the unit's list of cells, all touched.
+const cellEvents = await (async () => {
+  const L = statusMeta.layers[tag];
+  const dcd = Math.floor((1950 + Math.floor(month / 12)) / 10) * 10;
+  if (!L || !L.maps[dcd]) return null;
+  const f = L.maps[dcd];
+  const blk = await loadTyped(`${tag}/status/${dcd}`, statusFiles.layers[tag][dcd], Uint8Array);
+  const area = await loadTyped("cellArea", membersFiles.cellArea, Float32Array);
+  const mem = kec ? await loadTyped("members3", membersFiles.adm3, Uint32Array)
+    : kab ? await loadTyped("members2", membersFiles.adm2, Uint32Array)
+    : prov ? await loadTyped("members1", membersFiles.adm1, Uint32Array) : null;
+  const id = (kec ?? kab ?? prov)?.id;
+  const list = mem ? mem.subarray(mem[0] + 2 + mem[id], mem[0] + 2 + mem[id + 1]) : null;
+  const nD = meta.grid.n_drawn, off = (month - f.first_month) * nD;
+  const a = {valid: 0, dry: 0, wet: 0, dry12: 0, wet12: 0};
+  const add = (i) => {
+    const c = blk[off + i];
+    if (c === 0) return;
+    a.valid += area[i];
+    if (c < 2) return;
+    const k = c - 2, side = Math.floor(k / 25), state = Math.floor((k % 25) / 5), bin = k % 5;
+    if (state === 4) return;                       // ended this month: not running
+    if (side === 0) { a.dry += area[i]; if (bin >= 3) a.dry12 += area[i]; }
+    else { a.wet += area[i]; if (bin >= 3) a.wet12 += area[i]; }
+  };
+  if (list) for (let j = 0; j < list.length; j++) add(list[j]);
+  else for (let i = 0; i < nD; i++) add(i);
+  return a.valid > 0 ? {dry: (a.dry / a.valid) * 100, wet: (a.wet / a.valid) * 100, dry12: (a.dry12 / a.valid) * 100, wet12: (a.wet12 / a.valid) * 100} : null;
+})();
 ```
 
 ```js
@@ -864,9 +899,14 @@ if (sel && !modeOn) {
       const tail = sel.now.open
         ? month === LAST ? "It was still running at the end of the record." : `It was still running at the end of the record, ${K(monthsText(sel.now.duration))} after it began.`
         : `It lasted ${K(monthsText(sel.now.duration))} in all, until ${N(monthLabel(sel.now.end))}.`;
-      parts.push(`Taken as a whole, ${areaWord} was ${K(monthsText(sofar))} into a ${side} event that began in ${N(monthLabel(sel.now.start))}. ${tail}`);
+      parts.push(`The average over ${areaWord} has stayed on the ${side} side since ${N(monthLabel(sel.now.start))}, ${K(monthsText(sofar))} by this month: an event of the average. ${tail}`);
+      if (cellEvents) {
+        const now = sel.now.side === 0 ? cellEvents.dry : cellEvents.wet, long = sel.now.side === 0 ? cellEvents.dry12 : cellEvents.wet12;
+        parts.push(`That does not mean every place stayed ${side}, or that the same places did. Cell by cell, ${K(`${now.toFixed(0)}%`)} of the area was in a ${side} event of its own this month, and ${K(`${long.toFixed(0)}%`)} in one that had run 12 months or more.`);
+      }
     } else {
-      parts.push(`Taken as a whole, ${areaWord} was not in an event this month.`);
+      parts.push(`No event was running on the average over ${areaWord} this month.`);
+      if (cellEvents) parts.push(`Cell by cell, ${D(`${cellEvents.dry.toFixed(0)}%`)} of the area was in a ${DRYW} event of its own and ${W(`${cellEvents.wet.toFixed(0)}%`)} in a ${WETW} one.`);
     }
   }
   const s = show === "wet" ? sel.sumWet : sel.sumDry;
@@ -1448,7 +1488,7 @@ if (sel && !modeOn) {
   display(html`<h2 id="events">Past events ${infoButton("events")}</h2><div class="card"><h3>Events on record, ${unit.name}, ${layer.label}</h3>
   <table><thead><tr><th>Side</th><th>Events</th><th>Outside less reliable periods</th><th>Longest</th><th>Longest outside less reliable periods</th><th>Share of months inside an event</th></tr></thead>
   <tbody>${show === "wet" ? "" : row(sel.sumDry, DRYW)}${show === "dry" ? "" : row(sel.sumWet, WETW)}</tbody></table>
-  <div class="fine">Being inside an event is not the same as being ${DRYW} this month: an event runs from the first month at the onset level until the index crosses zero.</div></div>`);
+  <div class="fine">These are events of the average over ${areaWord}: an event runs from the first month the average is at the onset level until it crosses zero. Being inside one is not the same as being ${DRYW} this month, and it does not mean every place inside stayed on that side. For what each place did, choose "How long" or "Status" in "Map shows".</div></div>`);
 } else {
   display(html`<div></div>`); // always display: a block that displays nothing keeps its previous output on screen
 }
