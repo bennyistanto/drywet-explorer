@@ -118,6 +118,50 @@ export function eventLegend(mode, index, show, meta) {
 }
 
 /**
+ * Everything the panels under the map need to summarise a map mode over a unit's cells.
+ * mode: "howlong", "status" or "pattern". Returns
+ *   items    the legend entries in order, each {colour, label}
+ *   groupOf  Uint8Array: stored cell code -> position in items (255 = no value, left out of every share)
+ *   is       predicates on a stored code, used for the headline figures: dry, wet (in an event or a cluster on
+ *            that side, this month), dryStrong, wetStrong (see `strong`)
+ *   words    the nouns and the meaning of "strong" for this mode
+ */
+export function modeScheme(mode, index, show, meta) {
+  const pattern = mode === "pattern";
+  const styleOf = (code) => (pattern ? patternStyle(code, index, show) : eventStyle(code, mode, index, show, meta));
+  const order = pattern ? [10, 11, 12, 13, 14, 15, 16, 17, 9, 8, 7, 6, 5, 4, 3, 2, 1] : null;
+  const labelOf = (s) => (s.shown === false ? "Other side, not shown" : s.label);
+  const items = pattern
+    ? order.map(styleOf).map((s) => ({colour: s.colour, label: labelOf(s)})).filter((s, i, a) => a.findIndex((o) => o.label === s.label) === i)
+    : eventLegend(mode, index, show, meta);
+  const groupOf = new Uint8Array(256).fill(255);
+  for (let code = 1; code <= (pattern ? 17 : 51); code++) groupOf[code] = items.findIndex((it) => it.label === labelOf(styleOf(code)));
+  const ev = (code) => { const k = code - 2; return {side: Math.floor(k / 25), state: Math.floor((k % 25) / 5), bin: k % 5}; };
+  const dryW = sideWord("dry", index), wetW = sideWord("wet", index);
+  const is = pattern
+    ? {
+        dry: (c) => c >= 10 && c <= 16, wet: (c) => c >= 2 && c <= 8,           // a cluster in the final month (historical is not)
+        dryStrong: (c) => c === 10 || c === 11, wetStrong: (c) => c === 8 || c === 7
+      }
+    : mode === "howlong"
+      ? {
+          dry: (c) => c >= 2 && ev(c).side === 0 && ev(c).state !== 4, wet: (c) => c >= 2 && ev(c).side === 1 && ev(c).state !== 4,
+          dryStrong: (c) => c >= 2 && ev(c).side === 0 && ev(c).state !== 4 && ev(c).bin >= 2,
+          wetStrong: (c) => c >= 2 && ev(c).side === 1 && ev(c).state !== 4 && ev(c).bin >= 2
+        }
+      : {
+          dry: (c) => c >= 2 && ev(c).side === 0 && ev(c).state !== 4, wet: (c) => c >= 2 && ev(c).side === 1 && ev(c).state !== 4,
+          dryStrong: (c) => c >= 2 && ev(c).side === 0 && ev(c).state === 1, wetStrong: (c) => c >= 2 && ev(c).side === 1 && ev(c).state === 1
+        };
+  const words = pattern
+    ? {title: "Space-time pattern", dry: `in a ${dryW} cluster`, wet: `in a ${wetW} cluster`, strong: "new or consecutive", strongText: "that was new or consecutive", dryCol: `${dryW} cluster`, wetCol: `${wetW} cluster`, thing: "cluster"}
+    : mode === "howlong"
+      ? {title: "How long events have run", dry: `in a ${dryW} event`, wet: `in a ${wetW} event`, strong: "6 months or more", strongText: "that had run 6 months or more", dryCol: `${dryW} event`, wetCol: `${wetW} event`, thing: "event"}
+      : {title: "Status of events", dry: `in a ${dryW} event`, wet: `in a ${wetW} event`, strong: "deepening", strongText: "that was deepening", dryCol: `${dryW} event`, wetCol: `${wetW} event`, thing: "event"};
+  return {items, groupOf, is, words};
+}
+
+/**
  * The value range of a class, as text, so that a legend says what a colour stands for.
  * SPI and SPEI: the index ranges of WMO-No. 1090, Table 1. EDDI: the percentile range of the NOAA category,
  * from the bounds stored in the EDDI files (0, 2, 5, 10, 20, 30, 70, 80, 90, 95, 98; EDDI User Guide v1.0).
