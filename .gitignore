@@ -170,7 +170,8 @@ conda-meta/
 .ropeproject
 
 # mkdocs/Zensical documentation
-/site
+# (the template's "/site" rule is removed here: in this repo site/ is the dashboard's SOURCE,
+#  and that rule was keeping site/index.md and site/components/ out of git)
 
 # mypy
 .mypy_cache/
@@ -221,3 +222,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Claude
+.claude/
+HANDOFF.md
+temp/
+
+# drywet-explorer: generated, large, and rebuilt by the pipeline
+# data/        pipeline outputs, about 400 MB   (python -m pipeline.step0_grid, step0_boundaries, step1_classes)
+# site/data/   what the browser loads, 371 MB   (python -m pipeline.step3_export)
+# dist/        the built site                   (npm run build)   already ignored above
+data/
+site/data/
+site/.observablehq/
+node_modules/
