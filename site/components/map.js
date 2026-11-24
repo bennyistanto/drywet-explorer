@@ -11,8 +11,15 @@
 import * as d3 from "npm:d3";
 
 const FLAG_ALPHA = 120; // of 255: flagged cells are drawn washed out
-const MAX_ZOOM = 16;
-const view = {k: 1, fx: 0, fy: 0}; // scale, and translation as a fraction of width and height
+// 32 since 2026-11-24 (was 16): at 16 a kecamatan, often 3 or 4 cells across, was still too small to read when
+// the map fits itself to one. At 32 a grid cell is about 35 px wide on a 1,200 px map, and the outlines'
+// 333 m simplification shows as a wobble of about 2 px.
+const MAX_ZOOM = 32;
+const FIT = 0.8;      // a selected unit is zoomed to fill this share of the map's width or height
+const FLY_MS = 600;   // how long the move to a newly selected unit takes
+// scale, and translation as a fraction of width and height; `key` names the selection the view was last
+// fitted to, and `pending` is a fit still on its way (the map can be rebuilt while it is moving)
+const view = {k: 1, fx: 0, fy: 0, key: "//", pending: null};
 const IDLE = "Hover for the class of a cell. Click a province to select it. Scroll or drag to zoom and pan.";
 
 /**
@@ -26,8 +33,12 @@ const IDLE = "Hover for the class of a cell. Click a province to select it. Scro
  * @param highlight  features drawn bold on top; the last one is the current selection
  * @param describe   (cellPosition) => text for the hover line
  * @param onPick     (cellPosition, or -1 for sea) => void
+ * @param focus      the feature of the current selection, or null when nothing is selected
+ * @param focusKey   text that changes when the selection changes ("//" for none). When it changes, the map
+ *                   moves to fit `focus`, or back to the full extent when nothing is selected. While it stays
+ *                   the same (a new month, another index), the reader's own zoom and pan are kept.
  */
-export function drawMap({grid, cells, cellFlag, classes, rgb, outlines, detail = [], highlight = [], describe, onPick, width}) {
+export function drawMap({grid, cells, cellFlag, classes, rgb, outlines, detail = [], highlight = [], describe, onPick, width, focus = null, focusKey = "//"}) {
   const {nx, ny} = grid;
   const height = Math.round((width * ny) / nx);
 
@@ -125,6 +136,11 @@ export function drawMap({grid, cells, cellFlag, classes, rgb, outlines, detail =
       resetBtn.disabled = t.k === 1;
       outBtn.disabled = t.k <= 1;
       inBtn.disabled = t.k >= MAX_ZOOM;
+    })
+    .on("end", (e) => {
+      // a fit has arrived, or the reader has taken over with the wheel, a drag or a button: nothing is pending
+      const p = view.pending;
+      if (p && (e.sourceEvent || (Math.abs(view.k - p.k) < 1e-6 && Math.abs(view.fx - p.fx) < 1e-6 && Math.abs(view.fy - p.fy) < 1e-6))) view.pending = null;
     });
   const zsel = d3.select(wrap).call(zoom).on("dblclick.zoom", null); // a double click must not fight the select click
 
@@ -147,6 +163,25 @@ export function drawMap({grid, cells, cellFlag, classes, rgb, outlines, detail =
 
   // restore the view the reader had before this redraw
   zsel.call(zoom.transform, d3.zoomIdentity.translate(view.fx * width, view.fy * height).scale(view.k));
+
+  // a new selection: fit the map to it (or return to the full extent when the selection is cleared)
+  if (focusKey !== view.key) {
+    view.key = focusKey;
+    if (focus) {
+      const [[x0, y0], [x1, y1]] = path.bounds(focus); // page pixels at zoom 1
+      const k = Math.max(1, Math.min(MAX_ZOOM, FIT / Math.max((x1 - x0) / width, (y1 - y0) / height, 1e-9)));
+      // centre it, without showing anything beyond the map's edge
+      const tx = Math.min(0, Math.max(width - k * width, width / 2 - (k * (x0 + x1)) / 2));
+      const ty = Math.min(0, Math.max(height - k * height, height / 2 - (k * (y0 + y1)) / 2));
+      view.pending = {k, fx: tx / width, fy: ty / height};
+    } else if (focusKey === "//") {
+      view.pending = {k: 1, fx: 0, fy: 0};
+    }
+  }
+  if (view.pending) {
+    const p = view.pending;
+    zsel.transition().duration(FLY_MS).call(zoom.transform, d3.zoomIdentity.translate(p.fx * width, p.fy * height).scale(p.k));
+  }
 
   const root = document.createElement("div");
   root.append(wrap, hover);
