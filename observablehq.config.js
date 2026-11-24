@@ -3,8 +3,9 @@
 import {readFileSync} from "node:fs";
 
 // The favicon is site/icon.svg, the same file the page title shows. It is written into the head as a data
-// URI so that it needs no path, and so works under any base path.
-const icon = `data:image/svg+xml,${encodeURIComponent(readFileSync(new URL("./site/icon.svg", import.meta.url), "utf8"))}`;
+// URI so that it needs no path, and so works under any base path. Base64, because Framework rewrites
+// percent signs in a head link and that breaks a percent-encoded SVG.
+const icon = `data:image/svg+xml;base64,${readFileSync(new URL("./site/icon.svg", import.meta.url)).toString("base64")}`;
 
 export default {
   root: "site",
