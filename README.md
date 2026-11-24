@@ -18,8 +18,8 @@ For any province, kabupaten or kota, or kecamatan, and for Indonesia as a whole:
   the month you are looking at.
 - **What El Niño and La Niña years have looked like here**, month by month and
   episode by episode.
-- **Whether the cause is lack of rain or high evaporative demand**, by switching
-  between the rainfall, water balance and demand indices.
+- **Whether the cause is lack of rain, high evaporative demand, or both**: the
+  "Driver" map reads the rainfall, water balance and demand indices together.
 - **Whether conditions have been trending drier or wetter** over the decades.
 
 It describes the record up to December 2025. It is not a forecast.
@@ -40,7 +40,7 @@ Live at https://bennyistanto.github.io/drywet-explorer/
 | Index | Rainfall (SPI), Water balance (SPEI), Evaporative demand (EDDI) | which side of the water balance is measured |
 | Accumulated over | 1, 3, 6 or 12 months | how many months the index looks back over |
 | Conditions | Dry and wet, Dry only, Wet only | which side is drawn in colour |
-| Map shows | This month, How long, Status, Pattern | what each grid cell is coloured by, and what the page under the map is about |
+| Map shows | This month, How long, Status, Pattern, Driver | what each grid cell is coloured by, and what the page under the map is about |
 | Place and month | province, kabupaten or kota, kecamatan; January 1950 to December 2025 | where and when |
 
 The three indices are standardised against 1991 to 2020 and computed on
@@ -65,6 +65,7 @@ choice:
 | **How long** | the months the dry or wet event running in that cell has lasted | how much of the place is in an event and how much has been for 6 months or more; when long-running events covered more than half of it |
 | **Status** | what that event is doing: new, deepening, persisting, easing, ended | how much of the place is in an event and how much of it is still deepening; whether conditions are setting in or letting up |
 | **Pattern** | the space-time pattern of the last 12 months (emerging hot spot analysis): new, consecutive, persistent, intensifying, diminishing, sporadic, oscillating | how much of the place sits in a dry or wet cluster, and how much of that is new |
+| **Driver** | which of the three indices is beyond the threshold there: rain deficit and high demand together, rain deficit alone, high demand alone (and the same on the wet side) | how much of the place is dry or wet on at least one index, and how that divides between rainfall, demand, and both. It does not depend on the Index choice |
 
 Whatever the choice, the page gives, for the selected place:
 
@@ -73,7 +74,7 @@ Whatever the choice, the page gives, for the selected place:
 - the places inside it, ranked;
 - the share of area over time, for a span of years you choose;
 - the long-term trend, on the years the record can be trusted;
-- the past: events (This month) or spells (the other three);
+- the past: events (This month) or spells (the other four);
 - **El Nino and La Nina**: the state of the Pacific that month, what the place
   has averaged in each phase by calendar month, every episode since 1970, and
   where the two phases differ most.
@@ -85,6 +86,9 @@ Whatever the choice, the page gives, for the selected place:
 - A small unit rests on few grid cells, and border cells are shared between
   neighbours.
 - An event is not the same as being dry this month.
+- No index gives early warning of another here. Measured on this record,
+  rainfall and demand cross the threshold in the same month more often than
+  either leads, and SPEI follows SPI almost exactly.
 - An event of a large area is an event of its average. It does not mean every
   place inside stayed dry or wet, or that the same places did. Use "How long"
   or "Status" to see what each place did.
@@ -107,6 +111,7 @@ python -m pipeline.step5_enso
 python -m pipeline.step6_national
 python -m pipeline.step7_status
 python -m pipeline.step8_members
+python -m pipeline.step9_driver
 npm install
 npm run build
 npm run serve

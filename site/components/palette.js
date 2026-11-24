@@ -117,9 +117,77 @@ export function eventLegend(mode, index, show, meta) {
     .filter((s, i, a) => a.findIndex((o) => o.label === s.label) === i);
 }
 
+// Driver: which of the three indices is beyond the threshold in a cell (pipeline/step9_driver.py).
+// Stored code: 0 no value, else 1 + spi + 3 * spei + 9 * eddi, each 0 neither, 1 dry side, 2 wet side.
+// The grouping below is the legend: on each side, rain and demand together, rain alone, demand alone, or the
+// water balance alone. SPEI rarely stands alone (about 1% of months), so it does not get groups of its own.
+const DRIVER_DRY = ["#7b1113", "#e08a2e", "#f2c12e", "#d9cdb8"];   // both, rain alone, demand alone, balance only
+const DRIVER_WET = ["#0b2a66", "#2563c9", "#7fe0d4", "#cfd8e3"];
+const DRIVER_MIXED = "#9c6b98";
+const DRIVER_LABEL = {
+  dry: ["Dry: rain deficit and high demand", "Dry: rain deficit, demand not high", "Dry: high demand, rainfall not low", "Dry: water balance only"],
+  wet: ["Wet: excess rain and low demand", "Wet: excess rain, demand not low", "Wet: low demand, rainfall not high", "Wet: water balance only"]
+};
+export const DRIVER_NONE = "No index at the threshold";
+const DRIVER_MIXED_LABEL = "Mixed: dry on one index, wet on another";
+const OTHER_SIDE = "Other side, not shown";
+
+/** Group of a stored driver code on each side: 0 both, 1 rain alone, 2 demand alone, 3 balance only, -1 none. */
+export function driverGroups(code) {
+  const k = code - 1, spi = k % 3, spei = Math.floor(k / 3) % 3, eddi = Math.floor(k / 9);
+  const g = (v) => (spi === v && eddi === v ? 0 : spi === v ? 1 : eddi === v ? 2 : spei === v ? 3 : -1);
+  return {dry: g(1), wet: g(2), spi, spei, eddi};
+}
+
+/** Colour and label of one stored driver code (1..27). `show` is "both", "dry" or "wet". */
+export function driverStyle(code, show = "both") {
+  if (code === 0) return {colour: null, label: "No value"};
+  const {dry, wet} = driverGroups(code);
+  if (dry < 0 && wet < 0) return {colour: NORMAL, label: DRIVER_NONE};
+  if (show === "both" && dry >= 0 && wet >= 0) return {colour: DRIVER_MIXED, label: DRIVER_MIXED_LABEL};
+  if (show !== "wet" && dry >= 0) return {colour: DRIVER_DRY[dry], label: DRIVER_LABEL.dry[dry]};
+  if (show !== "dry" && wet >= 0) return {colour: DRIVER_WET[wet], label: DRIVER_LABEL.wet[wet]};
+  return {colour: NORMAL, label: OTHER_SIDE};
+}
+
+export function driverRgbTable(show = "both") {
+  const table = new Uint8Array(3 * 256);
+  for (let code = 1; code <= 27; code++) table.set(hexToRgb(driverStyle(code, show).colour), code * 3);
+  return table;
+}
+
+/** Legend for the driver map: the dry side, nothing at the threshold, mixed, then the wet side. */
+export function driverLegend(show = "both") {
+  const items = [];
+  if (show !== "wet") DRIVER_LABEL.dry.forEach((label, i) => items.push({colour: DRIVER_DRY[i], label}));
+  items.push({colour: NORMAL, label: DRIVER_NONE});
+  if (show === "both") items.push({colour: DRIVER_MIXED, label: DRIVER_MIXED_LABEL});
+  else items.push({colour: NORMAL, label: OTHER_SIDE});
+  if (show !== "dry") DRIVER_LABEL.wet.slice().reverse().forEach((label, i) => items.push({colour: DRIVER_WET[3 - i], label}));
+  return items;
+}
+
+function driverScheme(show) {
+  const items = driverLegend(show);
+  const groupOf = new Uint8Array(256).fill(255);
+  for (let code = 1; code <= 27; code++) groupOf[code] = items.findIndex((it) => it.label === driverStyle(code, show).label);
+  const is = {
+    dry: (c) => driverGroups(c).dry >= 0, wet: (c) => driverGroups(c).wet >= 0,
+    dryStrong: (c) => driverGroups(c).dry === 0, wetStrong: (c) => driverGroups(c).wet === 0
+  };
+  const words = {
+    title: "What is driving it", dry: "dry on at least one index", wet: "wet on at least one index",
+    strong: "rain and demand together", strongText: "with rainfall and demand both beyond the threshold",
+    dryCol: "dry, any index", wetCol: "wet, any index", thing: "signal"
+  };
+  // positions in `items` of the four drivers on each side, for the sentence that names them
+  const at = (labels) => labels.map((l) => items.findIndex((it) => it.label === l));
+  return {items, groupOf, is, words, driver: {dry: at(DRIVER_LABEL.dry), wet: at(DRIVER_LABEL.wet), mixed: at([DRIVER_MIXED_LABEL])[0]}};
+}
+
 /**
  * Everything the panels under the map need to summarise a map mode over a unit's cells.
- * mode: "howlong", "status" or "pattern". Returns
+ * mode: "howlong", "status", "pattern" or "driver". Returns
  *   items    the legend entries in order, each {colour, label}
  *   groupOf  Uint8Array: stored cell code -> position in items (255 = no value, left out of every share)
  *   is       predicates on a stored code, used for the headline figures: dry, wet (in an event or a cluster on
@@ -127,6 +195,7 @@ export function eventLegend(mode, index, show, meta) {
  *   words    the nouns and the meaning of "strong" for this mode
  */
 export function modeScheme(mode, index, show, meta) {
+  if (mode === "driver") return driverScheme(show);
   const pattern = mode === "pattern";
   const styleOf = (code) => (pattern ? patternStyle(code, index, show) : eventStyle(code, mode, index, show, meta));
   const order = pattern ? [10, 11, 12, 13, 14, 15, 16, 17, 9, 8, 7, 6, 5, 4, 3, 2, 1] : null;

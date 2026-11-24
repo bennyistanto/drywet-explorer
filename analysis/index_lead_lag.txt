@@ -1,0 +1,435 @@
+Which index moves first: unit level, same accumulation, reliable months, unflagged events
+onset level 1.0; months from 1970-01 (later for step_1984-majority units)
+
+=== 1-month, Indonesia: 1 units with 120+ months ===
+  corr d(EDDI[t], SPI[t+L]) L=-3..+3: +0.28 +0.41 +0.37 +0.89 +0.28 +0.29 +0.17
+  corr d(SPEI[t], SPI[t+L]) L=-3..+3: +0.27 +0.42 +0.39 +1.00 +0.38 +0.41 +0.26
+  corr d(EDDI[t], SPEI[t+L]) L=-3..+3: +0.27 +0.40 +0.37 +0.91 +0.29 +0.29 +0.17
+  dry months at the onset level in any index: 6.4% of 672 unit-months; of those: all three 44%, SPI+SPEI 47%, SPEI+EDDI 2%, SPI+EDDI 0%, SPI only 5%, SPEI only 0%, EDDI only 2%
+  wet months at the onset level in any index: 4.5% of 672 unit-months; of those: all three 20%, SPI+SPEI 33%, SPEI+EDDI 13%, SPI+EDDI 0%, SPI only 0%, SPEI only 7%, EDDI only 27%
+  dry episodes: 23; events SPI 22, SPEI 22, EDDI 13
+    indices taking part: SPI+SPEI+EDDI 52%, SPI+SPEI 43%, EDDI 4%
+    all three take part in 12; started first: SPI+SPEI+EDDI 58%, SPI+SPEI 25%, SPI 8%, SPEI+EDDI 8%
+    EDDI start minus SPI start : n=12  earlier   8.3% | same month  58.3% | later  33.3% | median +0, mean +0.92 months | within 1 month  66.7%
+    SPEI start minus SPI start : n=22  earlier   4.5% | same month  90.9% | later   4.5% | median +0, mean +0.05 months | within 1 month  90.9%
+    EDDI start minus SPEI start: n=12  earlier   0.0% | same month  66.7% | later  33.3% | median +0, mean +0.83 months | within 1 month  75.0%
+    EDDI end minus SPI end     : n=12  earlier  16.7% | same month  50.0% | later  33.3% | median +0, mean +0.00 months | within 1 month  66.7%
+  wet episodes: 22; events SPI 12, SPEI 17, EDDI 15
+    indices taking part: EDDI 27%, SPI+SPEI+EDDI 27%, SPI+SPEI 27%, SPEI+EDDI 14%, SPEI 5%
+    all three take part in 6; started first: SPI+SPEI+EDDI 67%, EDDI 17%, SPI+SPEI 17%
+    EDDI start minus SPI start : n=6  earlier  16.7% | same month  66.7% | later  16.7% | median +0, mean -1.00 months | within 1 month  83.3%
+    SPEI start minus SPI start : n=12  earlier   0.0% | same month 100.0% | later   0.0% | median +0, mean +0.00 months | within 1 month 100.0%
+    EDDI start minus SPEI start: n=9  earlier  11.1% | same month  77.8% | later  11.1% | median +0, mean -0.67 months | within 1 month  88.9%
+    EDDI end minus SPI end     : n=6  earlier  16.7% | same month  33.3% | later  50.0% | median +0, mean +0.83 months | within 1 month  50.0%
+
+=== 1-month, province: 38 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.84 (p10 +0.77, p90 +0.89)
+    median by shift L=-3..+3: +0.20 +0.27 +0.34 +0.84 +0.27 +0.21 +0.11
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +0.99 (p10 +0.98, p90 +1.00)
+    median by shift L=-3..+3: +0.17 +0.28 +0.34 +0.99 +0.34 +0.27 +0.17
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.87 (p10 +0.80, p90 +0.92)
+    median by shift L=-3..+3: +0.19 +0.26 +0.34 +0.87 +0.28 +0.20 +0.11
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 16.0% of 24,360 unit-months; of those: all three 49%, SPI+SPEI 23%, SPEI+EDDI 3%, SPI+EDDI 1%, SPI only 4%, SPEI only 1%, EDDI only 18%
+  wet months at the onset level in any index: 19.4% of 24,360 unit-months; of those: all three 43%, SPI+SPEI 21%, SPEI+EDDI 5%, SPI+EDDI 0%, SPI only 2%, SPEI only 2%, EDDI only 28%
+  dry episodes: 1,967; events SPI 1,719, SPEI 1,692, EDDI 1,544
+    indices taking part: SPI+SPEI+EDDI 58%, SPI+SPEI 20%, EDDI 14%, SPI 3%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 1%
+    all three take part in 1,148; started first: SPI+SPEI+EDDI 74%, SPI+SPEI 13%, EDDI 8%, SPI 3%, SPEI+EDDI 2%, SPI+EDDI 0%, SPEI 0%
+    all-three episodes per unit: median 30, p10 23, p90 36
+    EDDI start minus SPI start : n=1,158  earlier  10.0% | same month  74.7% | later  15.3% | median +0, mean +0.13 months | within 1 month  87.4%
+    SPEI start minus SPI start : n=1,549  earlier   2.1% | same month  95.4% | later   2.5% | median +0, mean +0.02 months | within 1 month  97.7%
+    EDDI start minus SPEI start: n=1,195  earlier   8.5% | same month  78.3% | later  13.1% | median +0, mean +0.10 months | within 1 month  89.6%
+    EDDI end minus SPI end     : n=1,154  earlier  10.7% | same month  68.8% | later  20.5% | median +0, mean +0.17 months | within 1 month  85.1%
+  wet episodes: 2,228; events SPI 1,700, SPEI 1,822, EDDI 1,923
+    indices taking part: SPI+SPEI+EDDI 55%, EDDI 23%, SPI+SPEI 15%, SPEI+EDDI 4%, SPI 1%, SPEI 1%, SPI+EDDI 0%
+    all three take part in 1,222; started first: SPI+SPEI+EDDI 65%, SPI+SPEI 18%, EDDI 13%, SPEI+EDDI 2%, SPEI 1%, SPI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 32, p10 25, p90 42
+    EDDI start minus SPI start : n=1,225  earlier  15.3% | same month  65.7% | later  19.0% | median +0, mean +0.07 months | within 1 month  81.6%
+    SPEI start minus SPI start : n=1,564  earlier   3.2% | same month  95.7% | later   1.1% | median +0, mean -0.04 months | within 1 month  98.1%
+    EDDI start minus SPEI start: n=1,308  earlier  13.1% | same month  68.6% | later  18.3% | median +0, mean +0.09 months | within 1 month  83.9%
+    EDDI end minus SPI end     : n=1,214  earlier  13.3% | same month  66.6% | later  20.1% | median +0, mean +0.13 months | within 1 month  83.4%
+
+=== 1-month, kabupaten: 536 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.79 (p10 +0.69, p90 +0.85)
+    median by shift L=-3..+3: +0.17 +0.25 +0.31 +0.79 +0.24 +0.18 +0.09
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +0.99 (p10 +0.97, p90 +0.99)
+    median by shift L=-3..+3: +0.14 +0.24 +0.31 +0.99 +0.30 +0.23 +0.14
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.82 (p10 +0.73, p90 +0.89)
+    median by shift L=-3..+3: +0.16 +0.24 +0.31 +0.82 +0.25 +0.18 +0.10
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 19.7% of 342,048 unit-months; of those: all three 43%, SPI+SPEI 25%, SPEI+EDDI 4%, SPI+EDDI 1%, SPI only 6%, SPEI only 1%, EDDI only 20%
+  wet months at the onset level in any index: 22.7% of 342,048 unit-months; of those: all three 42%, SPI+SPEI 24%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 2%, SPEI only 1%, EDDI only 27%
+  dry episodes: 32,839; events SPI 28,951, SPEI 28,227, EDDI 25,082
+    indices taking part: SPI+SPEI+EDDI 56%, SPI+SPEI 22%, EDDI 14%, SPI 4%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 1%
+    all three take part in 18,272; started first: SPI+SPEI+EDDI 69%, SPI+SPEI 15%, EDDI 10%, SPI 3%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 1%
+    all-three episodes per unit: median 34, p10 28, p90 40
+    EDDI start minus SPI start : n=18,449  earlier  12.0% | same month  69.4% | later  18.6% | median +0, mean +0.13 months | within 1 month  84.5%
+    SPEI start minus SPI start : n=25,534  earlier   2.2% | same month  94.6% | later   3.2% | median +0, mean +0.02 months | within 1 month  97.2%
+    EDDI start minus SPEI start: n=19,076  earlier  10.9% | same month  73.0% | later  16.1% | median +0, mean +0.10 months | within 1 month  86.8%
+    EDDI end minus SPI end     : n=18,384  earlier  13.1% | same month  65.2% | later  21.7% | median +0, mean +0.17 months | within 1 month  83.0%
+  wet episodes: 36,095; events SPI 29,432, SPEI 30,404, EDDI 29,994
+    indices taking part: SPI+SPEI+EDDI 56%, EDDI 21%, SPI+SPEI 19%, SPEI+EDDI 2%, SPI 2%, SPEI 1%, SPI+EDDI 0%
+    all three take part in 20,084; started first: SPI+SPEI+EDDI 64%, SPI+SPEI 19%, EDDI 13%, SPEI+EDDI 2%, SPI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 38, p10 30, p90 44
+    EDDI start minus SPI start : n=20,172  earlier  15.4% | same month  63.8% | later  20.7% | median +0, mean +0.09 months | within 1 month  82.0%
+    SPEI start minus SPI start : n=26,806  earlier   2.3% | same month  95.9% | later   1.7% | median +0, mean -0.02 months | within 1 month  98.0%
+    EDDI start minus SPEI start: n=20,939  earlier  13.6% | same month  67.2% | later  19.2% | median +0, mean +0.10 months | within 1 month  84.0%
+    EDDI end minus SPI end     : n=20,037  earlier  14.8% | same month  63.5% | later  21.7% | median +0, mean +0.15 months | within 1 month  83.7%
+
+=== 1-month, kecamatan: 7,285 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.77 (p10 +0.65, p90 +0.84)
+    median by shift L=-3..+3: +0.17 +0.24 +0.31 +0.77 +0.24 +0.17 +0.10
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +0.99 (p10 +0.96, p90 +0.99)
+    median by shift L=-3..+3: +0.14 +0.22 +0.30 +0.99 +0.29 +0.22 +0.14
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.80 (p10 +0.69, p90 +0.87)
+    median by shift L=-3..+3: +0.16 +0.24 +0.31 +0.80 +0.25 +0.18 +0.10
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 20.8% of 4,693,752 unit-months; of those: all three 42%, SPI+SPEI 27%, SPEI+EDDI 3%, SPI+EDDI 1%, SPI only 6%, SPEI only 1%, EDDI only 20%
+  wet months at the onset level in any index: 23.8% of 4,693,752 unit-months; of those: all three 41%, SPI+SPEI 26%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 3%, SPEI only 1%, EDDI only 27%
+  dry episodes: 466,812; events SPI 413,573, SPEI 399,465, EDDI 349,712
+    indices taking part: SPI+SPEI+EDDI 54%, SPI+SPEI 24%, EDDI 14%, SPI 4%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 1%
+    all three take part in 252,243; started first: SPI+SPEI+EDDI 67%, SPI+SPEI 17%, EDDI 10%, SPI 4%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 1%
+    all-three episodes per unit: median 34, p10 29, p90 40
+    EDDI start minus SPI start : n=255,075  earlier  12.2% | same month  67.3% | later  20.5% | median +0, mean +0.16 months | within 1 month  83.7%
+    SPEI start minus SPI start : n=362,046  earlier   2.1% | same month  94.1% | later   3.8% | median +0, mean +0.04 months | within 1 month  97.0%
+    EDDI start minus SPEI start: n=262,365  earlier  11.4% | same month  71.2% | later  17.4% | median +0, mean +0.11 months | within 1 month  86.1%
+    EDDI end minus SPI end     : n=254,251  earlier  13.6% | same month  63.9% | later  22.4% | median +0, mean +0.17 months | within 1 month  83.0%
+  wet episodes: 515,766; events SPI 424,371, SPEI 431,715, EDDI 419,799
+    indices taking part: SPI+SPEI+EDDI 54%, EDDI 20%, SPI+SPEI 20%, SPI 2%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all three take part in 280,206; started first: SPI+SPEI+EDDI 62%, SPI+SPEI 20%, EDDI 14%, SPI 2%, SPEI+EDDI 2%, SPEI 0%, SPI+EDDI 0%
+    all-three episodes per unit: median 39, p10 31, p90 45
+    EDDI start minus SPI start : n=281,782  earlier  15.6% | same month  61.9% | later  22.5% | median +0, mean +0.12 months | within 1 month  81.4%
+    SPEI start minus SPI start : n=383,650  earlier   1.9% | same month  96.2% | later   1.9% | median +0, mean -0.01 months | within 1 month  98.2%
+    EDDI start minus SPEI start: n=290,792  earlier  14.2% | same month  65.2% | later  20.6% | median +0, mean +0.11 months | within 1 month  83.2%
+    EDDI end minus SPI end     : n=279,843  earlier  15.3% | same month  62.1% | later  22.6% | median +0, mean +0.15 months | within 1 month  83.3%
+
+=== 3-month, Indonesia: 1 units with 120+ months ===
+  corr d(EDDI[t], SPI[t+L]) L=-3..+3: +0.48 +0.66 +0.78 +0.87 +0.68 +0.50 +0.28
+  corr d(SPEI[t], SPI[t+L]) L=-3..+3: +0.47 +0.69 +0.85 +1.00 +0.85 +0.68 +0.46
+  corr d(EDDI[t], SPEI[t+L]) L=-3..+3: +0.47 +0.67 +0.79 +0.89 +0.70 +0.51 +0.29
+  dry months at the onset level in any index: 9.5% of 672 unit-months; of those: all three 42%, SPI+SPEI 38%, SPEI+EDDI 2%, SPI+EDDI 0%, SPI only 9%, SPEI only 0%, EDDI only 9%
+  wet months at the onset level in any index: 4.2% of 672 unit-months; of those: all three 7%, SPI+SPEI 54%, SPEI+EDDI 0%, SPI+EDDI 0%, SPI only 0%, SPEI only 7%, EDDI only 32%
+  dry episodes: 17; events SPI 16, SPEI 15, EDDI 11
+    indices taking part: SPI+SPEI+EDDI 53%, SPI+SPEI 29%, EDDI 12%, SPI 6%
+    all three take part in 9; started first: SPI+SPEI 44%, SPI+SPEI+EDDI 33%, SPI 22%
+    EDDI start minus SPI start : n=9  earlier   0.0% | same month  33.3% | later  66.7% | median +1, mean +1.22 months | within 1 month  66.7%
+    SPEI start minus SPI start : n=14  earlier   0.0% | same month  64.3% | later  35.7% | median +0, mean +0.43 months | within 1 month  92.9%
+    EDDI start minus SPEI start: n=9  earlier   0.0% | same month  44.4% | later  55.6% | median +1, mean +1.00 months | within 1 month  77.8%
+    EDDI end minus SPI end     : n=9  earlier   0.0% | same month  55.6% | later  44.4% | median +0, mean +0.89 months | within 1 month  77.8%
+  wet episodes: 11; events SPI 7, SPEI 7, EDDI 6
+    indices taking part: SPI+SPEI 45%, EDDI 36%, SPI+SPEI+EDDI 18%
+    all three take part in 2; started first: SPI+SPEI 100%
+    EDDI start minus SPI start : n=2  earlier   0.0% | same month   0.0% | later 100.0% | median +6, mean +6.50 months | within 1 month   0.0%
+    SPEI start minus SPI start : n=7  earlier   0.0% | same month 100.0% | later   0.0% | median +0, mean +0.00 months | within 1 month 100.0%
+    EDDI start minus SPEI start: n=2  earlier   0.0% | same month   0.0% | later 100.0% | median +6, mean +6.50 months | within 1 month   0.0%
+    EDDI end minus SPI end     : n=1  earlier   0.0% | same month   0.0% | later 100.0% | median +1, mean +1.00 months | within 1 month 100.0%
+
+=== 3-month, province: 38 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.84 (p10 +0.72, p90 +0.90)
+    median by shift L=-3..+3: +0.35 +0.55 +0.73 +0.84 +0.65 +0.43 +0.20
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +0.99 (p10 +0.99, p90 +1.00)
+    median by shift L=-3..+3: +0.30 +0.57 +0.82 +0.99 +0.81 +0.55 +0.28
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.87 (p10 +0.77, p90 +0.92)
+    median by shift L=-3..+3: +0.34 +0.55 +0.75 +0.87 +0.67 +0.44 +0.21
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 16.4% of 24,346 unit-months; of those: all three 47%, SPI+SPEI 25%, SPEI+EDDI 3%, SPI+EDDI 1%, SPI only 4%, SPEI only 1%, EDDI only 18%
+  wet months at the onset level in any index: 20.3% of 24,346 unit-months; of those: all three 44%, SPI+SPEI 21%, SPEI+EDDI 4%, SPI+EDDI 0%, SPI only 1%, SPEI only 1%, EDDI only 28%
+  dry episodes: 993; events SPI 901, SPEI 883, EDDI 791
+    indices taking part: SPI+SPEI+EDDI 65%, SPI+SPEI 19%, EDDI 11%, SPI 3%, SPEI+EDDI 1%, SPEI 1%, SPI+EDDI 0%
+    all three take part in 641; started first: SPI+SPEI+EDDI 42%, SPI+SPEI 32%, EDDI 14%, SPI 7%, SPEI+EDDI 3%, SPEI 2%, SPI+EDDI 0%
+    all-three episodes per unit: median 18, p10 12, p90 22
+    EDDI start minus SPI start : n=645  earlier  17.1% | same month  43.7% | later  39.2% | median +0, mean +0.60 months | within 1 month  72.7%
+    SPEI start minus SPI start : n=830  earlier   4.8% | same month  87.2% | later   8.0% | median +0, mean +0.04 months | within 1 month  94.1%
+    EDDI start minus SPEI start: n=654  earlier  15.3% | same month  48.5% | later  36.2% | median +0, mean +0.53 months | within 1 month  76.9%
+    EDDI end minus SPI end     : n=639  earlier  16.7% | same month  41.0% | later  42.3% | median +0, mean +0.55 months | within 1 month  73.6%
+  wet episodes: 1,088; events SPI 875, SPEI 918, EDDI 1,007
+    indices taking part: SPI+SPEI+EDDI 64%, EDDI 20%, SPI+SPEI 11%, SPEI+EDDI 4%, SPI 1%, SPEI 0%, SPI+EDDI 0%
+    all three take part in 697; started first: SPI+SPEI+EDDI 44%, SPI+SPEI 32%, EDDI 18%, SPEI+EDDI 3%, SPI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 18, p10 12, p90 24
+    EDDI start minus SPI start : n=700  earlier  21.3% | same month  44.4% | later  34.3% | median +0, mean +0.21 months | within 1 month  70.1%
+    SPEI start minus SPI start : n=818  earlier   5.7% | same month  92.2% | later   2.1% | median +0, mean -0.13 months | within 1 month  96.8%
+    EDDI start minus SPEI start: n=737  earlier  19.4% | same month  47.4% | later  33.2% | median +0, mean +0.29 months | within 1 month  72.2%
+    EDDI end minus SPI end     : n=679  earlier  20.8% | same month  43.4% | later  35.8% | median +0, mean +0.38 months | within 1 month  73.3%
+
+=== 3-month, kabupaten: 536 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.79 (p10 +0.65, p90 +0.86)
+    median by shift L=-3..+3: +0.31 +0.52 +0.68 +0.79 +0.60 +0.39 +0.18
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +0.99 (p10 +0.98, p90 +1.00)
+    median by shift L=-3..+3: +0.26 +0.54 +0.78 +0.99 +0.77 +0.52 +0.25
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.83 (p10 +0.70, p90 +0.89)
+    median by shift L=-3..+3: +0.30 +0.52 +0.70 +0.83 +0.62 +0.41 +0.19
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 20.0% of 341,832 unit-months; of those: all three 44%, SPI+SPEI 28%, SPEI+EDDI 3%, SPI+EDDI 1%, SPI only 5%, SPEI only 1%, EDDI only 19%
+  wet months at the onset level in any index: 23.2% of 341,832 unit-months; of those: all three 43%, SPI+SPEI 23%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 2%, SPEI only 1%, EDDI only 27%
+  dry episodes: 16,420; events SPI 15,211, SPEI 14,807, EDDI 12,519
+    indices taking part: SPI+SPEI+EDDI 61%, SPI+SPEI 22%, EDDI 11%, SPI 4%, SPEI+EDDI 1%, SPEI 1%, SPI+EDDI 0%
+    all three take part in 10,042; started first: SPI+SPEI+EDDI 39%, SPI+SPEI 34%, EDDI 16%, SPI 7%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 1%
+    all-three episodes per unit: median 19, p10 14, p90 23
+    EDDI start minus SPI start : n=10,113  earlier  18.5% | same month  40.5% | later  41.0% | median +0, mean +0.58 months | within 1 month  69.4%
+    SPEI start minus SPI start : n=13,725  earlier   3.3% | same month  88.6% | later   8.1% | median +0, mean +0.08 months | within 1 month  95.9%
+    EDDI start minus SPEI start: n=10,255  earlier  17.7% | same month  44.6% | later  37.7% | median +0, mean +0.50 months | within 1 month  73.3%
+    EDDI end minus SPI end     : n=10,000  earlier  20.1% | same month  38.0% | later  41.9% | median +0, mean +0.48 months | within 1 month  70.5%
+  wet episodes: 17,385; events SPI 14,971, SPEI 15,169, EDDI 15,221
+    indices taking part: SPI+SPEI+EDDI 63%, EDDI 18%, SPI+SPEI 15%, SPEI+EDDI 2%, SPI 2%, SPEI 0%, SPI+EDDI 0%
+    all three take part in 10,970; started first: SPI+SPEI+EDDI 39%, SPI+SPEI 32%, EDDI 22%, SPI 4%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 21, p10 15, p90 26
+    EDDI start minus SPI start : n=11,012  earlier  24.2% | same month  39.9% | later  35.9% | median +0, mean +0.20 months | within 1 month  67.6%
+    SPEI start minus SPI start : n=13,528  earlier   4.0% | same month  91.1% | later   4.9% | median +0, mean -0.01 months | within 1 month  96.9%
+    EDDI start minus SPEI start: n=11,342  earlier  22.8% | same month  43.4% | later  33.8% | median +0, mean +0.20 months | within 1 month  70.7%
+    EDDI end minus SPI end     : n=10,718  earlier  22.0% | same month  43.5% | later  34.6% | median +0, mean +0.37 months | within 1 month  72.3%
+
+=== 3-month, kecamatan: 7,285 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.77 (p10 +0.63, p90 +0.85)
+    median by shift L=-3..+3: +0.30 +0.51 +0.67 +0.77 +0.58 +0.37 +0.17
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +0.99 (p10 +0.98, p90 +0.99)
+    median by shift L=-3..+3: +0.26 +0.53 +0.78 +0.99 +0.77 +0.51 +0.25
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.81 (p10 +0.67, p90 +0.88)
+    median by shift L=-3..+3: +0.30 +0.51 +0.69 +0.81 +0.61 +0.39 +0.19
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 21.0% of 4,691,350 unit-months; of those: all three 42%, SPI+SPEI 30%, SPEI+EDDI 3%, SPI+EDDI 1%, SPI only 6%, SPEI only 1%, EDDI only 19%
+  wet months at the onset level in any index: 24.3% of 4,691,350 unit-months; of those: all three 42%, SPI+SPEI 25%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 3%, SPEI only 1%, EDDI only 27%
+  dry episodes: 232,621; events SPI 216,948, SPEI 209,341, EDDI 172,474
+    indices taking part: SPI+SPEI+EDDI 59%, SPI+SPEI 24%, EDDI 10%, SPI 4%, SPEI+EDDI 1%, SPI+EDDI 0%, SPEI 0%
+    all three take part in 137,526; started first: SPI+SPEI+EDDI 37%, SPI+SPEI 36%, EDDI 16%, SPI 7%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 1%
+    all-three episodes per unit: median 19, p10 14, p90 24
+    EDDI start minus SPI start : n=138,478  earlier  18.4% | same month  38.1% | later  43.5% | median +0, mean +0.67 months | within 1 month  67.0%
+    SPEI start minus SPI start : n=194,305  earlier   3.0% | same month  88.3% | later   8.7% | median +0, mean +0.10 months | within 1 month  95.8%
+    EDDI start minus SPEI start: n=140,341  earlier  17.9% | same month  42.4% | later  39.7% | median +0, mean +0.57 months | within 1 month  71.3%
+    EDDI end minus SPI end     : n=137,219  earlier  21.3% | same month  36.9% | later  41.8% | median +0, mean +0.46 months | within 1 month  69.5%
+  wet episodes: 247,487; events SPI 213,788, SPEI 213,991, EDDI 213,625
+    indices taking part: SPI+SPEI+EDDI 62%, EDDI 18%, SPI+SPEI 16%, SPI 2%, SPEI+EDDI 2%, SPEI 0%, SPI+EDDI 0%
+    all three take part in 153,402; started first: SPI+SPEI+EDDI 37%, SPI+SPEI 33%, EDDI 23%, SPI 4%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 21, p10 15, p90 27
+    EDDI start minus SPI start : n=154,060  earlier  24.7% | same month  37.6% | later  37.7% | median +0, mean +0.23 months | within 1 month  65.8%
+    SPEI start minus SPI start : n=192,267  earlier   3.5% | same month  91.3% | later   5.3% | median +0, mean +0.01 months | within 1 month  97.3%
+    EDDI start minus SPEI start: n=157,713  earlier  23.5% | same month  41.0% | later  35.5% | median +0, mean +0.22 months | within 1 month  68.8%
+    EDDI end minus SPI end     : n=149,751  earlier  22.3% | same month  41.8% | later  35.9% | median +0, mean +0.39 months | within 1 month  71.1%
+
+=== 6-month, Indonesia: 1 units with 120+ months ===
+  corr d(EDDI[t], SPI[t+L]) L=-3..+3: +0.70 +0.79 +0.84 +0.85 +0.75 +0.62 +0.47
+  corr d(SPEI[t], SPI[t+L]) L=-3..+3: +0.71 +0.84 +0.94 +1.00 +0.93 +0.82 +0.69
+  corr d(EDDI[t], SPEI[t+L]) L=-3..+3: +0.70 +0.80 +0.86 +0.88 +0.77 +0.64 +0.50
+  dry months at the onset level in any index: 8.6% of 672 unit-months; of those: all three 57%, SPI+SPEI 33%, SPEI+EDDI 0%, SPI+EDDI 0%, SPI only 3%, SPEI only 0%, EDDI only 7%
+  wet months at the onset level in any index: 4.5% of 672 unit-months; of those: all three 13%, SPI+SPEI 47%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 10%, SPEI only 7%, EDDI only 20%
+  dry episodes: 13; events SPI 13, SPEI 11, EDDI 7
+    indices taking part: SPI+SPEI+EDDI 54%, SPI+SPEI 31%, SPI 15%
+    all three take part in 7; started first: SPI+SPEI+EDDI 57%, SPI+SPEI 43%
+    EDDI start minus SPI start : n=7  earlier   0.0% | same month  57.1% | later  42.9% | median +0, mean +1.00 months | within 1 month  57.1%
+    SPEI start minus SPI start : n=11  earlier   0.0% | same month 100.0% | later   0.0% | median +0, mean +0.00 months | within 1 month 100.0%
+    EDDI start minus SPEI start: n=7  earlier   0.0% | same month  57.1% | later  42.9% | median +0, mean +1.00 months | within 1 month  57.1%
+    EDDI end minus SPI end     : n=7  earlier  14.3% | same month  42.9% | later  42.9% | median +0, mean +0.43 months | within 1 month  85.7%
+  wet episodes: 9; events SPI 7, SPEI 8, EDDI 4
+    indices taking part: SPI+SPEI 56%, SPI+SPEI+EDDI 22%, SPEI+EDDI 11%, EDDI 11%
+    all three take part in 2; started first: SPI 50%, SPEI 50%
+    EDDI start minus SPI start : n=2  earlier   0.0% | same month  50.0% | later  50.0% | median +6, mean +6.50 months | within 1 month  50.0%
+    SPEI start minus SPI start : n=7  earlier  14.3% | same month  57.1% | later  28.6% | median +0, mean +1.00 months | within 1 month  85.7%
+    EDDI start minus SPEI start: n=3  earlier  33.3% | same month   0.0% | later  66.7% | median +1, mean +1.67 months | within 1 month  33.3%
+    EDDI end minus SPI end     : n=1  earlier 100.0% | same month   0.0% | later   0.0% | median -3, mean -3.00 months | within 1 month   0.0%
+
+=== 6-month, province: 38 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.84 (p10 +0.70, p90 +0.90)
+    median by shift L=-3..+3: +0.62 +0.73 +0.81 +0.84 +0.72 +0.57 +0.43
+    units whose best shift is L: -3:0% -2:0% -1:5% +0:95% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +0.99 (p10 +0.99, p90 +1.00)
+    median by shift L=-3..+3: +0.60 +0.77 +0.91 +0.99 +0.89 +0.74 +0.57
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.87 (p10 +0.75, p90 +0.93)
+    median by shift L=-3..+3: +0.62 +0.74 +0.83 +0.87 +0.75 +0.60 +0.46
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 16.1% of 24,325 unit-months; of those: all three 47%, SPI+SPEI 26%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 4%, SPEI only 1%, EDDI only 20%
+  wet months at the onset level in any index: 21.3% of 24,325 unit-months; of those: all three 42%, SPI+SPEI 23%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 2%, SPEI only 1%, EDDI only 29%
+  dry episodes: 648; events SPI 597, SPEI 581, EDDI 484
+    indices taking part: SPI+SPEI+EDDI 63%, SPI+SPEI 23%, EDDI 9%, SPI 3%, SPEI+EDDI 2%, SPEI 0%, SPI+EDDI 0%
+    all three take part in 407; started first: SPI+SPEI 44%, SPI+SPEI+EDDI 32%, EDDI 16%, SPI 6%, SPEI 1%, SPEI+EDDI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 10, p10 8, p90 15
+    EDDI start minus SPI start : n=408  earlier  17.6% | same month  32.6% | later  49.8% | median +0, mean +0.93 months | within 1 month  61.3%
+    SPEI start minus SPI start : n=553  earlier   4.3% | same month  86.1% | later   9.6% | median +0, mean +0.08 months | within 1 month  96.9%
+    EDDI start minus SPEI start: n=418  earlier  17.2% | same month  35.4% | later  47.4% | median +0, mean +0.83 months | within 1 month  65.3%
+    EDDI end minus SPI end     : n=404  earlier  17.6% | same month  28.2% | later  54.2% | median +1, mean +0.58 months | within 1 month  59.7%
+  wet episodes: 686; events SPI 581, SPEI 601, EDDI 603
+    indices taking part: SPI+SPEI+EDDI 64%, EDDI 17%, SPI+SPEI 13%, SPEI+EDDI 3%, SPI 1%, SPEI 1%
+    all three take part in 441; started first: SPI+SPEI 45%, SPI+SPEI+EDDI 24%, EDDI 23%, SPI 5%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 11, p10 7, p90 16
+    EDDI start minus SPI start : n=441  earlier  24.9% | same month  24.9% | later  50.1% | median +1, mean +0.69 months | within 1 month  53.5%
+    SPEI start minus SPI start : n=531  earlier   5.6% | same month  87.8% | later   6.6% | median +0, mean -0.08 months | within 1 month  96.2%
+    EDDI start minus SPEI start: n=464  earlier  24.8% | same month  28.2% | later  47.0% | median +0, mean +0.52 months | within 1 month  58.0%
+    EDDI end minus SPI end     : n=418  earlier  17.0% | same month  29.7% | later  53.3% | median +1, mean +1.70 months | within 1 month  58.4%
+
+=== 6-month, kabupaten: 536 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.79 (p10 +0.63, p90 +0.87)
+    median by shift L=-3..+3: +0.57 +0.68 +0.76 +0.79 +0.68 +0.55 +0.42
+    units whose best shift is L: -3:0% -2:0% -1:11% +0:89% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +0.99 (p10 +0.99, p90 +1.00)
+    median by shift L=-3..+3: +0.59 +0.75 +0.89 +0.99 +0.88 +0.73 +0.57
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.83 (p10 +0.68, p90 +0.89)
+    median by shift L=-3..+3: +0.58 +0.70 +0.79 +0.83 +0.72 +0.59 +0.45
+    units whose best shift is L: -3:0% -2:0% -1:5% +0:95% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 19.8% of 341,508 unit-months; of those: all three 43%, SPI+SPEI 30%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 5%, SPEI only 1%, EDDI only 19%
+  wet months at the onset level in any index: 24.0% of 341,508 unit-months; of those: all three 42%, SPI+SPEI 24%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 2%, SPEI only 1%, EDDI only 28%
+  dry episodes: 10,283; events SPI 9,821, SPEI 9,553, EDDI 7,419
+    indices taking part: SPI+SPEI+EDDI 61%, SPI+SPEI 26%, EDDI 8%, SPI 4%, SPEI+EDDI 1%, SPEI 0%, SPI+EDDI 0%
+    all three take part in 6,285; started first: SPI+SPEI 43%, SPI+SPEI+EDDI 27%, EDDI 20%, SPI 8%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 12, p10 8, p90 16
+    EDDI start minus SPI start : n=6,310  earlier  22.0% | same month  27.4% | later  50.5% | median +1, mean +1.05 months | within 1 month  55.2%
+    SPEI start minus SPI start : n=8,959  earlier   3.6% | same month  85.8% | later  10.6% | median +0, mean +0.13 months | within 1 month  96.0%
+    EDDI start minus SPEI start: n=6,403  earlier  21.0% | same month  30.8% | later  48.3% | median +0, mean +0.94 months | within 1 month  59.3%
+    EDDI end minus SPI end     : n=6,228  earlier  22.9% | same month  24.5% | later  52.6% | median +1, mean +0.65 months | within 1 month  56.0%
+  wet episodes: 10,704; events SPI 9,355, SPEI 9,417, EDDI 9,344
+    indices taking part: SPI+SPEI+EDDI 65%, EDDI 16%, SPI+SPEI 14%, SPEI+EDDI 2%, SPI 2%, SPEI 0%, SPI+EDDI 0%
+    all three take part in 6,973; started first: SPI+SPEI 40%, SPI+SPEI+EDDI 26%, EDDI 24%, SPI 7%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 13, p10 9, p90 17
+    EDDI start minus SPI start : n=6,998  earlier  26.2% | same month  26.7% | later  47.1% | median +0, mean +0.52 months | within 1 month  54.5%
+    SPEI start minus SPI start : n=8,492  earlier   5.6% | same month  86.7% | later   7.7% | median +0, mean +0.01 months | within 1 month  96.3%
+    EDDI start minus SPEI start: n=7,197  earlier  25.5% | same month  29.7% | later  44.8% | median +0, mean +0.46 months | within 1 month  58.4%
+    EDDI end minus SPI end     : n=6,680  earlier  22.5% | same month  29.1% | later  48.4% | median +0, mean +1.14 months | within 1 month  56.8%
+
+=== 6-month, kecamatan: 7,285 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.78 (p10 +0.61, p90 +0.85)
+    median by shift L=-3..+3: +0.56 +0.67 +0.75 +0.78 +0.67 +0.54 +0.41
+    units whose best shift is L: -3:0% -2:0% -1:12% +0:87% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +0.99 (p10 +0.98, p90 +1.00)
+    median by shift L=-3..+3: +0.59 +0.75 +0.89 +0.99 +0.88 +0.73 +0.56
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.81 (p10 +0.66, p90 +0.88)
+    median by shift L=-3..+3: +0.57 +0.69 +0.78 +0.81 +0.71 +0.58 +0.44
+    units whose best shift is L: -3:0% -2:0% -1:5% +0:95% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 20.7% of 4,687,747 unit-months; of those: all three 42%, SPI+SPEI 31%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 5%, SPEI only 1%, EDDI only 19%
+  wet months at the onset level in any index: 24.9% of 4,687,747 unit-months; of those: all three 41%, SPI+SPEI 25%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 3%, SPEI only 0%, EDDI only 28%
+  dry episodes: 144,891; events SPI 138,986, SPEI 134,198, EDDI 102,483
+    indices taking part: SPI+SPEI+EDDI 60%, SPI+SPEI 27%, EDDI 7%, SPI 4%, SPEI+EDDI 1%, SPI+EDDI 0%, SPEI 0%
+    all three take part in 86,567; started first: SPI+SPEI 43%, SPI+SPEI+EDDI 25%, EDDI 21%, SPI 8%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 12, p10 9, p90 16
+    EDDI start minus SPI start : n=86,951  earlier  22.3% | same month  26.0% | later  51.7% | median +1, mean +1.11 months | within 1 month  53.1%
+    SPEI start minus SPI start : n=126,111  earlier   3.5% | same month  85.3% | later  11.2% | median +0, mean +0.12 months | within 1 month  95.9%
+    EDDI start minus SPEI start: n=87,930  earlier  21.5% | same month  28.9% | later  49.6% | median +0, mean +1.01 months | within 1 month  57.4%
+    EDDI end minus SPI end     : n=86,039  earlier  24.1% | same month  24.5% | later  51.4% | median +1, mean +0.62 months | within 1 month  55.0%
+  wet episodes: 150,337; events SPI 132,737, SPEI 132,414, EDDI 130,688
+    indices taking part: SPI+SPEI+EDDI 65%, EDDI 16%, SPI+SPEI 15%, SPI 2%, SPEI+EDDI 2%, SPI+EDDI 0%, SPEI 0%
+    all three take part in 97,410; started first: SPI+SPEI 40%, EDDI 26%, SPI+SPEI+EDDI 24%, SPI 7%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 14, p10 9, p90 17
+    EDDI start minus SPI start : n=97,817  earlier  27.9% | same month  24.4% | later  47.6% | median +0, mean +0.48 months | within 1 month  52.3%
+    SPEI start minus SPI start : n=119,685  earlier   5.3% | same month  85.9% | later   8.8% | median +0, mean +0.03 months | within 1 month  95.8%
+    EDDI start minus SPEI start: n=99,970  earlier  26.9% | same month  27.8% | later  45.3% | median +0, mean +0.41 months | within 1 month  56.8%
+    EDDI end minus SPI end     : n=93,226  earlier  22.5% | same month  28.5% | later  48.9% | median +0, mean +1.11 months | within 1 month  55.7%
+
+=== 12-month, Indonesia: 1 units with 120+ months ===
+  corr d(EDDI[t], SPI[t+L]) L=-3..+3: +0.78 +0.82 +0.82 +0.81 +0.74 +0.66 +0.57
+  corr d(SPEI[t], SPI[t+L]) L=-3..+3: +0.87 +0.93 +0.97 +1.00 +0.97 +0.92 +0.85
+  corr d(EDDI[t], SPEI[t+L]) L=-3..+3: +0.80 +0.84 +0.85 +0.84 +0.78 +0.70 +0.61
+  dry months at the onset level in any index: 8.3% of 672 unit-months; of those: all three 48%, SPI+SPEI 23%, SPEI+EDDI 2%, SPI+EDDI 0%, SPI only 5%, SPEI only 4%, EDDI only 18%
+  wet months at the onset level in any index: 7.1% of 672 unit-months; of those: all three 4%, SPI+SPEI 56%, SPEI+EDDI 0%, SPI+EDDI 0%, SPI only 6%, SPEI only 10%, EDDI only 23%
+  dry episodes: 7; events SPI 6, SPEI 5, EDDI 5
+    indices taking part: SPI+SPEI+EDDI 57%, SPI+SPEI 14%, SPI 14%, EDDI 14%
+    all three take part in 4; started first: SPI+SPEI 75%, SPEI+EDDI 25%
+    EDDI start minus SPI start : n=4  earlier  25.0% | same month   0.0% | later  75.0% | median +2, mean +1.50 months | within 1 month  50.0%
+    SPEI start minus SPI start : n=5  earlier  20.0% | same month  80.0% | later   0.0% | median +0, mean -0.20 months | within 1 month 100.0%
+    EDDI start minus SPEI start: n=4  earlier   0.0% | same month  25.0% | later  75.0% | median +2, mean +1.75 months | within 1 month  50.0%
+    EDDI end minus SPI end     : n=4  earlier  25.0% | same month  50.0% | later  25.0% | median +0, mean +0.00 months | within 1 month  50.0%
+  wet episodes: 7; events SPI 5, SPEI 5, EDDI 3
+    indices taking part: SPI+SPEI 43%, EDDI 29%, SPI+SPEI+EDDI 14%, SPEI 14%
+    all three take part in 1; started first: SPI 100%
+    EDDI start minus SPI start : n=1  earlier   0.0% | same month   0.0% | later 100.0% | median +8, mean +8.00 months | within 1 month   0.0%
+    SPEI start minus SPI start : n=4  earlier   0.0% | same month  50.0% | later  50.0% | median +0, mean +0.75 months | within 1 month  75.0%
+    EDDI start minus SPEI start: n=1  earlier   0.0% | same month   0.0% | later 100.0% | median +7, mean +7.00 months | within 1 month   0.0%
+    EDDI end minus SPI end     : n=1  earlier 100.0% | same month   0.0% | later   0.0% | median -6, mean -6.00 months | within 1 month   0.0%
+
+=== 12-month, province: 38 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.82 (p10 +0.64, p90 +0.90)
+    median by shift L=-3..+3: +0.77 +0.81 +0.82 +0.82 +0.77 +0.69 +0.59
+    units whose best shift is L: -3:3% -2:0% -1:55% +0:42% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +1.00 (p10 +0.99, p90 +1.00)
+    median by shift L=-3..+3: +0.83 +0.90 +0.96 +1.00 +0.95 +0.88 +0.80
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.86 (p10 +0.70, p90 +0.92)
+    median by shift L=-3..+3: +0.79 +0.84 +0.86 +0.86 +0.80 +0.73 +0.64
+    units whose best shift is L: -3:0% -2:3% -1:37% +0:61% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 15.9% of 24,283 unit-months; of those: all three 43%, SPI+SPEI 27%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 4%, SPEI only 0%, EDDI only 22%
+  wet months at the onset level in any index: 22.9% of 24,283 unit-months; of those: all three 41%, SPI+SPEI 23%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 2%, SPEI only 1%, EDDI only 30%
+  dry episodes: 385; events SPI 324, SPEI 327, EDDI 315
+    indices taking part: SPI+SPEI+EDDI 64%, SPI+SPEI 17%, EDDI 14%, SPEI+EDDI 3%, SPI 2%, SPI+EDDI 0%, SPEI 0%
+    all three take part in 246; started first: SPI+SPEI 45%, SPI+SPEI+EDDI 26%, SPI 14%, EDDI 13%, SPEI+EDDI 2%, SPEI 1%
+    all-three episodes per unit: median 6, p10 4, p90 9
+    EDDI start minus SPI start : n=247  earlier  15.0% | same month  26.3% | later  58.7% | median +1, mean +2.03 months | within 1 month  50.6%
+    SPEI start minus SPI start : n=311  earlier   5.1% | same month  77.5% | later  17.4% | median +0, mean +0.11 months | within 1 month  92.3%
+    EDDI start minus SPEI start: n=256  earlier  14.8% | same month  30.1% | later  55.1% | median +1, mean +1.89 months | within 1 month  57.0%
+    EDDI end minus SPI end     : n=246  earlier  20.7% | same month  25.2% | later  54.1% | median +1, mean +0.50 months | within 1 month  46.7%
+  wet episodes: 425; events SPI 370, SPEI 373, EDDI 363
+    indices taking part: SPI+SPEI+EDDI 68%, EDDI 15%, SPI+SPEI 14%, SPEI+EDDI 2%, SPI 1%, SPEI 0%
+    all three take part in 290; started first: SPI+SPEI 46%, EDDI 18%, SPI+SPEI+EDDI 16%, SPI 14%, SPEI+EDDI 4%, SPEI 2%
+    all-three episodes per unit: median 8, p10 4, p90 11
+    EDDI start minus SPI start : n=290  earlier  22.1% | same month  17.6% | later  60.3% | median +1, mean +1.52 months | within 1 month  38.6%
+    SPEI start minus SPI start : n=351  earlier  10.5% | same month  73.5% | later  16.0% | median +0, mean +0.11 months | within 1 month  90.0%
+    EDDI start minus SPEI start: n=298  earlier  19.8% | same month  20.8% | later  59.4% | median +1, mean +1.30 months | within 1 month  42.3%
+    EDDI end minus SPI end     : n=268  earlier  19.0% | same month  23.1% | later  57.8% | median +1, mean +3.39 months | within 1 month  46.6%
+
+=== 12-month, kabupaten: 536 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.78 (p10 +0.60, p90 +0.87)
+    median by shift L=-3..+3: +0.73 +0.77 +0.78 +0.78 +0.73 +0.66 +0.57
+    units whose best shift is L: -3:1% -2:9% -1:35% +0:54% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +0.99 (p10 +0.98, p90 +1.00)
+    median by shift L=-3..+3: +0.82 +0.89 +0.95 +0.99 +0.95 +0.88 +0.79
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.83 (p10 +0.67, p90 +0.90)
+    median by shift L=-3..+3: +0.76 +0.81 +0.83 +0.83 +0.77 +0.70 +0.62
+    units whose best shift is L: -3:0% -2:2% -1:35% +0:63% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 19.4% of 340,860 unit-months; of those: all three 38%, SPI+SPEI 31%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 5%, SPEI only 0%, EDDI only 22%
+  wet months at the onset level in any index: 25.3% of 340,860 unit-months; of those: all three 41%, SPI+SPEI 25%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 2%, SPEI only 0%, EDDI only 28%
+  dry episodes: 5,859; events SPI 5,144, SPEI 5,097, EDDI 4,663
+    indices taking part: SPI+SPEI+EDDI 64%, SPI+SPEI 18%, EDDI 12%, SPI 3%, SPEI+EDDI 2%, SPEI 0%, SPI+EDDI 0%
+    all three take part in 3,727; started first: SPI+SPEI 42%, EDDI 21%, SPI+SPEI+EDDI 20%, SPI 15%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 7, p10 4, p90 9
+    EDDI start minus SPI start : n=3,739  earlier  23.0% | same month  20.4% | later  56.6% | median +1, mean +2.07 months | within 1 month  42.2%
+    SPEI start minus SPI start : n=4,801  earlier   5.3% | same month  76.2% | later  18.5% | median +0, mean +0.34 months | within 1 month  90.9%
+    EDDI start minus SPEI start: n=3,850  earlier  22.6% | same month  23.4% | later  54.0% | median +1, mean +1.72 months | within 1 month  47.7%
+    EDDI end minus SPI end     : n=3,721  earlier  26.7% | same month  18.0% | later  55.3% | median +1, mean -0.11 months | within 1 month  42.8%
+  wet episodes: 6,494; events SPI 5,693, SPEI 5,730, EDDI 5,551
+    indices taking part: SPI+SPEI+EDDI 66%, EDDI 15%, SPI+SPEI 15%, SPEI+EDDI 2%, SPI 1%, SPEI 0%, SPI+EDDI 0%
+    all three take part in 4,305; started first: SPI+SPEI 45%, EDDI 22%, SPI+SPEI+EDDI 15%, SPI 14%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 9, p10 4, p90 11
+    EDDI start minus SPI start : n=4,312  earlier  24.7% | same month  15.4% | later  59.9% | median +1, mean +1.28 months | within 1 month  36.9%
+    SPEI start minus SPI start : n=5,263  earlier   7.8% | same month  76.6% | later  15.7% | median +0, mean +0.08 months | within 1 month  93.3%
+    EDDI start minus SPEI start: n=4,423  earlier  23.9% | same month  18.1% | later  58.0% | median +1, mean +1.09 months | within 1 month  41.9%
+    EDDI end minus SPI end     : n=3,998  earlier  22.1% | same month  19.1% | later  58.8% | median +1, mean +3.11 months | within 1 month  40.3%
+
+=== 12-month, kecamatan: 7,285 units with 120+ months ===
+  corr d(EDDI, SPI) same month: median +0.77 (p10 +0.58, p90 +0.86)
+    median by shift L=-3..+3: +0.72 +0.76 +0.77 +0.77 +0.71 +0.64 +0.56
+    units whose best shift is L: -3:1% -2:10% -1:36% +0:52% +1:1% +2:0% +3:0%   (L>0: EDDI earlier)
+  corr d(SPEI, SPI) same month: median +0.99 (p10 +0.98, p90 +1.00)
+    median by shift L=-3..+3: +0.82 +0.89 +0.95 +0.99 +0.94 +0.88 +0.79
+    units whose best shift is L: -3:0% -2:0% -1:0% +0:100% +1:0% +2:0% +3:0%   (L>0: SPEI earlier)
+  corr d(EDDI, SPEI) same month: median +0.82 (p10 +0.64, p90 +0.89)
+    median by shift L=-3..+3: +0.75 +0.80 +0.82 +0.82 +0.76 +0.69 +0.61
+    units whose best shift is L: -3:0% -2:3% -1:35% +0:60% +1:0% +2:0% +3:0%   (L>0: EDDI earlier)
+  dry months at the onset level in any index: 20.4% of 4,680,541 unit-months; of those: all three 37%, SPI+SPEI 32%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 5%, SPEI only 0%, EDDI only 21%
+  wet months at the onset level in any index: 26.1% of 4,680,541 unit-months; of those: all three 40%, SPI+SPEI 25%, SPEI+EDDI 3%, SPI+EDDI 0%, SPI only 3%, SPEI only 0%, EDDI only 29%
+  dry episodes: 81,126; events SPI 72,178, SPEI 71,263, EDDI 64,137
+    indices taking part: SPI+SPEI+EDDI 64%, SPI+SPEI 19%, EDDI 11%, SPI 4%, SPEI+EDDI 2%, SPEI 0%, SPI+EDDI 0%
+    all three take part in 51,928; started first: SPI+SPEI 41%, EDDI 21%, SPI+SPEI+EDDI 19%, SPI 15%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 7, p10 4, p90 9
+    EDDI start minus SPI start : n=52,065  earlier  23.4% | same month  19.8% | later  56.8% | median +1, mean +2.13 months | within 1 month  40.8%
+    SPEI start minus SPI start : n=67,104  earlier   5.9% | same month  75.2% | later  18.8% | median +0, mean +0.32 months | within 1 month  90.7%
+    EDDI start minus SPEI start: n=53,530  earlier  23.0% | same month  22.3% | later  54.8% | median +1, mean +1.83 months | within 1 month  45.5%
+    EDDI end minus SPI end     : n=51,778  earlier  27.2% | same month  17.5% | later  55.3% | median +1, mean -0.11 months | within 1 month  40.7%
+  wet episodes: 90,802; events SPI 80,102, SPEI 80,408, EDDI 77,561
+    indices taking part: SPI+SPEI+EDDI 67%, EDDI 15%, SPI+SPEI 15%, SPEI+EDDI 2%, SPI 1%, SPEI 0%, SPI+EDDI 0%
+    all three take part in 60,434; started first: SPI+SPEI 45%, EDDI 23%, SPI 15%, SPI+SPEI+EDDI 14%, SPEI+EDDI 2%, SPEI 1%, SPI+EDDI 0%
+    all-three episodes per unit: median 9, p10 4, p90 11
+    EDDI start minus SPI start : n=60,537  earlier  24.9% | same month  14.5% | later  60.6% | median +1, mean +1.22 months | within 1 month  35.2%
+    SPEI start minus SPI start : n=73,883  earlier   7.0% | same month  76.6% | later  16.4% | median +0, mean +0.10 months | within 1 month  93.3%
+    EDDI start minus SPEI start: n=61,941  earlier  24.4% | same month  17.0% | later  58.7% | median +1, mean +1.07 months | within 1 month  40.3%
+    EDDI end minus SPI end     : n=55,994  earlier  23.0% | same month  17.7% | later  59.2% | median +1, mean +3.12 months | within 1 month  37.7%
+

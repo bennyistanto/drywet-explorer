@@ -135,7 +135,8 @@ import {hotspotFiles} from "./data/hotspot_files.js";
 import {nationalFiles} from "./data/national_files.js";
 import {statusFiles} from "./data/status_files.js";
 import {membersFiles} from "./data/members_files.js";
-import {classColours, classRgbTable, legendClasses, classLabel, classLabelRange, sideWord, patternStyle, patternRgbTable, eventStyle, eventRgbTable, eventLegend, modeScheme, DRY, WET, NORMAL, INK} from "./components/palette.js";
+import {driverFiles} from "./data/driver_files.js";
+import {classColours, classRgbTable, legendClasses, classLabel, classLabelRange, sideWord, patternStyle, patternRgbTable, eventStyle, eventRgbTable, eventLegend, modeScheme, driverStyle, driverRgbTable, driverLegend, DRY, WET, NORMAL, INK} from "./components/palette.js";
 import {drawMap, legend} from "./components/map.js";
 import {timeInteractions, timeSlider, rangeStore, monthOf} from "./components/timezoom.js";
 ```
@@ -194,8 +195,10 @@ const INFO = {
       <li><strong>How long</strong>: how many months the dry or wet event running in each cell has lasted so far.</li>
       <li><strong>Status</strong>: what that event is doing: new, deepening, persisting, easing, or just ended.</li>
       <li><strong>Pattern</strong>: the space-time pattern of the 12 months ending in the month shown (emerging hot spot analysis): where dry or wet values cluster, and whether the cluster is new, consecutive, persistent, intensifying, diminishing, sporadic or oscillating.</li>
+      <li><strong>Driver</strong>: which side of the water balance is beyond the threshold in each cell this month, reading the three indices together at the chosen accumulation: a rain deficit and high evaporative demand together, a rain deficit alone, or high demand alone (and the same on the wet side). An index counts when it is at or beyond 1.0 on that side. This map does not change with the Index choice.</li>
     </ul>
-    <p>In the last three, a figure for a place is the share of its grid cells in that state, each cell read on its own.</p>`},
+    <p>In the last four, a figure for a place is the share of its grid cells in that state, each cell read on its own.</p>
+    <p>Driver describes the same month in all three indices. It does not say which moved first: measured on this record, rainfall and demand cross the threshold in the same month more often than either leads, and demand does not give early warning here.</p>`},
   place: {title: "Province, kabupaten or kota, kecamatan", body: () => html`
     <p>Choose a place from the menus or click it on the map: first a province, then a kabupaten or kota inside it, then a kecamatan. With nothing chosen, the figures are for Indonesia as a whole. The line under the menus shows where you are; click a name in it to go back up.</p>
     <p>A place's figures use every grid cell its boundary touches, each about 21 square kilometres. A cell on a border counts for both neighbours. A small place rests on few cells, so its percentages move in large steps.</p>`},
@@ -215,7 +218,7 @@ const INFO = {
     <p>Being inside an event is not the same as being dry this month: an event lasts until the index has recovered to zero.</p>
     <p>An event of the average does not mean every place inside stayed dry or wet, or that the same places did. The larger the area, the more this matters: over Indonesia, the average can stay slightly on one side for a year or more while dry and wet patches come and go inside it. The summary gives the cell-by-cell share beside it, and "How long" in "Map shows" maps it.</p>`},
   spells: {title: "Past spells", body: () => html`
-    <p>With How long, Status or Pattern chosen, the past is described by spells: runs of months in which more than half of the place's cell area was on one side (in a dry event or cluster, or in a wet one). The one-half level is this dashboard's own choice.</p>`},
+    <p>With How long, Status, Pattern or Driver chosen, the past is described by spells: runs of months in which more than half of the place's cell area was on one side (in a dry event or cluster, or dry on at least one index; or the same on the wet side). The one-half level is this dashboard's own choice.</p>`},
   enso: {title: "El Niño and La Niña", body: () => html`
     <p>The state of the tropical Pacific, measured by the Relative Oceanic Niño Index (RONI) of the NOAA Climate Prediction Center. An episode is five or more overlapping three-month seasons at or beyond +0.5 (El Niño) or −0.5 (La Niña). The record holds 22 of each.</p>
     <p>This section compares what the selected place did in El Niño, La Niña and neutral months. It gives counts and averages from the record, with no test of significance and no forecast. Months in less reliable periods are left out.</p>`}
@@ -246,10 +249,12 @@ const scale = Generators.input(scaleInput);
 const showInput = Inputs.radio(new Map([["Dry and wet", "both"], ["Dry only", "dry"], ["Wet only", "wet"]]), {label: "Conditions", value: "both"});
 const show = Generators.input(showInput);
 // what the map draws: this month's class, or the space-time pattern of the months leading up to it (a test)
-const mapModeInput = Inputs.radio(new Map([["This month", "class"], ["How long", "howlong"], ["Status", "status"], ["Pattern", "pattern"]]), {label: "Map shows", value: "class"});
+const mapModeInput = Inputs.radio(new Map([["This month", "class"], ["How long", "howlong"], ["Status", "status"], ["Pattern", "pattern"], ["Driver", "driver"]]), {label: "Map shows", value: "class"});
 const mapMode = Generators.input(mapModeInput);
 const hotspot = await hotspotFiles.meta.json();
-const statusMeta = await statusFiles.meta.json();const provInput = Inputs.select([null, ...units.slice().sort((a, b) => a.name.localeCompare(b.name))], {
+const statusMeta = await statusFiles.meta.json();
+const driverMeta = await driverFiles.meta.json();
+const provInput = Inputs.select([null, ...units.slice().sort((a, b) => a.name.localeCompare(b.name))], {
   label: "Province",
   format: (u) => (u ? u.name : "All of Indonesia"),
   value: null
@@ -518,8 +523,24 @@ const statusOn = (mapMode === "howlong" || mapMode === "status") && stLayer != n
 const stFile = statusOn ? stLayer.maps[decade] : null;
 const stBlock = statusOn ? await loadTyped(`${tag}/status/${decade}`, statusFiles.layers[tag][decade], Uint8Array) : null;
 const stCodes = statusOn ? stBlock.subarray((month - stFile.first_month) * n, (month - stFile.first_month + 1) * n) : null;
+// "Driver": which of the three indices is beyond the threshold in each cell (pipeline/step9_driver.py).
+// One layer per accumulation, whatever the Index choice.
+const dtag = `s${String(scale).padStart(2, "0")}`;
+const drLayer = driverMeta.layers[dtag] ?? null;
+const driverOn = mapMode === "driver" && drLayer != null;
+const drFile = driverOn ? drLayer.maps[decade] : null;
+const drBlock = driverOn ? await loadTyped(`${dtag}/driver/${decade}`, driverFiles.layers[dtag][decade], Uint8Array) : null;
+const drCodes = driverOn ? drBlock.subarray((month - drFile.first_month) * n, (month - drFile.first_month + 1) * n) : null;
+const drWords = (code) => {
+  if (!code) return "no value";
+  const k = code - 1, st = ["normal", "dry", "wet"];
+  const ed = ["normal", "high", "low"][Math.floor(k / 9)];
+  return `${driverStyle(code, "both").label.toLowerCase()} (SPI ${st[k % 3]}, SPEI ${st[Math.floor(k / 3) % 3]}, EDDI ${ed})`;
+};
 // whatever the mode, the map reads this: one code per drawn cell, a colour table, a legend, and words for a cell
-const overlay = patternOn
+const overlay = driverOn
+  ? {codes: drCodes, rgb: driverRgbTable(show), say: drWords, items: driverLegend(show).filter((it) => it.label !== "Other side, not shown" || drCodes.some((c) => c && driverStyle(c, show).label === it.label))}
+  : patternOn
   ? {
       codes: patternCodes, rgb: patternRgbTable(index, show),
       say: (code) => (code ? patternStyle(code, index).label.toLowerCase() : "no result"),
@@ -600,7 +621,7 @@ display(
 
 <div class="fine">${statusOn ? html`<strong>${mapMode === "howlong" ? "How long." : "Status."}</strong> Each cell is read on its own: an event there begins in the first month its ${layer.label} reaches ${index === "eddi" ? "+1.0 or −1.0" : "−1.0 or +1.0"} and runs until the index crosses zero. ${mapMode === "howlong"
   ? "The colour is the number of months the event has run so far, up to the month shown."
-  : `An event is new in its first two months. After that it is deepening when the cell is at or beyond the onset level and further from zero than a month earlier, persisting when it is at or beyond that level but no further, and easing once it is back inside the level without having crossed zero. Ended marks the month an event stops.`} A cell's event is not its ${prov ? "kabupaten's or " : ""}province's event, which is found on the mean of the whole area. The ${mapMode === "howlong" ? "bins" : "five states"} are this dashboard's own and are still open to change. ` : ""}${patternOn ? html`<strong>Pattern.</strong> Each cell is classed from the ${HSW} months ending in ${monthLabel(month)} by emerging hot spot analysis. A ${sideWord("dry", index)} cluster (a hot spot, in the method's words) is a neighbourhood whose values sit on the ${sideWord("dry", index)} side of normal by more than chance would give, and a ${sideWord("wet", index)} cluster (a cold spot) one on the ${sideWord("wet", index)} side. The bar is low: neighbouring cells move together, so a neighbourhood only mildly off normal already counts, and a cluster is not a class. Hover a cell to see its class this month beside its pattern. The categories say whether the clustering is new, has run without a break (consecutive), has held for at least 90% of the months (persistent, intensifying or diminishing), comes and goes (sporadic), or has swung from the other side (oscillating). "Historical" means clustered for at least 90% of the months but not in the last one. ${patternHasResult ? "" : `No result yet: the window needs ${HSW} months of values, so results start in ${monthLabel(hsLayer.first_month_with_result)}.`} The categories and their rules are Esri's. Three things are choices made here and still open: the neighbourhood (3 by 3 cells and the month before), the window length, and measuring against normal where Esri's tool measures against the average of the data itself. ` : ""}${layer.label}, ${monthLabel(month)}. ${layer.measures[0].toUpperCase() + layer.measures.slice(1)} over ${monthsText(scale)}, against a ${layer.baseline.split(" ")[0]} baseline. ${hasValue ? "" : `No values yet: a ${scale}-month index needs ${monthsText(scale)} of data, so it starts in ${monthLabel(layer.first_month_with_value)}.`} ${index === "eddi" ? "For EDDI the warm colours mean high evaporative demand and the cool colours low demand, not wet conditions." : ""}</div>
+  : `An event is new in its first two months. After that it is deepening when the cell is at or beyond the onset level and further from zero than a month earlier, persisting when it is at or beyond that level but no further, and easing once it is back inside the level without having crossed zero. Ended marks the month an event stops.`} A cell's event is not its ${prov ? "kabupaten's or " : ""}province's event, which is found on the mean of the whole area. The ${mapMode === "howlong" ? "bins" : "five states"} are this dashboard's own and are still open to change. ` : ""}${patternOn ? html`<strong>Pattern.</strong> Each cell is classed from the ${HSW} months ending in ${monthLabel(month)} by emerging hot spot analysis. A ${sideWord("dry", index)} cluster (a hot spot, in the method's words) is a neighbourhood whose values sit on the ${sideWord("dry", index)} side of normal by more than chance would give, and a ${sideWord("wet", index)} cluster (a cold spot) one on the ${sideWord("wet", index)} side. The bar is low: neighbouring cells move together, so a neighbourhood only mildly off normal already counts, and a cluster is not a class. Hover a cell to see its class this month beside its pattern. The categories say whether the clustering is new, has run without a break (consecutive), has held for at least 90% of the months (persistent, intensifying or diminishing), comes and goes (sporadic), or has swung from the other side (oscillating). "Historical" means clustered for at least 90% of the months but not in the last one. ${patternHasResult ? "" : `No result yet: the window needs ${HSW} months of values, so results start in ${monthLabel(hsLayer.first_month_with_result)}.`} The categories and their rules are Esri's. Three things are choices made here and still open: the neighbourhood (3 by 3 cells and the month before), the window length, and measuring against normal where Esri's tool measures against the average of the data itself. ` : ""}${driverOn ? html`<strong>Driver.</strong> Each cell is read on three indices over ${monthsText(scale)}, for ${monthLabel(month)}: rainfall (SPI), the water balance (SPEI) and evaporative demand (EDDI). An index counts as dry when it is at or beyond 1.0 on its dry side (SPI or SPEI at −1.0 or less, EDDI at +1.0 or more), and as wet at 1.0 on the other side. The colour says which of them are: rainfall and demand together, rainfall alone, demand alone, or the water balance alone when neither rainfall nor demand reaches the level by itself. The level is the one that starts an event, not the classes of "This month", so a cell in a mild class may not count here. The Index choice does not change this map. Hover a cell for its three readings. The map describes one month and does not say which index moved first. The level and the groups are this dashboard's own and are still open to change. ${month >= drLayer.first_month_with_value ? "" : `No values yet: a ${scale}-month index needs ${monthsText(scale)} of data, so the map starts in ${monthLabel(drLayer.first_month_with_value)}.`}` : html`${layer.label}, ${monthLabel(month)}. ${layer.measures[0].toUpperCase() + layer.measures.slice(1)} over ${monthsText(scale)}, against a ${layer.baseline.split(" ")[0]} baseline. ${hasValue ? "" : `No values yet: a ${scale}-month index needs ${monthsText(scale)} of data, so it starts in ${monthLabel(layer.first_month_with_value)}.`} ${index === "eddi" ? "For EDDI the warm colours mean high evaporative demand and the cool colours low demand, not wet conditions." : ""}`}</div>
 
 </div>
 
@@ -702,9 +723,14 @@ const cellEvents = await (async () => {
 // its boundary touches (the all-touched rule), each at full area. The lists of cells come from
 // pipeline/step8_members.py and are the ones the pipeline itself uses for every other figure.
 // Nothing in this block reads the month, so moving the month slider does not redo the sums.
-const modeKind = mapMode === "class" ? null : mapMode === "pattern" ? (hotspot.layers[tag] ? "hotspot" : null) : (statusMeta.layers[tag] ? "status" : null);
+const modeKind = mapMode === "class" ? null : mapMode === "driver" ? (driverMeta.layers[dtag] ? "driver" : null)
+  : mapMode === "pattern" ? (hotspot.layers[tag] ? "hotspot" : null) : (statusMeta.layers[tag] ? "status" : null);
 const modeOn = modeKind != null;
-const modeMaps = !modeOn ? null : modeKind === "hotspot" ? hotspot.layers[tag].maps : statusMeta.layers[tag].maps;
+// the driver map has one layer per accumulation, the others one per index and accumulation
+const modeTag = modeKind === "driver" ? dtag : tag;
+const modeMaps = !modeOn ? null : modeKind === "driver" ? driverMeta.layers[dtag].maps : modeKind === "hotspot" ? hotspot.layers[tag].maps : statusMeta.layers[tag].maps;
+// what the mode's figures are measured on, for sentences and headings
+const modeLabel = modeKind === "driver" ? `SPI, SPEI and EDDI over ${monthsText(scale)}` : layer.label;
 const cellArea = modeOn ? await loadTyped("cellArea", membersFiles.cellArea, Float32Array) : null;
 const mem1 = modeOn ? await loadTyped("members1", membersFiles.adm1, Uint32Array) : null;
 const mem2 = modeOn && prov ? await loadTyped("members2", membersFiles.adm2, Uint32Array) : null;
@@ -716,9 +742,9 @@ const unitCells = !modeOn ? null : kec ? cellsOf(mem3, kec.id) : kab ? cellsOf(m
 const modeBlocks = modeOn
   ? await (async () => {
       const out = [];
-      const fl = (modeKind === "hotspot" ? hotspotFiles : statusFiles).layers[tag];
+      const fl = (modeKind === "driver" ? driverFiles : modeKind === "hotspot" ? hotspotFiles : statusFiles).layers[modeTag];
       for (const dcd of Object.keys(modeMaps).map(Number).sort((a, b) => a - b)) {
-        out.push({f: modeMaps[dcd], blk: await loadTyped(`${tag}/${modeKind}/${dcd}`, fl[dcd], Uint8Array)});
+        out.push({f: modeMaps[dcd], blk: await loadTyped(`${modeTag}/${modeKind}/${dcd}`, fl[dcd], Uint8Array)});
       }
       return out;
     })()
@@ -806,8 +832,21 @@ if (modeOn) {
   if (!fig) {
     parts.push(`There is no result for ${unit.name} in ${monthLabel(month)} at this index and accumulation period${modeKind === "hotspot" ? `: the pattern needs ${hotspot.parameters.window_months} months of values first` : ""}.`);
   } else {
-    parts.push(`In ${monthLabel(month)}, ${tagD(pct(fig.dry))} of ${unit.name}'s cell area was ${W.dry} and ${tagW(pct(fig.wet))} ${W.wet} on ${layer.label}.`);
-    parts.push(`${tagD(pct(fig.dryStrong))} of the area was ${W.dry} ${W.strongText}, and ${tagW(pct(fig.wetStrong))} ${W.wet} ${W.strongText}.`);
+    parts.push(modeKind === "driver"
+      ? `In ${monthLabel(month)}, reading ${modeLabel} together, ${tagD(pct(fig.dry))} of ${unit.name}'s cell area was ${W.dry} and ${tagW(pct(fig.wet))} ${W.wet}.`
+      : `In ${monthLabel(month)}, ${tagD(pct(fig.dry))} of ${unit.name}'s cell area was ${W.dry} and ${tagW(pct(fig.wet))} ${W.wet} on ${modeLabel}.`);
+    if (scheme.driver) {
+      // the four drivers of the side in question, as shares of the unit's area (a cell dry on one index and wet
+      // on another is in the legend's "mixed" entry when both sides are shown, and in none of these)
+      const g = scheme.driver[S].map((i) => (i >= 0 ? fig.groups[i] : 0));
+      parts.push(S === "dry"
+        ? `By driver: ${tagD(pct(g[0]))} of the area had a rain deficit and high evaporative demand together, ${tagD(pct(g[1]))} a rain deficit without high demand, ${tagD(pct(g[2]))} high demand without a rain deficit, and ${tagD(pct(g[3]))} only the water balance beyond the level.`
+        : `By driver: ${tagW(pct(g[0]))} of the area had excess rain and low evaporative demand together, ${tagW(pct(g[1]))} excess rain without low demand, ${tagW(pct(g[2]))} low demand without excess rain, and ${tagW(pct(g[3]))} only the water balance beyond the level.`);
+      const mixed = scheme.driver.mixed >= 0 ? fig.groups[scheme.driver.mixed] : 0;
+      if (mixed >= 0.5) parts.push(`A further ${tagN(pct(mixed))} was dry on one index and wet on another, and is counted on both sides in the totals but in none of the drivers.`);
+    } else {
+      parts.push(`${tagD(pct(fig.dryStrong))} of the area was ${W.dry} ${W.strongText}, and ${tagW(pct(fig.wetStrong))} ${W.wet} ${W.strongText}.`);
+    }
     const top = [...fig.groups].map((v, g) => ({v, g})).sort((a, b) => b.v - a.v)[0];
     parts.push(`The largest single entry of the map's legend was "${scheme.items[top.g].label}", covering ${tagN(pct(top.v))} of the area.`);
     const m1 = month > 0 ? modeFigs[month - 1] : null, y1 = month >= 12 ? modeFigs[month - 12] : null;
@@ -1734,7 +1773,7 @@ if (modeOn) {
     setMonth(e.peak <= LAST ? e.peak : e.start);
   };
   display(html`<div class="card">
-    <h3>El Niño and La Niña: ${unit.name}, ${W.title.toLowerCase()}, ${layer.label}</h3>
+    <h3>El Niño and La Niña: ${unit.name}, ${W.title.toLowerCase()}, ${modeLabel}</h3>
     <div class="fine">The Relative Oceanic Niño Index (RONI) measures how warm or cold the central equatorial Pacific is against the rest of the tropics. An episode is five or more overlapping three-month seasons at or beyond +0.5 (El Niño, red) or −0.5 (La Niña, blue). Click to move the map to a month.</div>
     ${resize((w) => timeInteractions(Plot.plot({
       width: w, height: 170, marginLeft: 44,

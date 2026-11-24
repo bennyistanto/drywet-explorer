@@ -103,6 +103,7 @@ was built on, for a window of 432 by 1,128 cells.
 | 6 | `python -m pipeline.step6_national` | all twelve index files, step 1's cell list | `site/data/national/`: Indonesia as one unit, with the same tables a province has | about 10 min |
 | 7 | `python -m pipeline.step7_status` | all twelve index files, step 1's cell list | `site/data/status/`: where each cell stands in an event of its own, every month | about 25 min |
 | 8 | `python -m pipeline.step8_members` | step 0, step 1's cell list | `site/data/members/`: the list of cells of every unit, for the page's mode view | seconds |
+| 9 | `python -m pipeline.step9_driver` | all twelve index files, step 1's cell list | `site/data/driver/`: which of the three indices is beyond the threshold in each cell, every month, one layer per accumulation | about 10 min |
 | site | `npm run build`, then `npm run serve` | `site/` | `dist/`, served at http://localhost:3211 | 1 min |
 
 `python -m pytest tests -q` runs the unit tests.
@@ -113,7 +114,7 @@ Each has its last printed result beside it as a `.txt` file.
 
 `analysis/` holds the scripts behind the findings this document relies on (the
 less reliable periods, the comparison of event definitions, the test of EDDI as
-an early signal, the short-scale example, the hot spot retest), with what each
+an early signal, which index moves first, the short-scale example, the hot spot retest), with what each
 printed. They read the author's local files, with paths written at the top of
 each script; change those to run them elsewhere.
 
@@ -358,7 +359,8 @@ lasting, is it getting worse. They describe the record up to the month shown.
 
 With "This month", every section under the map is about the classes and about
 the events of the selected area as a whole (4.2 to 4.4). With "How long",
-"Status" or "Pattern", every section is about that mode instead.
+"Status", "Pattern" or "Driver" (4.11), every section is about that mode
+instead.
 
 For a set of states $K$ (for example, every state of a running dry event), the
 figure for unit $u$ is the share of its cell area in $K$:
@@ -371,7 +373,9 @@ membership the pipeline uses.
 
 - **Headline figures**: $q$ for a running dry event or dry cluster, for a wet
   one, and for the "strong" part of each: 6 months or more (How long),
-  deepening (Status), new or consecutive (Pattern).
+  deepening (Status), new or consecutive (Pattern). For Driver: $q$ for cells
+  dry on at least one index, for cells wet on at least one, and for the part of
+  each where rainfall and demand are both beyond the level.
 - **Spell**: a run of consecutive months with $q_{u,K}(t) > 0.5$ on one side
   (**proposed** level). Spells take the place of events in this view.
 - The trend and the El Nino and La Nina comparison are made on $q$, with the
@@ -420,6 +424,47 @@ These are counts and differences from the record, with no test of
 significance: there are few episodes, and both series are strongly correlated
 from one month to the next.
 
+### 4.11 Driver: reading the three indices together
+
+`pipeline/step9_driver.py`. SPI measures rainfall, EDDI evaporative demand, and
+SPEI the balance of the two. At one accumulation, each index $x$ has a state in
+cell $i$ and month $t$, from its dryness $d^{x}_i(t)$ (1.1):
+
+$$s^{x}_i(t) = \begin{cases} 1\ (\text{dry}) & d^{x}_i(t) \ge 1 \\ 2\ (\text{wet}) & d^{x}_i(t) \le -1 \\ 0 & \text{otherwise} \end{cases}$$
+
+The level is the event onset level of 4.4, the same for all three, so that
+"dry" is the same distance from normal in each. It is not the class side of
+4.2: EDDI's classes begin at the 70th percentile and SPI's at -1.0. The stored
+code is $1 + s^{SPI} + 3\,s^{SPEI} + 9\,s^{EDDI}$, and 0 where any of the three
+has no value. The legend groups the 27 combinations, on each side:
+
+| Driver | Rule, dry side (wet side mirrored) |
+|---|---|
+| rain deficit and high demand | $s^{SPI} = 1$ and $s^{EDDI} = 1$ |
+| rain deficit, demand not high | $s^{SPI} = 1$ and $s^{EDDI} \ne 1$ |
+| high demand, rainfall not low | $s^{SPI} \ne 1$ and $s^{EDDI} = 1$ |
+| water balance only | $s^{SPEI} = 1$, neither of the others |
+
+A cell dry on one index and wet on another is "mixed" when both sides are
+shown. The level and the grouping are this project's own (**proposed**).
+
+What it rests on, measured on unit means from 1970 at the same accumulation
+(`analysis/index_lead_lag.py`, results in `analysis/index_lead_lag.txt`):
+
+- SPEI is close to a copy of SPI here: median same-month correlation of 0.99 at
+  every level and accumulation. It is why SPEI has no driver group of its own
+  beyond "water balance only", which holds about 1% of dry months.
+- Of the unit-months dry on at least one index, for provinces, kabupaten and
+  kecamatan: 37% to 49% are dry on all three, 23% to 32% on SPI and SPEI but
+  not EDDI, and 18% to 22% on EDDI alone.
+- The driver view describes one month. It does not say which index moved
+  first, because none does reliably: the correlation between EDDI and SPI is
+  highest in the same month for every unit at 1 and 3 months, and where it is
+  not (6 and 12 months) rainfall is the earlier one. Where a dry episode
+  appears in both, EDDI starts earlier in 12% (1 month) to 23% (12 months) of
+  kecamatan episodes and later in 20% to 57%. "The same episode" in that count
+  means events whose months overlap, a rule of that script.
+
 ## 5. What reaches the browser
 
 The browser never reads an index cube. It loads: one class code per cell and
@@ -430,7 +475,8 @@ Kabupaten and kecamatan tables are bundled by province and loaded when a
 province is opened.
 
 For the map modes it also loads one code per cell and month for the pattern
-(4.6) and one for status and duration together (4.7), and the list of cells of
+(4.6), one for status and duration together (4.7) and one for the driver
+(4.11, per accumulation, not per index), and the list of cells of
 each unit. The mode view (4.8) is the one place where the page sums over cells
 itself: storing those sums for 7,298 kecamatan and 912 months would not fit.
 
@@ -447,7 +493,8 @@ itself: storing those sums for 7,298 kecamatan and 912 months would not fit.
   The dashboard shows all four periods together for this reason.
 - EDDI in this data mostly restates the same month's rainfall (median
   correlation with SPI-1 of -0.73 across cells, `analysis/eddi_early_signal.py`).
-  It is shown as the demand view, not as an early warning.
+  It is shown as the demand view, not as an early warning. At unit level it
+  does not start earlier than rainfall either (4.11).
 - Cluster significance in the pattern mode is overstated (4.6).
 - Several thresholds are still proposed, as marked above.
 

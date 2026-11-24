@@ -1,0 +1,19 @@
+s03 1997-09: 0 of 96,429 cells differ; no value in 0
+    Indonesia: dry any 83.0% (rain and demand 59.9%, rain alone 11.4%, demand alone 11.5%, balance only 0.3%); wet any 1.7% (rain and demand 0.1%, rain alone 1.5%, demand alone 0.0%, balance only 0.0%)
+    province id 1: dry any 1.1% (rain and demand 0.0%, rain alone 0.6%, demand alone 0.4%, balance only 0.0%); wet any 47.9% (rain and demand 4.1%, rain alone 43.9%, demand alone 0.0%, balance only 0.0%)
+s01 2019-10: 0 of 96,429 cells differ; no value in 0
+    Indonesia: dry any 24.4% (rain and demand 8.8%, rain alone 11.8%, demand alone 2.7%, balance only 1.2%); wet any 9.8% (rain and demand 2.2%, rain alone 6.8%, demand alone 0.6%, balance only 0.1%)
+    province id 1: dry any 15.0% (rain and demand 0.0%, rain alone 15.0%, demand alone 0.0%, balance only 0.0%); wet any 61.9% (rain and demand 43.5%, rain alone 17.4%, demand alone 0.6%, balance only 0.3%)
+s12 2015-12: 0 of 96,429 cells differ; no value in 0
+    Indonesia: dry any 68.4% (rain and demand 36.4%, rain alone 5.9%, demand alone 25.9%, balance only 0.2%); wet any 3.9% (rain and demand 0.5%, rain alone 3.1%, demand alone 0.2%, balance only 0.0%)
+    province id 1: dry any 6.8% (rain and demand 0.0%, rain alone 6.7%, demand alone 0.0%, balance only 0.0%); wet any 56.6% (rain and demand 9.9%, rain alone 40.5%, demand alone 6.2%, balance only 0.0%)
+s06 1983-03: 0 of 96,429 cells differ; no value in 0
+    Indonesia: dry any 80.5% (rain and demand 52.0%, rain alone 16.6%, demand alone 11.7%, balance only 0.2%); wet any 3.4% (rain and demand 0.5%, rain alone 0.8%, demand alone 2.1%, balance only 0.0%)
+    province id 1: dry any 78.4% (rain and demand 27.5%, rain alone 30.9%, demand alone 19.9%, balance only 0.1%); wet any 0.0% (rain and demand 0.0%, rain alone 0.0%, demand alone 0.0%, balance only 0.0%)
+s03 2025-12: 0 of 96,429 cells differ; no value in 0
+    Indonesia: dry any 26.6% (rain and demand 11.3%, rain alone 8.5%, demand alone 6.7%, balance only 0.1%); wet any 30.0% (rain and demand 7.8%, rain alone 16.8%, demand alone 5.2%, balance only 0.2%)
+    province id 1: dry any 6.3% (rain and demand 0.0%, rain alone 0.0%, demand alone 6.3%, balance only 0.0%); wet any 35.3% (rain and demand 0.0%, rain alone 35.3%, demand alone 0.0%, balance only 0.0%)
+s12 1950-06: 0 of 96,429 cells differ; no value in 96,429
+    Indonesia: no value
+    province id 1: no value
+ALL MATCH
