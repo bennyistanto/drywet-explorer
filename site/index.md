@@ -5,7 +5,8 @@ title: Exploring dry and wet conditions in Indonesia
 <style>
 /* ---------- page ---------- */
 .page-head {margin: 0.5rem 0 1.25rem;}
-.page-head h1 {margin: 0 0 0.4rem; font-size: 2rem; line-height: 1.15; max-width: none;}
+.page-head h1 {margin: 0 0 0.4rem; font-size: 2rem; line-height: 1.15; max-width: none; display: flex; align-items: center; gap: 0.6rem;}
+.title-icon {height: 1.2em; width: auto; flex: none;}
 .lede {margin: 0; max-width: none; color: #52514e; font-size: 1rem; line-height: 1.5;}
 h2 {margin-top: 2rem;}
 
@@ -124,7 +125,7 @@ details p, details li {max-width: 75ch; font-size: 0.9rem;}
 </style>
 
 <header class="page-head">
-  <h1>Exploring dry and wet conditions in Indonesia</h1>
+  <h1><img class="title-icon" src="./icon.svg" alt="">Exploring dry and wet conditions in Indonesia</h1>
   <p class="lede">Month by month from January 1950 to December 2025, for every province, kabupaten or kota, and kecamatan. Three standardised indices, computed on TerraClimate v1.1, show rainfall, the balance of rainfall and evaporative demand, and evaporative demand alone.</p>
 </header>
 
