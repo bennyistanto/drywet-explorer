@@ -1,4 +1,4 @@
-# Exploring dry and wet conditions in Indonesia
+# <img src="./site/icon.svg" width="28" height="28" align="absmiddle" /> Exploring dry and wet conditions in Indonesia
 
 An interactive dashboard of dry and wet conditions across Indonesia, month by
 month from January 1950 to December 2025, for every province, kabupaten or
