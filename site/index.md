@@ -580,6 +580,11 @@ display(
       }
       return selectProvince(p);
     },
+    // when the selection changes, the map moves to fit it; a new month or index leaves the reader's view alone
+    focus: (kec ? outlines3.features.find((f) => f.properties.id === kec.id)
+      : kab ? outlines2.features.find((f) => f.properties.id === kab.id)
+      : prov ? outlines.features.find((f) => f.properties.id === prov.id) : null) ?? null,
+    focusKey: `${prov?.id ?? ""}/${kab?.id ?? ""}/${kec?.id ?? ""}`,
     width: w
   }))
 );
